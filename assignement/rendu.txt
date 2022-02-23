@@ -1,0 +1,5 @@
+Q1.1
+Dans le cas ou p est premier, c'est-a-dire le pire cas, la complexité de is_prime_naive est O(p)
+
+Q1.3
+La complexité de modpow_naive est O(m)
