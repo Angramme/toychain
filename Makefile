@@ -2,7 +2,8 @@ CC=gcc
 export CC
 
 # current working direcotry
-ROOTD=$(shell pwd)
+ROOTD_MAKEFILE=$(abspath $(lastword $(MAKEFILE_LIST)))
+ROOTD := $(patsubst %/,%,$(dir $(ROOTD_MAKEFILE)))
 C_INCLUDE_PATH=$(ROOTD)
 export ROOTD
 export C_INCLUDE_PATH
