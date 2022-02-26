@@ -1,21 +1,29 @@
 CC=gcc
 export CC
 
-# current working direcotry
-ROOTD_MAKEFILE=$(abspath $(lastword $(MAKEFILE_LIST)))
-ROOTD := $(patsubst %/,%,$(dir $(ROOTD_MAKEFILE)))
-C_INCLUDE_PATH=$(ROOTD)
-export ROOTD
+# find current Makefiles directory i.e project root
+ROOT_MAKEFILE=$(abspath $(lastword $(MAKEFILE_LIST)))
+D_ROOT := $(patsubst %/,%,$(dir $(ROOT_MAKEFILE)))
+export D_ROOT
+
+# add the root as include directory
+C_INCLUDE_PATH=$(D_ROOT)
 export C_INCLUDE_PATH
 
+D_LIB=$(D_ROOT)/lib
+D_TEST=$(D_ROOT)/test
+SUBDIRS = $(D_LIB) $(D_TEST)
+export D_LIB D_TEST
+
 all:
-	$(MAKE) -C ./lib
-	$(MAKE) -C ./test
+	for sdir in $(SUBDIRS); do \
+		$(MAKE) -C $$sdir; \
+	done
 
 clean:
-	cd ./test && $(MAKE) clean
-	cd ./lib && $(MAKE) clean
+	for sdir in $(SUBDIRS); do \
+		$(MAKE) -C $$sdir clean; \
+	done
 
-.PHONY: test
-test:
-	cd ./test && $(MAKE)  alltests
+test::
+	$(MAKE) -C ./test alltests

@@ -1,21 +1,21 @@
 CFLAGS=-Wall
-D_LIB=$(ROOTD)/lib
-EXE_OUTPUT=$(ROOTD)/build/tests
+EXE_OUTPUT=$(D_ROOT)/build/tests
 
+TEST_FILES = prime fastexp
 
-all: prime
+all:
 
 clean:
-	rm *.o
+	rm -f *.o
 
-alltests: prime fastexp
-	./prime
-	./fastexp
+alltests: $(TEST_FILES)
+	for ftest in $(TEST_FILES); do \
+		echo ==============================================; \
+		echo :: running "$$ftest" tests; \
+		echo ==============================================; \
+		./$$ftest.exe; \
+	done
 
-prime: $(D_LIB)/prime.o prime.c test.h
-	$(CC) $(CFLAGS) -o prime $(D_LIB)/prime.o prime.c
-	# ln -s -t prime $(EXE_OUTPUT)/prime
-
-fastexp: $(D_LIB)/fastexp.o fastexp.c test.h
-	$(CC) $(CFLAGS) -o fastexp $(D_LIB)/fastexp.o fastexp.c
+$(TEST_FILES): %: $(D_LIB)/%.o %.c test.h
+	$(CC) $(CFLAGS) -o $@ $(D_LIB)/$@.o $@.c
 
