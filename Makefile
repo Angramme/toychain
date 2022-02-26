@@ -9,5 +9,6 @@ clean:
 	cd ./test && $(MAKE) clean
 	cd ./lib && $(MAKE) clean
 
+.PHONY: test
 test:
-	cd ./test && $(MAKE) alltests
+	cd ./test && $(MAKE)  alltests

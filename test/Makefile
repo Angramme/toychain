@@ -18,3 +18,4 @@ prime: $(D_LIB)/prime.o prime.c test.h
 
 fastexp: $(D_LIB)/fastexp.o fastexp.c test.h
 	$(CC) $(CFLAGS) -o fastexp $(D_LIB)/fastexp.o fastexp.c
+
