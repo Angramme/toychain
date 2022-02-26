@@ -1,4 +1,4 @@
-EXE_OUTPUT=../build/
+EXE_OUTPUT=$(ROOTD)/build/
 CFLAGS=-Wall
 
 all: prime.o

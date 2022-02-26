@@ -1,6 +1,6 @@
 CFLAGS=-Wall
-D_LIB=../lib
-EXE_OUTPUT=../build/tests
+D_LIB=$(ROOTD)/lib
+EXE_OUTPUT=$(ROOTD)/build/tests
 
 
 all: prime
