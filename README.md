@@ -9,7 +9,7 @@ git clone <this repo>
 ```
 
 ## Building
-
+> ! warning : the build and test commands might not work if there are any spaces in the absolute path.
 ```
 make
 ```
