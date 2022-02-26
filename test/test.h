@@ -8,6 +8,7 @@ int _testcase_failed = 0;
 
 #define _OK " OK "
 #define _NOK "ERR!"
+#define _NLF " :: "
 
 #define TEST(CALL, RES){\
     _testcase_count++; \
@@ -15,7 +16,8 @@ int _testcase_failed = 0;
         printf(_OK " test case: %d passed successfully!\n", _testcase_count); \
     }else{ \
         fprintf(stderr, _NOK " test case: %d failed! ["__FILE__ " | line: %d]\n", _testcase_count, __LINE__); \
-        fprintf(stderr, _NOK " | inside call \"" #CALL "\"\n"); \
+        fprintf(stderr, _NLF "   inside call \"" #CALL "\"\n"); \
+        fprintf(stderr, _NLF "   expected result was \"" #RES "\"\n"); \
         _testcase_failed++; \
     } \
 }
@@ -26,8 +28,9 @@ int _testcase_failed = 0;
         printf(_OK " test case: %d passed successfully!\n", _testcase_count); \
     }else{ \
         fprintf(stderr, _NOK " test case: %d failed! ["__FILE__ " | line: %d]\n", _testcase_count, __LINE__); \
-        fprintf(stderr, _NOK " | inside call \"" #CALL "\"\n"); \
-        fprintf(stderr, _NOK " | error message: %s \n", ERRMSG); \
+        fprintf(stderr, _NLF "   inside call \"" #CALL "\"\n"); \
+        fprintf(stderr, _NLF "   expected result was \"" #RES "\"\n"); \
+        fprintf(stderr, _NLF "   error message: %s \n", ERRMSG); \
         _testcase_failed++; \
     } \
 }
