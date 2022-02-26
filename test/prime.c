@@ -1,6 +1,6 @@
-#include "test.h"
-#include "clocktime.h"
-#include "../lib/prime.h"
+#include "test/test.h"
+#include "test/clocktime.h"
+#include "lib/prime.h"
 
 int main(){
     TEST(is_prime_naive(7), true);

@@ -1,4 +1,5 @@
-#include "test.h"
+#include "test/test.h"
+#include "lib/fastexp.h"
 
 int main(){
     TEST(modpow_naive(3, 3, 11), 5);
