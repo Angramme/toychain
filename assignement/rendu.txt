@@ -3,3 +3,12 @@ Dans le cas ou p est premier, c'est-a-dire le pire cas, la complexité de is_pri
 
 Q1.3
 La complexité de modpow_naive est O(m)
+
+Q1.5
+Pour les 2 fonctions, les temps sont très faibles même pour des grands m.
+On remarque cependant qu'au bout d'un moment le durée de modpow_naive commence à augmenter.
+Pour modpow, la durée est trop courte, on ne remarque pas d'augmentation même pour des grands nombres.
+Exemple :
+    Pour a=9435000329, m=134217728, n=1093
+    durée modpow_naive = 1.491 sec
+    durée modpow ~ 0 sec

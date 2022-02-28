@@ -7,6 +7,7 @@ all:
 
 clean:
 	rm -f *.o
+	rm -f *.exe
 
 alltests: $(TEST_FILES)
 	for ftest in $(TEST_FILES); do \
