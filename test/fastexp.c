@@ -8,8 +8,14 @@ int main(){
     TEST(modpow_naive(3, 3, 11), 5);
     TEST(modpow_naive(2, 10, 69), 58);
 
+    TEST(modpow(3, 3, 1000), 27);
+    TEST(modpow(3, 4, 10000), 81);
+    TEST(modpow(2, 10, 10000), 1024);
     TEST(modpow(3, 3, 11), 5);
     TEST(modpow(2, 10, 69), 58);
+    
+    TEST(modpow_r(3, 3, 11), 5);
+    TEST(modpow_r(2, 10, 69), 58);
 
     TEST_SUMMARY(); 
     
