@@ -18,5 +18,5 @@ alltests: $(TEST_FILES)
 	done
 
 $(TEST_FILES): %: $(D_LIB)/%.o %.c test.h
-	$(CC) $(CFLAGS) -o $@ $(D_LIB)/$@.o $@.c
+	$(CC) $(CFLAGS) -o $@ $@.c $(TEST_FILES:%=$(D_LIB)/%.o)
 
