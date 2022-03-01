@@ -1,10 +1,9 @@
 #include "test/test.h"
-#include "lib/fastexp.h"
+#include "lib/mmath.h"
 #include "clocktime.h"
 
 int main(){
 
-    //Test de validite
     TEST(modpow_naive(3, 3, 11), 5);
     TEST(modpow_naive(2, 10, 69), 58);
 
@@ -16,6 +15,10 @@ int main(){
     
     TEST(modpow_r(3, 3, 11), 5);
     TEST(modpow_r(2, 10, 69), 58);
+
+    TEST(is_prime_naive(7), true);
+    TEST(is_prime_naive(248389), true);
+    TEST(is_prime_naive(248389 + 2), false);
 
     TEST_SUMMARY(); 
     

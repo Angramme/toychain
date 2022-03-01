@@ -1,7 +1,7 @@
 CFLAGS=-Wall
 EXE_OUTPUT=$(D_ROOT)/build/tests
 
-TEST_FILES = prime fastexp
+TEST_FILES = mmath
 
 all:
 

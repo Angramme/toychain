@@ -1,7 +1,7 @@
 EXE_OUTPUT=$(D_ROOT)/build/
 CFLAGS=-Wall
 
-OBJECTS = prime fastexp
+OBJECTS = mmath
 
 all: $(OBJECTS:=.o)
 
