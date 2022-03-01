@@ -2,17 +2,19 @@
 #include "test.h"
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
 
 
-void test_random_prime_number() {
+void test_generate_key_values() {
     long p = random_prime_number(15, 16, 5000);
     long q = random_prime_number(15, 16, 5000);
+    assert(p != q);
     long n, s, u;
     generate_key_values(p, q, &n, &s, &u);
 
     long U, V;
     TEST_MSG(extended_gcd(p, q, &U, &V), 1, "pgcd of p and q is not 1!");
-    TEST_MSG((p*u)%q, 1, "the p*u%q is not 1!");
+    TEST_MSG((p*u) % q, 1, "the p*u mod q is not 1!");
 }
 
 void test_rsa_encryption_decryption(char* message) {
@@ -46,9 +48,12 @@ void test_rsa_encryption_decryption(char* message) {
 int main() {
     srand(424242);
 
+    TEST_SECTION(generate_key_values);
     for(int i=0; i<5; i++)
-        test_random_prime_number();
+        test_generate_key_values();
+    TEST_SECTION_END();
 
+    TEST_SECTION(encrypt and decrypt);
     for(int i=0; i<5; i++){
         int len = rand_long(1, 10);
         char* msg = malloc(sizeof(char)*(len+1));
@@ -60,6 +65,7 @@ int main() {
 
         free(msg);
     }
+    TEST_SECTION_END();
 
     TEST_SUMMARY();
 }
