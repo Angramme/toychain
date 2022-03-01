@@ -1,7 +1,7 @@
 EXE_OUTPUT=$(D_ROOT)/build/
 CFLAGS=-Wall
 
-OBJECTS = mmath
+OBJECTS = mmath rsa
 
 all: $(OBJECTS:=.o)
 

@@ -1,7 +1,7 @@
 CFLAGS=-Wall
 EXE_OUTPUT=$(D_ROOT)/build/tests
 
-TEST_FILES = mmath
+TEST_FILES = mmath rsa
 
 all:
 
