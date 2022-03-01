@@ -51,7 +51,6 @@ void test_rsa_encryption_decryption(char* message) {
 
 int main() {
     srand(424242);
-    printf("testststststststs loooooooooooooooooooooooooool\n");
     TEST_SECTION(generate_key_values);
     for(int i=0; i<5; i++)
         test_generate_key_values();
