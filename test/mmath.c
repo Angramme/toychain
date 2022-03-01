@@ -7,8 +7,10 @@
 int main(){
     srand(time(NULL)); 
 
+    TEST_SECTION(modpow_naive);
     TEST(modpow_naive(3, 3, 11), 5);
     TEST(modpow_naive(2, 10, 69), 58);
+    TEST_SECTION_END();
 
     TEST_SECTION(modpow);
     TEST(modpow(17, 1, 18), 17);
@@ -22,16 +24,22 @@ int main(){
     TEST(modpow(1147, 11, 9442), 7219);
     TEST_SECTION_END();
     
+    TEST_SECTION(modpow_r);
     TEST(modpow_r(3, 3, 11), 5);
     TEST(modpow_r(2, 10, 69), 58);
+    TEST_SECTION_END();
 
+    TEST_SECTION(is_prime_naive);
     TEST(is_prime_naive(7), true);
     TEST(is_prime_naive(248389), true);
     TEST(is_prime_naive(248389 + 2), false);
+    TEST_SECTION_END();
     
+    TEST_SECTION(is_prime_miller);
     TEST(is_prime_miller(7, 5), true);
     TEST(is_prime_miller(248389, 5), true);
     TEST(is_prime_miller(248389 + 2, 5), false);
+    TEST_SECTION_END();
 
     TEST_SECTION(random_prime_number);
     TEST(is_prime_miller(random_prime_number(24, 26, 100), 500), true);
