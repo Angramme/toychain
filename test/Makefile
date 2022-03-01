@@ -15,7 +15,7 @@ alltests: $(TEST_FILES)
 		echo ==============================================; \
 		echo :: running "$$ftest" tests; \
 		echo ==============================================; \
-		./$$ftest.exe; \
+		./$$ftest; \
 	done
 
 $(TEST_FILES): %: $(D_LIB)/%.o %.c test.h
