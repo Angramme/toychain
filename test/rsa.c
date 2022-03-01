@@ -1,4 +1,4 @@
-#include "lib/rsa.h"
+#include "../lib/rsa.h"
 #include "test.h"
 #include <string.h>
 #include <stdlib.h>
@@ -8,6 +8,8 @@
 void test_generate_key_values() {
     long p = random_prime_number(15, 16, 5000);
     long q = random_prime_number(15, 16, 5000);
+    TEST(is_prime_miller(p, 100), true);
+    TEST(is_prime_miller(q, 100), true);
     assert(p != q);
     long n, s, u;
     generate_key_values(p, q, &n, &s, &u);
@@ -20,6 +22,8 @@ void test_generate_key_values() {
 void test_rsa_encryption_decryption(char* message) {
     long p = random_prime_number(15, 16, 5000);
     long q = random_prime_number(15, 16, 5000);
+    TEST(is_prime_miller(p, 100), true);
+    TEST(is_prime_miller(q, 100), true);
     long n, s, u;
     generate_key_values(p, q, &n, &s, &u);
 
@@ -47,7 +51,7 @@ void test_rsa_encryption_decryption(char* message) {
 
 int main() {
     srand(424242);
-
+    printf("testststststststs loooooooooooooooooooooooooool\n");
     TEST_SECTION(generate_key_values);
     for(int i=0; i<5; i++)
         test_generate_key_values();
