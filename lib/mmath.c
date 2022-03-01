@@ -105,9 +105,10 @@ long random_prime_number(int low_size, int up_size, int k) {
     // cas special ou up_size = nombre de bits du entier 
     // (dans ce cas le bit up_size+1 depasserait la taille du entier)
     const long up_bound = ((1 << up_size) - 1) | (1 << up_size);
-    // toutes les valeurs de 001000 a 001111
-    for (long X = (1 << low_size); X < up_bound; X++) {
-        if (is_prime_miller(X, k)) return X;
+    const long lo_bound = (1 << low_size);
+    for(int I=0; I<(1<<12); I++){
+        long x = rand_long(lo_bound, up_bound);
+        if(is_prime_miller(x, k)) return x;
     }
     return -1;
 }
@@ -180,13 +181,15 @@ long modpow_r(long a, long m, long n) {
     a %= n;
     if (m == 0) return 1;
     if (m == 1) return a;
-    if (m % 2 == 0) {
+    if (!(m & 1)) {
         long x = modpow_r(a, m / 2, n);
         return (x * x) % n;
     }
     else {
-        long x = modpow_r(a, m / 2, n);
-        return (((x * x) % n) * a) % n;
+        // long x = modpow_r(a, m / 2, n);
+        // return (((x * x) % n) * a) % n;
+        long x = modpow_r(a, m-1, n);
+        return (x * a) % n;
     }
 }
 
