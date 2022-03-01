@@ -12,9 +12,11 @@ clean:
 
 alltests: $(TEST_FILES)
 	for ftest in $(TEST_FILES); do \
+		echo  ;\
 		echo ==============================================; \
 		echo :: running "$$ftest" tests; \
 		echo ==============================================; \
+		echo  ;\
 		./$$ftest; \
 	done
 
