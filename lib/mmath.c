@@ -1,5 +1,6 @@
 #include "mmath.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 
@@ -42,6 +43,7 @@ bool witness(long a, long b, long d, long p) {
  * @return long 
  */
 long rand_long(long low, long up) {
+    if(low > up) return low;
     return rand() % (up - low + 1) + low;
 }
 
@@ -141,9 +143,9 @@ long modpow_naive(long a, long m, long n) {
  * @param a 
  * @param m 
  * @param n 
- * @return int : the value of x
+ * @return long : the value of x
  */
-int modpow(long a, long m, long n) {
+long modpow(long a, long m, long n) {
     return modpow_r(a, m, n);
     /// TODO: actually implement the iterative verstion...
 
@@ -172,9 +174,9 @@ int modpow(long a, long m, long n) {
  * @param a 
  * @param m 
  * @param n 
- * @return int : the value of x
+ * @return long : the value of x
  */
-int modpow_r(long a, long m, long n) {
+long modpow_r(long a, long m, long n) {
     a %= n;
     if (m == 0) return 1;
     if (m == 1) return a;
