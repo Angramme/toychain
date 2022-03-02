@@ -150,7 +150,7 @@ int64 modpow_naive(int64 a, int64 m, int64 n) {
  * @param n 
  * @return int : the value of x
  */
-int modpow(int64 a, int64 m, int64 n) {
+int64 modpow(int64 a, int64 m, int64 n) {
     return modpow_r(a, m, n);
     /// TODO: actually implement the iterative verstion...
 
@@ -181,7 +181,7 @@ int modpow(int64 a, int64 m, int64 n) {
  * @param n 
  * @return int : the value of x
  */
-int modpow_r(int64 a, int64 m, int64 n) {
+int64 modpow_r(int64 a, int64 m, int64 n) {
     a %= n;
     if (m == 0) return 1;
     if (m == 1) return a;
