@@ -6,3 +6,4 @@
 build/*
 *.exe
 !docs/*
+!third-party/*
