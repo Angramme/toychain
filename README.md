@@ -2,6 +2,8 @@
 
 A really simple blockchain implementation from scratch in pure C.
 
+## Full Documentation
+> [docs](https://angramme.github.io/toychain/index.html)
 ## Installation
 
 ```

@@ -2,7 +2,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
+/**
+ * @file mmath.c
+ * @brief a collection of math functions
+ * 
+ */
 
 /**
  * @brief checks if p is prime.
