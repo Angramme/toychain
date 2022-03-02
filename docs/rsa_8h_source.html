@@ -92,13 +92,14 @@ $(document).ready(function(){initNavTree('rsa_8h_source.html',''); initResizable
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define __RSA_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;mmath.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keywordtype">void</span> <a class="code hl_function" href="lib_2rsa_8c.html#a907165f4b44883429c7d64a5c6283e18">generate_key_values</a>(<span class="keywordtype">long</span> p, <span class="keywordtype">long</span> q, <span class="keywordtype">long</span>* n, <span class="keywordtype">long</span>* s, <span class="keywordtype">long</span>* u);</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keywordtype">long</span>* encrypt(<span class="keywordtype">char</span>* chaine, <span class="keywordtype">long</span> s, <span class="keywordtype">long</span> n);</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keywordtype">char</span>* decrypt(<span class="keywordtype">long</span>* crypted, <span class="keywordtype">int</span> size, <span class="keywordtype">long</span> u, <span class="keywordtype">long</span> n);</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="alib_2rsa_8c_html_a907165f4b44883429c7d64a5c6283e18"><div class="ttname"><a href="lib_2rsa_8c.html#a907165f4b44883429c7d64a5c6283e18">generate_key_values</a></div><div class="ttdeci">void generate_key_values(long p, long q, long *n, long *s, long *u)</div><div class="ttdoc">generates public and private RSA keys public = (s, n) ; private = (u, n)</div><div class="ttdef"><b>Definition:</b> rsa.c:22</div></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;types.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keywordtype">void</span> <a class="code hl_function" href="lib_2rsa_8c.html#af85aa5ca2e81efa64223515731640287">generate_key_values</a>(int64 p, int64 q, int64* n, int64* s, int64* u);</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>int64* encrypt(<span class="keywordtype">char</span>* chaine, int64 s, int64 n);</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keywordtype">char</span>* decrypt(int64* crypted, <span class="keywordtype">int</span> size, int64 u, int64 n);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="alib_2rsa_8c_html_af85aa5ca2e81efa64223515731640287"><div class="ttname"><a href="lib_2rsa_8c.html#af85aa5ca2e81efa64223515731640287">generate_key_values</a></div><div class="ttdeci">void generate_key_values(int64 p, int64 q, int64 *n, int64 *s, int64 *u)</div><div class="ttdoc">generates public and private RSA keys public = (s, n) ; private = (u, n)</div><div class="ttdef"><b>Definition:</b> rsa.c:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

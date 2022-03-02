@@ -104,65 +104,65 @@ Include dependency graph for mmath.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aeacb1bf111ea64b3a719fc8f56175d92"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#aeacb1bf111ea64b3a719fc8f56175d92">is_prime_naive</a> (long p)</td></tr>
-<tr class="memdesc:aeacb1bf111ea64b3a719fc8f56175d92"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if p is prime. complexity O(p), certainty 100%  <a href="lib_2mmath_8c.html#aeacb1bf111ea64b3a719fc8f56175d92">More...</a><br /></td></tr>
-<tr class="separator:aeacb1bf111ea64b3a719fc8f56175d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4b21784da64701e6ee3ad1b0063a472"><td class="memItemLeft" align="right" valign="top"><a id="aa4b21784da64701e6ee3ad1b0063a472" name="aa4b21784da64701e6ee3ad1b0063a472"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>witness</b> (long a, long b, long d, long p)</td></tr>
-<tr class="separator:aa4b21784da64701e6ee3ad1b0063a472"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb0946f9ead2c44ee28bf9a71d8e4f37"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#abb0946f9ead2c44ee28bf9a71d8e4f37">rand_long</a> (long low, long up)</td></tr>
-<tr class="memdesc:abb0946f9ead2c44ee28bf9a71d8e4f37"><td class="mdescLeft">&#160;</td><td class="mdescRight">generates a random long inside [low, up]  <a href="lib_2mmath_8c.html#abb0946f9ead2c44ee28bf9a71d8e4f37">More...</a><br /></td></tr>
-<tr class="separator:abb0946f9ead2c44ee28bf9a71d8e4f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad454396d361a9d6c8183e0bb6484948e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#ad454396d361a9d6c8183e0bb6484948e">is_prime_miller</a> (long p, int k)</td></tr>
-<tr class="memdesc:ad454396d361a9d6c8183e0bb6484948e"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if p is prime with (1/4)^k probability of a false positive. the larger the k, the slower the calculation but higher certainty. complexity is O(k)  <a href="lib_2mmath_8c.html#ad454396d361a9d6c8183e0bb6484948e">More...</a><br /></td></tr>
-<tr class="separator:ad454396d361a9d6c8183e0bb6484948e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefb143dcebf91cba4dc496eaf6649c5f"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#aefb143dcebf91cba4dc496eaf6649c5f">random_prime_number</a> (int low_size, int up_size, int k)</td></tr>
-<tr class="memdesc:aefb143dcebf91cba4dc496eaf6649c5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a random prime number with number of bits between low_size and up_size. k specifies the certainty of the result being prime. There is a (1/4)^k probability of a false positive. The greater the value of k, the slower the calculations. returns -1 if a prime wasn't found...  <a href="lib_2mmath_8c.html#aefb143dcebf91cba4dc496eaf6649c5f">More...</a><br /></td></tr>
-<tr class="separator:aefb143dcebf91cba4dc496eaf6649c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a1649ba3531b24bb08a2824361ea0ae"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#a4a1649ba3531b24bb08a2824361ea0ae">modpow_naive</a> (long a, long m, long n)</td></tr>
-<tr class="memdesc:a4a1649ba3531b24bb08a2824361ea0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the exponent of a to the power of m modulo n in O(m^2). (a ^ m) % n = x  <a href="lib_2mmath_8c.html#a4a1649ba3531b24bb08a2824361ea0ae">More...</a><br /></td></tr>
-<tr class="separator:a4a1649ba3531b24bb08a2824361ea0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac310cda9fe605c5272e1c315c6dbdce9"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#ac310cda9fe605c5272e1c315c6dbdce9">modpow</a> (long a, long m, long n)</td></tr>
-<tr class="memdesc:ac310cda9fe605c5272e1c315c6dbdce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the exponent of a to the power of m modulo n in O(m log m). this is the main implementation (a ^ m) % n = x  <a href="lib_2mmath_8c.html#ac310cda9fe605c5272e1c315c6dbdce9">More...</a><br /></td></tr>
-<tr class="separator:ac310cda9fe605c5272e1c315c6dbdce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb297383483538c97e43b3b62c783d2c"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#adb297383483538c97e43b3b62c783d2c">modpow_r</a> (long a, long m, long n)</td></tr>
-<tr class="memdesc:adb297383483538c97e43b3b62c783d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the exponent of a to the power of m modulo n in O(m log m). _r stands for recursive (a ^ m) % n = x  <a href="lib_2mmath_8c.html#adb297383483538c97e43b3b62c783d2c">More...</a><br /></td></tr>
-<tr class="separator:adb297383483538c97e43b3b62c783d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dc0fbc38614a547d3f215a3e61fda17"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#a8dc0fbc38614a547d3f215a3e61fda17">extended_gcd</a> (long s, long t, long *u, long *v)</td></tr>
-<tr class="memdesc:a8dc0fbc38614a547d3f215a3e61fda17"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the pgcd and the corresponding Bezout decomposition. pgcd = s*u + t*v  <a href="lib_2mmath_8c.html#a8dc0fbc38614a547d3f215a3e61fda17">More...</a><br /></td></tr>
-<tr class="separator:a8dc0fbc38614a547d3f215a3e61fda17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac29b950d8b2403509f5d59e249dfc131"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#ac29b950d8b2403509f5d59e249dfc131">is_prime_naive</a> (int64 p)</td></tr>
+<tr class="memdesc:ac29b950d8b2403509f5d59e249dfc131"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if p is prime. complexity O(p), certainty 100%  <a href="lib_2mmath_8c.html#ac29b950d8b2403509f5d59e249dfc131">More...</a><br /></td></tr>
+<tr class="separator:ac29b950d8b2403509f5d59e249dfc131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d68123efb3f64ca69adaf68b221e21c"><td class="memItemLeft" align="right" valign="top"><a id="a5d68123efb3f64ca69adaf68b221e21c" name="a5d68123efb3f64ca69adaf68b221e21c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>witness</b> (int64 a, int64 b, int64 d, int64 p)</td></tr>
+<tr class="separator:a5d68123efb3f64ca69adaf68b221e21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addbcf1ceb5756486f666e4f4cae85bf4"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#addbcf1ceb5756486f666e4f4cae85bf4">rand_int64</a> (int64 low, int64 up)</td></tr>
+<tr class="memdesc:addbcf1ceb5756486f666e4f4cae85bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">generates a random int64 inside [low, up]  <a href="lib_2mmath_8c.html#addbcf1ceb5756486f666e4f4cae85bf4">More...</a><br /></td></tr>
+<tr class="separator:addbcf1ceb5756486f666e4f4cae85bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a293b3fe59b3fce1288c6cbc21c9e9e9e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#a293b3fe59b3fce1288c6cbc21c9e9e9e">is_prime_miller</a> (int64 p, int k)</td></tr>
+<tr class="memdesc:a293b3fe59b3fce1288c6cbc21c9e9e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if p is prime with (1/4)^k probability of a false positive. the larger the k, the slower the calculation but higher certainty. complexity is O(k)  <a href="lib_2mmath_8c.html#a293b3fe59b3fce1288c6cbc21c9e9e9e">More...</a><br /></td></tr>
+<tr class="separator:a293b3fe59b3fce1288c6cbc21c9e9e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab07e29dab9c9c10f0d992caaa1e8a7bc"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#ab07e29dab9c9c10f0d992caaa1e8a7bc">random_prime_number</a> (int low_size, int up_size, int k)</td></tr>
+<tr class="memdesc:ab07e29dab9c9c10f0d992caaa1e8a7bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a random prime number with number of bits between low_size and up_size. k specifies the certainty of the result being prime. There is a (1/4)^k probability of a false positive. The greater the value of k, the slower the calculations. returns -1 if a prime wasn't found...  <a href="lib_2mmath_8c.html#ab07e29dab9c9c10f0d992caaa1e8a7bc">More...</a><br /></td></tr>
+<tr class="separator:ab07e29dab9c9c10f0d992caaa1e8a7bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c7fd6b879d905fd46a1ba5c1ab39fe2"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#a7c7fd6b879d905fd46a1ba5c1ab39fe2">modpow_naive</a> (int64 a, int64 m, int64 n)</td></tr>
+<tr class="memdesc:a7c7fd6b879d905fd46a1ba5c1ab39fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the exponent of a to the power of m modulo n in O(m^2). (a ^ m) % n = x  <a href="lib_2mmath_8c.html#a7c7fd6b879d905fd46a1ba5c1ab39fe2">More...</a><br /></td></tr>
+<tr class="separator:a7c7fd6b879d905fd46a1ba5c1ab39fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62e25d64776516663d75ddb59201fc0c"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#a62e25d64776516663d75ddb59201fc0c">modpow</a> (int64 a, int64 m, int64 n)</td></tr>
+<tr class="memdesc:a62e25d64776516663d75ddb59201fc0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the exponent of a to the power of m modulo n in O(m log m). this is the main implementation (a ^ m) % n = x  <a href="lib_2mmath_8c.html#a62e25d64776516663d75ddb59201fc0c">More...</a><br /></td></tr>
+<tr class="separator:a62e25d64776516663d75ddb59201fc0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b305c74a50548b4b14e4ffb338840e2"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#a3b305c74a50548b4b14e4ffb338840e2">modpow_r</a> (int64 a, int64 m, int64 n)</td></tr>
+<tr class="memdesc:a3b305c74a50548b4b14e4ffb338840e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the exponent of a to the power of m modulo n in O(m log m). _r stands for recursive (a ^ m) % n = x  <a href="lib_2mmath_8c.html#a3b305c74a50548b4b14e4ffb338840e2">More...</a><br /></td></tr>
+<tr class="separator:a3b305c74a50548b4b14e4ffb338840e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6da87045e7c903f739ed69fda512246"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2mmath_8c.html#ab6da87045e7c903f739ed69fda512246">extended_gcd</a> (int64 s, int64 t, int64 *u, int64 *v)</td></tr>
+<tr class="memdesc:ab6da87045e7c903f739ed69fda512246"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the pgcd and the corresponding Bezout decomposition. pgcd = s*u + t*v  <a href="lib_2mmath_8c.html#ab6da87045e7c903f739ed69fda512246">More...</a><br /></td></tr>
+<tr class="separator:ab6da87045e7c903f739ed69fda512246"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >a collection of math functions </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a8dc0fbc38614a547d3f215a3e61fda17" name="a8dc0fbc38614a547d3f215a3e61fda17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dc0fbc38614a547d3f215a3e61fda17">&#9670;&nbsp;</a></span>extended_gcd()</h2>
+<a id="ab6da87045e7c903f739ed69fda512246" name="ab6da87045e7c903f739ed69fda512246"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6da87045e7c903f739ed69fda512246">&#9670;&nbsp;</a></span>extended_gcd()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long extended_gcd </td>
+          <td class="memname">int64 extended_gcd </td>
           <td>(</td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long *&#160;</td>
+          <td class="paramtype">int64 *&#160;</td>
           <td class="paramname"><em>u</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long *&#160;</td>
+          <td class="paramtype">int64 *&#160;</td>
           <td class="paramname"><em>v</em>&#160;</td>
         </tr>
         <tr>
@@ -183,12 +183,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>witness</b> (long a, 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>long : the value of pgcd </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int64 : the value of pgcd </dd></dl>
 
 </div>
 </div>
-<a id="ad454396d361a9d6c8183e0bb6484948e" name="ad454396d361a9d6c8183e0bb6484948e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad454396d361a9d6c8183e0bb6484948e">&#9670;&nbsp;</a></span>is_prime_miller()</h2>
+<a id="a293b3fe59b3fce1288c6cbc21c9e9e9e" name="a293b3fe59b3fce1288c6cbc21c9e9e9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a293b3fe59b3fce1288c6cbc21c9e9e9e">&#9670;&nbsp;</a></span>is_prime_miller()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,7 +196,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>witness</b> (long a, 
         <tr>
           <td class="memname">bool is_prime_miller </td>
           <td>(</td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
@@ -227,8 +227,8 @@ false : p isn't prime with 100% certainty </dd></dl>
 
 </div>
 </div>
-<a id="aeacb1bf111ea64b3a719fc8f56175d92" name="aeacb1bf111ea64b3a719fc8f56175d92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeacb1bf111ea64b3a719fc8f56175d92">&#9670;&nbsp;</a></span>is_prime_naive()</h2>
+<a id="ac29b950d8b2403509f5d59e249dfc131" name="ac29b950d8b2403509f5d59e249dfc131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac29b950d8b2403509f5d59e249dfc131">&#9670;&nbsp;</a></span>is_prime_naive()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +236,7 @@ false : p isn't prime with 100% certainty </dd></dl>
         <tr>
           <td class="memname">bool is_prime_naive </td>
           <td>(</td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>p</em></td><td>)</td>
           <td></td>
         </tr>
@@ -256,28 +256,28 @@ false : p is not prime </dd></dl>
 
 </div>
 </div>
-<a id="ac310cda9fe605c5272e1c315c6dbdce9" name="ac310cda9fe605c5272e1c315c6dbdce9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac310cda9fe605c5272e1c315c6dbdce9">&#9670;&nbsp;</a></span>modpow()</h2>
+<a id="a62e25d64776516663d75ddb59201fc0c" name="a62e25d64776516663d75ddb59201fc0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62e25d64776516663d75ddb59201fc0c">&#9670;&nbsp;</a></span>modpow()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long modpow </td>
+          <td class="memname">int64 modpow </td>
           <td>(</td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>a</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>n</em>&#160;</td>
         </tr>
         <tr>
@@ -297,33 +297,33 @@ false : p is not prime </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>long : the value of x </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int : the value of x </dd></dl>
 <p >TODO: actually implement the iterative verstion...</p>
 
 </div>
 </div>
-<a id="a4a1649ba3531b24bb08a2824361ea0ae" name="a4a1649ba3531b24bb08a2824361ea0ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a1649ba3531b24bb08a2824361ea0ae">&#9670;&nbsp;</a></span>modpow_naive()</h2>
+<a id="a7c7fd6b879d905fd46a1ba5c1ab39fe2" name="a7c7fd6b879d905fd46a1ba5c1ab39fe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7fd6b879d905fd46a1ba5c1ab39fe2">&#9670;&nbsp;</a></span>modpow_naive()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long modpow_naive </td>
+          <td class="memname">int64 modpow_naive </td>
           <td>(</td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>a</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>n</em>&#160;</td>
         </tr>
         <tr>
@@ -347,28 +347,28 @@ false : p is not prime </dd></dl>
 
 </div>
 </div>
-<a id="adb297383483538c97e43b3b62c783d2c" name="adb297383483538c97e43b3b62c783d2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb297383483538c97e43b3b62c783d2c">&#9670;&nbsp;</a></span>modpow_r()</h2>
+<a id="a3b305c74a50548b4b14e4ffb338840e2" name="a3b305c74a50548b4b14e4ffb338840e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b305c74a50548b4b14e4ffb338840e2">&#9670;&nbsp;</a></span>modpow_r()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long modpow_r </td>
+          <td class="memname">int64 modpow_r </td>
           <td>(</td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>a</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>n</em>&#160;</td>
         </tr>
         <tr>
@@ -388,26 +388,26 @@ false : p is not prime </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>long : the value of x </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int : the value of x </dd></dl>
 
 </div>
 </div>
-<a id="abb0946f9ead2c44ee28bf9a71d8e4f37" name="abb0946f9ead2c44ee28bf9a71d8e4f37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb0946f9ead2c44ee28bf9a71d8e4f37">&#9670;&nbsp;</a></span>rand_long()</h2>
+<a id="addbcf1ceb5756486f666e4f4cae85bf4" name="addbcf1ceb5756486f666e4f4cae85bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addbcf1ceb5756486f666e4f4cae85bf4">&#9670;&nbsp;</a></span>rand_int64()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long rand_long </td>
+          <td class="memname">int64 rand_int64 </td>
           <td>(</td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>low</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>up</em>&#160;</td>
         </tr>
         <tr>
@@ -418,7 +418,7 @@ false : p is not prime </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>generates a random long inside [low, up] </p>
+<p>generates a random int64 inside [low, up] </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">low</td><td>lower bound (included) </td></tr>
@@ -426,18 +426,18 @@ false : p is not prime </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>long </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int64 </dd></dl>
 
 </div>
 </div>
-<a id="aefb143dcebf91cba4dc496eaf6649c5f" name="aefb143dcebf91cba4dc496eaf6649c5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefb143dcebf91cba4dc496eaf6649c5f">&#9670;&nbsp;</a></span>random_prime_number()</h2>
+<a id="ab07e29dab9c9c10f0d992caaa1e8a7bc" name="ab07e29dab9c9c10f0d992caaa1e8a7bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab07e29dab9c9c10f0d992caaa1e8a7bc">&#9670;&nbsp;</a></span>random_prime_number()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long random_prime_number </td>
+          <td class="memname">int64 random_prime_number </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>low_size</em>, </td>
@@ -471,7 +471,7 @@ false : p is not prime </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>long </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int64 </dd></dl>
 
 </div>
 </div>

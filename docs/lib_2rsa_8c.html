@@ -105,21 +105,21 @@ Include dependency graph for rsa.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a907165f4b44883429c7d64a5c6283e18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#a907165f4b44883429c7d64a5c6283e18">generate_key_values</a> (long p, long q, long *n, long *s, long *u)</td></tr>
-<tr class="memdesc:a907165f4b44883429c7d64a5c6283e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">generates public and private RSA keys public = (s, n) ; private = (u, n)  <a href="lib_2rsa_8c.html#a907165f4b44883429c7d64a5c6283e18">More...</a><br /></td></tr>
-<tr class="separator:a907165f4b44883429c7d64a5c6283e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a905c22004e5ca64a36a34b3370c0b17d"><td class="memItemLeft" align="right" valign="top"><a id="a905c22004e5ca64a36a34b3370c0b17d" name="a905c22004e5ca64a36a34b3370c0b17d"></a>
-long *&#160;</td><td class="memItemRight" valign="bottom"><b>encrypt</b> (char *chaine, long s, long n)</td></tr>
-<tr class="separator:a905c22004e5ca64a36a34b3370c0b17d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a346afda9ed600b86b8e92fbf96ad48fb"><td class="memItemLeft" align="right" valign="top"><a id="a346afda9ed600b86b8e92fbf96ad48fb" name="a346afda9ed600b86b8e92fbf96ad48fb"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>decrypt</b> (long *crypted, int size, long u, long n)</td></tr>
-<tr class="separator:a346afda9ed600b86b8e92fbf96ad48fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af85aa5ca2e81efa64223515731640287"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#af85aa5ca2e81efa64223515731640287">generate_key_values</a> (int64 p, int64 q, int64 *n, int64 *s, int64 *u)</td></tr>
+<tr class="memdesc:af85aa5ca2e81efa64223515731640287"><td class="mdescLeft">&#160;</td><td class="mdescRight">generates public and private RSA keys public = (s, n) ; private = (u, n)  <a href="lib_2rsa_8c.html#af85aa5ca2e81efa64223515731640287">More...</a><br /></td></tr>
+<tr class="separator:af85aa5ca2e81efa64223515731640287"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafce070b9486b67d66899061e2c93386"><td class="memItemLeft" align="right" valign="top"><a id="aafce070b9486b67d66899061e2c93386" name="aafce070b9486b67d66899061e2c93386"></a>
+int64 *&#160;</td><td class="memItemRight" valign="bottom"><b>encrypt</b> (char *chaine, int64 s, int64 n)</td></tr>
+<tr class="separator:aafce070b9486b67d66899061e2c93386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58260ba78c3befa4053dc047ce31f04a"><td class="memItemLeft" align="right" valign="top"><a id="a58260ba78c3befa4053dc047ce31f04a" name="a58260ba78c3befa4053dc047ce31f04a"></a>
+char *&#160;</td><td class="memItemRight" valign="bottom"><b>decrypt</b> (int64 *crypted, int size, int64 u, int64 n)</td></tr>
+<tr class="separator:a58260ba78c3befa4053dc047ce31f04a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >a collection of RSA related functions </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a907165f4b44883429c7d64a5c6283e18" name="a907165f4b44883429c7d64a5c6283e18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a907165f4b44883429c7d64a5c6283e18">&#9670;&nbsp;</a></span>generate_key_values()</h2>
+<a id="af85aa5ca2e81efa64223515731640287" name="af85aa5ca2e81efa64223515731640287"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af85aa5ca2e81efa64223515731640287">&#9670;&nbsp;</a></span>generate_key_values()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -127,31 +127,31 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>decrypt</b> (long *
         <tr>
           <td class="memname">void generate_key_values </td>
           <td>(</td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
+          <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>q</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long *&#160;</td>
+          <td class="paramtype">int64 *&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long *&#160;</td>
+          <td class="paramtype">int64 *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long *&#160;</td>
+          <td class="paramtype">int64 *&#160;</td>
           <td class="paramname"><em>u</em>&#160;</td>
         </tr>
         <tr>
