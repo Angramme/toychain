@@ -47,11 +47,21 @@ long* encrypt(char* chaine, long s, long n) {
 }
 
 char* decrypt(long* crypted, int size, long u, long n) {
-    char* ret = malloc(sizeof(char)*(size+1));
-    ret[size] = '\0';
+    char* ret = (char*)malloc(sizeof(char)*(size+1));
     for(int i=0; i<size; i++){
+        
+        //works but doesn't give valid results (for now)
+        /*
+        long c = crypted[i];
+        long ldc = modpow(c,&u,&n);
+        ret[i] = 'a' + ldc%26;
+        printf("l%d=%c\n",i,ret[i]);
+        */
+
+        //Create a segfault
         long c = crypted[i];
         ret[i] = modpow(c, u, n);
     }
+    ret[size] = '\0';
     return ret;
 }
