@@ -32,5 +32,8 @@ clean:
 docs::
 	doxygen Doxyfile
 
+cleandocs::
+	rm -rf ./docs/*
+
 test::
 	$(MAKE) -C ./test alltests
