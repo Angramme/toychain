@@ -6,9 +6,13 @@
 #include <time.h>
 
 void print_longtab(long* tab, int size){
-    printf("tab : [");
+    printf("[");
     for(int i=0; i<size; i++){
-        printf("%ld |", tab[i]);
+        if(i == size-1){
+            printf("%ld", tab[i]);
+        } else {
+            printf("%ld ", tab[i]);
+        }
     }
     printf("]\n");
 }
@@ -30,34 +34,39 @@ void test_generate_key_values() {
 void test_rsa_encryption_decryption(char* message) {
     long p = random_prime_number(15, 16, 5000);
     long q = random_prime_number(15, 16, 5000);
-    TEST(is_prime_miller(p, 100), true);
-    TEST(is_prime_miller(q, 100), true);
+    //TEST(is_prime_miller(p, 100), true);
+    //TEST(is_prime_miller(q, 100), true);
     long n, s, u;
     generate_key_values(p, q, &n, &s, &u);
 
-    int len = strlen(message);
-    printf("message ============== %s\n",message);
-    //Chiffrement:
-    long* crypted = encrypt(message, s, n);
+    printf("\n message = %s\n",message);
+    if(u >= 0 && s >= 0 && n >=0){
 
-    printf("crypted ============== ");
-    print_longtab(crypted,len);
+        int len = strlen(message);
+        //Chiffrement:
+        long* crypted = encrypt(message, s, n);
 
-    //Dechiffrement
-    char* decoded = decrypt(crypted, len, u, n);
+        printf(" crypted = ");
+        print_longtab(crypted,len);
 
-    int strcmpres = strcmp(message, decoded);
-    TEST_MSG(strcmpres, 0, "the encoded and decoded messages are different!");
-    if(strcmpres != 0){
-        printf("original  > \"%s\" \n", message);
-        printf("decoded   > \"%s\" \n", decoded);
-        printf("encypted  > ");
-        for(int i=0; i<len; i++) printf("%ld, ", crypted[i]);
-        printf(" \n");
+        //Dechiffrement
+        char* decoded = decrypt(crypted, len, u, n);
+
+        int strcmpres = strcmp(message, decoded);
+        TEST_MSG(strcmpres, 0, "the encoded and decoded messages are different!");
+        if(strcmpres != 0){
+            printf("original  > \"%s\" \n", message);
+            printf("decoded   > \"%s\" \n", decoded);
+            printf("encrypted  > ");
+            for(int i=0; i<len; i++) printf("%ld, ", crypted[i]);
+            printf(" \n");
+        }
+
+        free(crypted);
+        free(decoded);
+    } else {
+        printf(" u = %ld is negative, test aborted\n",u);
     }
-
-    free(crypted);
-    free(decoded);
 }
 
 int main() {
@@ -70,15 +79,15 @@ int main() {
     TEST_SECTION(encrypt and decrypt);
     for(int i=0; i<5; i++){
         int len = rand_long(1, 10);
-        //char* msg = malloc(sizeof(char)*(len+1));
-        char msg[len+1];
-        msg[len] = '\0';
+        char* msg = malloc(sizeof(char)*(len+1));
+        //char msg[len+1];
+        *(msg+len) = '\0';
         for(int j=0; j<len; j++) 
-            msg[j] = rand_long('a', 'z');
+            *(msg+j) = rand_long('a', 'z');
 
         test_rsa_encryption_decryption(msg);
 
-        //free(msg);
+        free(msg);
     }
     TEST_SECTION_END();
 
