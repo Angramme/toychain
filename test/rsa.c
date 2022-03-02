@@ -3,7 +3,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <time.h>
 
+void print_longtab(long* tab, int size){
+    printf("tab : [");
+    for(int i=0; i<size; i++){
+        printf("%ld |", tab[i]);
+    }
+    printf("]\n");
+}
 
 void test_generate_key_values() {
     long p = random_prime_number(15, 16, 5000);
@@ -28,9 +36,12 @@ void test_rsa_encryption_decryption(char* message) {
     generate_key_values(p, q, &n, &s, &u);
 
     int len = strlen(message);
-
+    printf("message ============== %s\n",message);
     //Chiffrement:
     long* crypted = encrypt(message, s, n);
+
+    printf("crypted ============== ");
+    print_longtab(crypted,len);
 
     //Dechiffrement
     char* decoded = decrypt(crypted, len, u, n);
@@ -50,7 +61,7 @@ void test_rsa_encryption_decryption(char* message) {
 }
 
 int main() {
-    srand(424242);
+    srand(time(NULL));
     TEST_SECTION(generate_key_values);
     for(int i=0; i<5; i++)
         test_generate_key_values();
@@ -59,14 +70,15 @@ int main() {
     TEST_SECTION(encrypt and decrypt);
     for(int i=0; i<5; i++){
         int len = rand_long(1, 10);
-        char* msg = malloc(sizeof(char)*(len+1));
+        //char* msg = malloc(sizeof(char)*(len+1));
+        char msg[len+1];
         msg[len] = '\0';
         for(int j=0; j<len; j++) 
             msg[j] = rand_long('a', 'z');
 
         test_rsa_encryption_decryption(msg);
 
-        free(msg);
+        //free(msg);
     }
     TEST_SECTION_END();
 
