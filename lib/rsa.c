@@ -19,16 +19,16 @@
  * @param s return value
  * @param u return value
  */
-void generate_key_values(long p, long q, long* n, long* s, long* u) {
-    long N = p * q;
-    long T = (p - 1) * (q - 1);
+void generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
+    int64 N = p * q;
+    int64 T = (p - 1) * (q - 1);
     // avoid infinite loop
     for (int I = 0; I < (1 << 16); I++) {
         // rand() should probably be replaced with 
         // a truly random, random function
-        long S = rand_long(3, T-1);
-        long U, V;
-        long pgcd = extended_gcd(S, T, &U, &V);
+        int64 S = rand_int64(3, T-1);
+        int64 U, V;
+        int64 pgcd = extended_gcd(S, T, &U, &V);
         if (pgcd != 1) continue;
         *n = N;
         *s = S;
@@ -41,9 +41,9 @@ void generate_key_values(long p, long q, long* n, long* s, long* u) {
     *u = -1;
 }
 
-long* encrypt(char* chaine, long s, long n) {
+int64* encrypt(char* chaine, int64 s, int64 n) {
     int N = strlen(chaine);
-    long* ret = malloc(sizeof(long) * (N + 1));
+    int64* ret = malloc(sizeof(int64) * (N + 1));
     for (int i = 0; i < N; i++) {
         int m = chaine[i];
         ret[i] = modpow(m, s, n);
@@ -52,20 +52,20 @@ long* encrypt(char* chaine, long s, long n) {
     return ret;
 }
 
-char* decrypt(long* crypted, int size, long u, long n) {
+char* decrypt(int64* crypted, int size, int64 u, int64 n) {
     char* ret = (char*)malloc(sizeof(char)*(size+1));
     ret[size] = '\0';
     for(int i=0; i<size; i++){
         
         
-        long c = crypted[i];
-        long ldc = modpow(c,u,n);
+        int64 c = crypted[i];
+        int64 ldc = modpow(c,u,n);
         ret[i] = ldc;
         
 
         //Create a segfault
         /*
-        long c = crypted[i];
+        int64 c = crypted[i];
         ret[i] = modpow(c, u, n);
         */
     }

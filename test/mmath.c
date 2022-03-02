@@ -49,7 +49,7 @@ int main(){
 
     { 
         TEST_SECTION(extended_gcd);
-        long u, v;
+        int64 u, v;
         TEST(extended_gcd(69, 42, &u, &v), 3);
         TEST(69*u + 42*v, 3);
         TEST(extended_gcd(6964, 4216, &u, &v), 4);
@@ -60,8 +60,8 @@ int main(){
         TEST(6417*u + 6424*v, 1);
         TEST(extended_gcd(42, 42, &u, &v), 42);
         for(int i=0; i<5; i++){
-            long p = random_prime_number(15, 16, 500);
-            long q = random_prime_number(15, 16, 500);
+            int64 p = random_prime_number(15, 16, 500);
+            int64 q = random_prime_number(15, 16, 500);
 
             TEST(extended_gcd(p, q, &u, &v), 1);
             TEST(p*u + q*v, 1);
