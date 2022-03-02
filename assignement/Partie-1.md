@@ -1,10 +1,13 @@
-Q1.1
+# Partie 1
+## Exos 1 et 2 du Sujet
+
+### Q1.1
 Dans le cas ou p est premier, c'est-a-dire le pire cas, la complexité de is_prime_naive est O(p)
 
-Q1.3
+### Q1.3
 La complexité de modpow_naive est O(m)
 
-Q1.5
+### Q1.5
 Pour les 2 fonctions, les temps sont très faibles même pour des grands m.
 On remarque cependant qu'au bout d'un moment le durée de modpow_naive commence à augmenter.
 Pour modpow, la durée est trop courte, on ne remarque pas d'augmentation même pour des grands nombres.
@@ -12,7 +15,7 @@ Exemple :
     Pour a=9435000329, m=134217728, n=1093
     durée modpow_naive = 1.491 sec
     durée modpow ~ 0 sec
-Q1.7
+### Q1.7
 Parmi les valeurs de 2 a p-1, cad p-3 valeurs. On a une probabilité de 1/4 de ne pas tomber sur un temoin de Miller.
 De plus on effectue le test k fois avec remise (la fonction rand_long peut tomber deux fois sur la meme valeur).
 Autrement dit la probabilite ne change pas entre les lancers. Donc la probabilite de ne pas tomber sur un temoin de Miller 
