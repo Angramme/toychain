@@ -66,6 +66,7 @@ void test_rsa_encryption_decryption(char* message) {
         free(decoded);
     } else {
         printf(" u = %ld is negative, test aborted\n", (long)u);
+        TEST_MSG(0, 1, "u is negative!");
     }
 }
 
