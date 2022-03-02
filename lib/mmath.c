@@ -148,9 +148,9 @@ long modpow_naive(long a, long m, long n) {
  * @param a 
  * @param m 
  * @param n 
- * @return long : the value of x
+ * @return int : the value of x
  */
-long modpow(long a, long m, long n) {
+int modpow(long a, long m, long n) {
     return modpow_r(a, m, n);
     /// TODO: actually implement the iterative verstion...
 
@@ -179,13 +179,13 @@ long modpow(long a, long m, long n) {
  * @param a 
  * @param m 
  * @param n 
- * @return long : the value of x
+ * @return int : the value of x
  */
-long modpow_r(long a, long m, long n) {
+int modpow_r(long a, long m, long n) {
     a %= n;
     if (m == 0) return 1;
     if (m == 1) return a;
-    if (!(m & 1)) {
+    if (m%2==0) { // equivalent to !(m&1)
         long x = modpow_r(a, m / 2, n);
         return (x * x) % n;
     }
