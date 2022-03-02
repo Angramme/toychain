@@ -13,6 +13,18 @@ char* _c_section = "error";
 #define _NOK "ERR!"
 #define _NLF " :: "
 
+/**
+ * @file test.h
+ * @brief A collection of defines for simplified testing
+ * 
+ */
+
+/**
+ * @brief tests if CALL is equal to RES and makes according output
+ * 
+ * @param CALL (any) : the call to test
+ * @param RES (any) : the output to compare
+ */
 #define TEST(CALL, RES){\
     _testcase_count++; \
     _section_count++; \
@@ -28,6 +40,14 @@ char* _c_section = "error";
     } \
 }
 
+/**
+ * @brief tests if CALL is equal to RES and makes according output
+ * in the case of an error, outputs the error message
+ * 
+ * @param CALL (any) : the call to test
+ * @param RES (any) : the output to compare
+ * @param ERRMSG string : the error message to output
+ */
 #define TEST_MSG(CALL, RES, ERRMSG){\
     _testcase_count++; \
     _section_count++; \
@@ -43,6 +63,9 @@ char* _c_section = "error";
     } \
 }
 
+/**
+ * @brief outputs the test summary for the file
+ */
 #define TEST_SUMMARY(){ \
     printf("\n==============================================\n"); \
     if(_testcase_failed == 0){ \
@@ -53,6 +76,11 @@ char* _c_section = "error";
     printf("==============================================\n\n\n"); \
 }
 
+/**
+ * @brief beggining of a section of tests
+ * 
+ * @param NAME string : the name of the section
+ */
 #define TEST_SECTION(NAME){ \
     printf("==== starting " #NAME " tests\n"); \
     _c_section = #NAME; \
@@ -60,6 +88,9 @@ char* _c_section = "error";
     _section_failed = 0; \
 }
 
+/**
+ * @brief end of a section of tests
+ */
 #define TEST_SECTION_END(){ \
     if(_section_failed == 0){ \
         printf("---- %s " _OK " : all tests passed successfully! \n", _c_section); \

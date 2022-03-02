@@ -3,6 +3,18 @@
 
 #include <time.h>
 
+/**
+ * @file clocktime.h
+ * @brief A simple define for timing the performance
+ * 
+ */
+
+/**
+ * @brief Simple timing function
+ * 
+ * @param OUT double : the output variable
+ * @param FNC_CALL (any) : the function call to time
+ */
 #define CLOCK_TIME(OUT, FNC_CALL) \
 { \
     clock_t temps_initial; \

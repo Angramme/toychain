@@ -29,5 +29,8 @@ clean:
 		$(MAKE) -C $$sdir clean; \
 	done
 
+docs::
+	doxygen Doxyfile
+
 test::
 	$(MAKE) -C ./test alltests

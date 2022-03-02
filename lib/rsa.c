@@ -4,6 +4,12 @@
 #include <string.h>
 
 /**
+ * @file rsa.c
+ * @brief a collection of RSA related functions
+ * 
+ */
+
+/**
  * @brief generates public and private RSA keys
  * public = (s, n) ; private = (u, n)
  *
