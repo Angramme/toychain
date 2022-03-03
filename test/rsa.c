@@ -28,46 +28,40 @@ void test_generate_key_values() {
 
     int64 U, V;
     TEST_MSG(extended_gcd(p, q, &U, &V), 1, "pgcd of p and q is not 1!");
-    TEST_MSG((p*u) % q, 1, "the p*u mod q is not 1!");
+    TEST_MSG(((p*U)%q + q) % q, 1, "the p*u mod q is not 1!");
 }
 
 void test_rsa_encryption_decryption(char* message) {
     int64 p = random_prime_number(15, 16, 5000);
     int64 q = random_prime_number(15, 16, 5000);
-    //TEST(is_prime_miller(p, 100), true);
-    //TEST(is_prime_miller(q, 100), true);
     int64 n, s, u;
     generate_key_values(p, q, &n, &s, &u);
 
-    printf("\n message = %s\n",message);
-    if(u >= 0 && s >= 0 && n >=0){
-
-        int len = strlen(message);
-        //Chiffrement:
-        int64* crypted = encrypt(message, s, n);
-
-        printf(" crypted = ");
-        print_int64tab(crypted,len);
-
-        //Dechiffrement
-        char* decoded = decrypt(crypted, len, u, n);
-
-        int strcmpres = strcmp(message, decoded);
-        TEST_MSG(strcmpres, 0, "the encoded and decoded messages are different!");
-        if(strcmpres != 0){
-            printf("original  > \"%s\" \n", message);
-            printf("decoded   > \"%s\" \n", decoded);
-            printf("encrypted  > ");
-            for(int i=0; i<len; i++) printf("%ld, ", (long)crypted[i]);
-            printf(" \n");
-        }
-
-        free(crypted);
-        free(decoded);
-    } else {
-        printf(" u = %ld is negative, test aborted\n", (long)u);
-        TEST_MSG(0, 1, "u is negative!");
+    if(u < 0 || s < 0 || n < 0){
+        TEST_MSG(u < 0 || s < 0 || n < 0, 0, "aborting the rest of the tests!");
+        return;
     }
+
+    int len = strlen(message);
+
+    //Chiffrement:
+    int64* crypted = encrypt(message, s, n);
+
+    //Dechiffrement
+    char* decoded = decrypt(crypted, len, u, n);
+
+    int strcmp_res = strcmp(message, decoded);
+    TEST_MSG(strcmp_res, 0, "the encoded and decoded messages are different!");
+    if(strcmp_res != 0){
+        printf("original > \"%s\" \n", message);
+        printf("decoded  > \"%s\" \n", decoded);
+        printf("crypted  > ");
+        print_int64tab(crypted,len);
+        printf(" \n");
+    }
+
+    free(crypted);
+    free(decoded);
 }
 
 int main() {

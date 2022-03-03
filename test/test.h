@@ -82,7 +82,7 @@ char* _c_section = "error";
  * @param NAME string : the name of the section
  */
 #define TEST_SECTION(NAME){ \
-    printf("\n==== starting " #NAME " tests\n"); \
+    printf("\n==== " #NAME " : starting tests\n"); \
     _c_section = #NAME; \
     _section_count = 0; \
     _section_failed = 0; \
