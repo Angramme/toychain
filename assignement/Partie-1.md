@@ -1,4 +1,10 @@
 # Partie 1
+Dans cette première partie nous nous intéressons au chiffrement et dechiffrement d'un message à l'aide du protocole RSA.
+Dans le premier exercice on implémente des fonctions permettant de calculer des nombres premiers dont le test 
+de Miller-Rabin.
+Dans l'exercice suivant, on utilise les fonctions précédentes pour déterminer des clés publiques et privées grâce
+à l'algorithme d'Euclide.
+
 ## Exos 1 et 2 du Sujet
 
 ### Q1.1
@@ -24,3 +30,7 @@ a k test consecutifs est de (1/4)^k.
 > Rmq: Il serait tres preferable de adapter notre fonction de tirage aleatoire pour qu'elle ne repete pas 
 > deux fois la meme valeur, cela augmenterait la chance de tomber sur un temoin de Miller a chaque iteration consecutive et 
 > par consequent diminuerait de faire un faux positif pour un meme nombre des tests k.
+
+### Jeu de tests
+Les détails des sets utilisés pour les tests sont disponibles dans ./test
+Pour lancer les tests : make test
