@@ -97,6 +97,7 @@ $(document).ready(function(){initNavTree('lib_2rsa_8c.html',''); initResizable()
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;lib/overflow.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for rsa.c:</div>
 <div class="dyncontent">
@@ -105,9 +106,9 @@ Include dependency graph for rsa.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af85aa5ca2e81efa64223515731640287"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#af85aa5ca2e81efa64223515731640287">generate_key_values</a> (int64 p, int64 q, int64 *n, int64 *s, int64 *u)</td></tr>
-<tr class="memdesc:af85aa5ca2e81efa64223515731640287"><td class="mdescLeft">&#160;</td><td class="mdescRight">generates public and private RSA keys public = (s, n) ; private = (u, n)  <a href="lib_2rsa_8c.html#af85aa5ca2e81efa64223515731640287">More...</a><br /></td></tr>
-<tr class="separator:af85aa5ca2e81efa64223515731640287"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5d8e1427339ac0a86b21ea59666b0c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0">generate_key_values</a> (int64 p, int64 q, int64 *n, int64 *s, int64 *u)</td></tr>
+<tr class="memdesc:ae5d8e1427339ac0a86b21ea59666b0c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">generates public and private RSA keys public = (s, n) ; private = (u, n)  <a href="lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0">More...</a><br /></td></tr>
+<tr class="separator:ae5d8e1427339ac0a86b21ea59666b0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafce070b9486b67d66899061e2c93386"><td class="memItemLeft" align="right" valign="top"><a id="aafce070b9486b67d66899061e2c93386" name="aafce070b9486b67d66899061e2c93386"></a>
 int64 *&#160;</td><td class="memItemRight" valign="bottom"><b>encrypt</b> (char *chaine, int64 s, int64 n)</td></tr>
 <tr class="separator:aafce070b9486b67d66899061e2c93386"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,14 +119,14 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>decrypt</b> (int64 
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >a collection of RSA related functions </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="af85aa5ca2e81efa64223515731640287" name="af85aa5ca2e81efa64223515731640287"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af85aa5ca2e81efa64223515731640287">&#9670;&nbsp;</a></span>generate_key_values()</h2>
+<a id="ae5d8e1427339ac0a86b21ea59666b0c0" name="ae5d8e1427339ac0a86b21ea59666b0c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5d8e1427339ac0a86b21ea59666b0c0">&#9670;&nbsp;</a></span>generate_key_values()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void generate_key_values </td>
+          <td class="memname">bool generate_key_values </td>
           <td>(</td>
           <td class="paramtype">int64&#160;</td>
           <td class="paramname"><em>p</em>, </td>
@@ -169,10 +170,13 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>decrypt</b> (int64 
     <tr><td class="paramname">q</td><td>prime </td></tr>
     <tr><td class="paramname">n</td><td>return value </td></tr>
     <tr><td class="paramname">s</td><td>return value </td></tr>
-    <tr><td class="paramname">u</td><td>return value </td></tr>
+    <tr><td class="paramname">u</td><td>return value</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>true : the generation was successfull! </dd>
+<dd>
+false : is most probably impossible to generate a valid key pair! </dd></dl>
 
 </div>
 </div>
