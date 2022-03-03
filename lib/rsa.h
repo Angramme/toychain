@@ -1,8 +1,8 @@
 #ifndef __RSA_H
 #define __RSA_H
 
-#include "mmath.h"
-#include "types.h"
+#include "lib/mmath.h"
+#include "lib/types.h"
 #include <stdbool.h>
 
 bool generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u);

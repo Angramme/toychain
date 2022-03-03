@@ -1,5 +1,5 @@
-#include "../lib/rsa.h"
-#include "test.h"
+#include "lib/rsa.h"
+#include "test/test.h"
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>

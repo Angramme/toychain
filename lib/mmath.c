@@ -1,4 +1,4 @@
-#include "mmath.h"
+#include "lib/mmath.h"
 #include <stdlib.h>
 #include <stdbool.h>
 

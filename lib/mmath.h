@@ -2,7 +2,7 @@
 #define __MMATH_H
 
 #include <stdbool.h>
-#include "types.h"
+#include "lib/types.h"
 
 int64 rand_int64(int64 low, int64 up);
 
