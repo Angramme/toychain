@@ -21,6 +21,6 @@ De plus on effectue le test k fois avec remise (la fonction rand_long peut tombe
 Autrement dit la probabilite ne change pas entre les lancers. Donc la probabilite de ne pas tomber sur un temoin de Miller 
 a k test consecutifs est de (1/4)^k.
 
-Rmq: Il serait tres preferable de adapter notre fonction de tirage aleatoire pour qu'elle ne repete pas 
-deux fois la meme valeur, cela augmenterait la chance de tomber sur un temoin de Miller a chaque iteration consecutive et 
-par consequent diminuerait de faire un faux positif pour un meme nombre des tests k.
+> Rmq: Il serait tres preferable de adapter notre fonction de tirage aleatoire pour qu'elle ne repete pas 
+> deux fois la meme valeur, cela augmenterait la chance de tomber sur un temoin de Miller a chaque iteration consecutive et 
+> par consequent diminuerait de faire un faux positif pour un meme nombre des tests k.
