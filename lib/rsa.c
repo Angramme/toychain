@@ -20,6 +20,11 @@
  * @param u return value
  */
 void generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
+    *n = -1;
+    *s = -1;
+    *u = -1;
+    if(p < 0 || q < 0) return;
+    
     int64 N = p * q;
     int64 T = (p - 1) * (q - 1);
     // avoid infinite loop
@@ -29,16 +34,13 @@ void generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
         int64 S = rand_int64(3, T-1);
         int64 U, V;
         int64 pgcd = extended_gcd(S, T, &U, &V);
-        if (pgcd != 1) continue;
+        if (pgcd != 1 || U < 0) continue;
         *n = N;
         *s = S;
         *u = U;
         return;
     }
     fprintf(stderr, "ERROR: coouldn't generate the private public key pair!!!\n");
-    *n = -1;
-    *s = -1;
-    *u = -1;
 }
 
 int64* encrypt(char* chaine, int64 s, int64 n) {
