@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['extended_5fgcd_0',['extended_gcd',['../lib_2mmath_8c.html#ab6da87045e7c903f739ed69fda512246',1,'mmath.c']]]
+  ['clock_5ftime_0',['CLOCK_TIME',['../clocktime_8h.html#a8f3839d2a652e6a42ab94d1afb388053',1,'clocktime.h']]],
+  ['clocktime_2eh_1',['clocktime.h',['../clocktime_8h.html',1,'']]]
 ];

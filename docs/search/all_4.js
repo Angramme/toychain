@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['mmath_2ec_0',['mmath.c',['../lib_2mmath_8c.html',1,'']]],
-  ['modpow_1',['modpow',['../lib_2mmath_8c.html#a62e25d64776516663d75ddb59201fc0c',1,'mmath.c']]],
-  ['modpow_5fnaive_2',['modpow_naive',['../lib_2mmath_8c.html#a7c7fd6b879d905fd46a1ba5c1ab39fe2',1,'mmath.c']]],
-  ['modpow_5fr_3',['modpow_r',['../lib_2mmath_8c.html#a3b305c74a50548b4b14e4ffb338840e2',1,'mmath.c']]]
+  ['is_5fprime_5fmiller_0',['is_prime_miller',['../lib_2mmath_8c.html#a293b3fe59b3fce1288c6cbc21c9e9e9e',1,'mmath.c']]],
+  ['is_5fprime_5fnaive_1',['is_prime_naive',['../lib_2mmath_8c.html#ac29b950d8b2403509f5d59e249dfc131',1,'mmath.c']]]
 ];

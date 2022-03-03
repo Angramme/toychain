@@ -21,7 +21,7 @@ digraph "lib/rsa.c"
   Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node8 [label="string.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node9 [label="lib/overflow.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$overflow_8h_source.html",tooltip=" "];
+  Node9 [label="lib/overflow.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$overflow_8h.html",tooltip="A helper file for checking overflows."];
   Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node10 [label="limits.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
 }

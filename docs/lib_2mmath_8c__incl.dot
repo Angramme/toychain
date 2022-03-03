@@ -14,7 +14,7 @@ digraph "lib/mmath.c"
   Node5 [label="stdlib.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node6 [label="lib/overflow.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$overflow_8h_source.html",tooltip=" "];
+  Node6 [label="lib/overflow.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$overflow_8h.html",tooltip="A helper file for checking overflows."];
   Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node7 [label="limits.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
