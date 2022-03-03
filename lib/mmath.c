@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "lib/overflow.h"
+#include <stdio.h>
+
 /**
  * @file mmath.c
  * @brief a collection of math functions
@@ -187,14 +190,14 @@ int64 modpow_r(int64 a, int64 m, int64 n) {
     a %= n;
     if (m == 0) return 1;
     if (m == 1) return a;
-    if (m % 2 == 0) { // equivalent to !(m&1)
+    if (!(m & 1)) { 
         int64 x = modpow_r(a, m / 2, n);
+        if(MULTIPLICATION_OVERFLOW_CHECK_i64(x, x)) printf("overflow! ("__FILE__" | line %d)\n", __LINE__);
         return (x * x) % n;
     }
     else {
-        // int64 x = modpow_r(a, m / 2, n);
-        // return (((x * x) % n) * a) % n;
         int64 x = modpow_r(a, m - 1, n);
+        if(MULTIPLICATION_OVERFLOW_CHECK_i64(x, a)) printf("overflow! ("__FILE__" | line %d)\n", __LINE__);
         return (x * a) % n;
     }
 }

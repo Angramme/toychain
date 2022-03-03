@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "lib/overflow.h"
+
 /**
  * @file rsa.c
  * @brief a collection of RSA related functions
@@ -18,14 +20,22 @@
  * @param n return value
  * @param s return value
  * @param u return value
+ * 
+ * @return true : the generation was successfull!
+ * @return false : is most probably impossible to generate a valid key pair! 
  */
-void generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
+bool generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
     *n = -1;
     *s = -1;
     *u = -1;
-    if(p < 0 || q < 0) return;
+    if(p < 0 || q < 0) return false;
     
     int64 N = p * q;
+    
+    // overflow protection!
+    // if this overflows then modulo multiplication of any numbers might overflow as well!
+    if(MULTIPLICATION_OVERFLOW_CHECK_i64(N, N)) return false; 
+
     int64 T = (p - 1) * (q - 1);
     // avoid infinite loop
     for (int I = 0; I < (1 << 16); I++) {
@@ -38,19 +48,19 @@ void generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
         *n = N;
         *s = S;
         *u = U;
-        return;
+        return true;
     }
-    fprintf(stderr, "ERROR: coouldn't generate the private public key pair!!!\n");
+    return false;
 }
 
 int64* encrypt(char* chaine, int64 s, int64 n) {
     int N = strlen(chaine);
     int64* ret = malloc(sizeof(int64) * (N + 1));
+    ret[N] = '\0';
     for (int i = 0; i < N; i++) {
         int m = chaine[i];
         ret[i] = modpow(m, s, n);
     }
-    ret[N] = '\0';
     return ret;
 }
 
