@@ -57,6 +57,7 @@ void test_rsa_encryption_decryption(char* message) {
     int strcmp_res = strcmp(message, decoded);
     TEST_MSG(strcmp_res, 0, "the encoded and decoded messages are different!");
     if(strcmp_res != 0){
+        // print more error detail:
         printf("public key = (%lld %lld) ; private key = (%lld %lld) \n", s, n, u, n);
         printf("original > \"%s\" \n", message);
         printf("decoded  > \"%s\" \n", decoded);
@@ -77,21 +78,24 @@ int main() {
     TEST_SECTION_END();
 
     TEST_SECTION(encrypt and decrypt);
+    // with fixed message
     for(int i=0; i<5; i++){
         test_rsa_encryption_decryption("Toutes les voitures sont stupides en ville.");
     }
-    // for(int i=0; i<5; i++){
-    //     int len = rand_int64(1, 10);
-    //     char* msg = malloc(sizeof(char)*(len+1));
-    //     //char msg[len+1];
-    //     *(msg+len) = '\0';
-    //     for(int j=0; j<len; j++) 
-    //         *(msg+j) = (char)rand_int64('a', 'z');
+    // with random message
+    for(int i=0; i<8; i++){
+        int len = rand_int64(1, 10);
+        char* msg = malloc(sizeof(char)*(len+1));
 
-    //     test_rsa_encryption_decryption(msg);
+        msg[len] = '\0';
+        for(int j=0; j<len; j++){
+            do{ msg[j] = (char)rand_int64(0, 255); }
+            while(msg[j] != '\0');
+        }
 
-    //     free(msg);
-    // }
+        test_rsa_encryption_decryption(msg);
+        free(msg);
+    }
     TEST_SECTION_END();
 
     TEST_SUMMARY();
