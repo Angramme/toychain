@@ -67,19 +67,9 @@ int64* encrypt(char* chaine, int64 s, int64 n) {
 char* decrypt(int64* crypted, int size, int64 u, int64 n) {
     char* ret = (char*)malloc(sizeof(char)*(size+1));
     ret[size] = '\0';
-    for(int i=0; i<size; i++){
-        
-        
+    for(int i=0; i<size; i++){        
         int64 c = crypted[i];
-        int64 ldc = modpow(c,u,n);
-        ret[i] = ldc;
-        
-
-        //Create a segfault
-        /*
-        int64 c = crypted[i];
-        ret[i] = modpow(c, u, n);
-        */
+        ret[i] = modpow(c,u,n);
     }
     return ret;
 }

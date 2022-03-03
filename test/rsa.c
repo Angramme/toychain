@@ -22,9 +22,7 @@ void test_generate_key_values() {
     do{
         p = random_prime_number(15, 16, 5000);
         q = random_prime_number(15, 16, 5000);
-        TEST(is_prime_miller(p, 100), true);
-        TEST(is_prime_miller(q, 100), true);
-        assert(p != q);
+        if(p == q) continue;
     }
     while(!generate_key_values(p, q, &n, &s, &u));
 
