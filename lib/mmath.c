@@ -5,24 +5,23 @@
 /**
  * @file mmath.c
  * @brief a collection of math functions
- * 
+ *
  */
 
-/**
- * @brief checks if p is prime.
- * complexity O(p), certainty 100%
- * 
- * @param p 
- * @return true : p is prime
- * @return false : p is not prime
- */
+ /**
+  * @brief checks if p is prime.
+  * complexity O(p), certainty 100%
+  *
+  * @param p
+  * @return true : p is prime
+  * @return false : p is not prime
+  */
 bool is_prime_naive(int64 p) {
     for (int64 i = 3; i < p; i++) {
         if (p % i == 0) return false;
     }
     return true;
 }
-
 
 
 bool witness(int64 a, int64 b, int64 d, int64 p) {
@@ -39,15 +38,16 @@ bool witness(int64 a, int64 b, int64 d, int64 p) {
     return true;
 }
 
+
 /**
  * @brief generates a random int64 inside [low, up]
- * 
+ *
  * @param low lower bound (included)
  * @param up upper bound (included)
- * @return int64 
+ * @return int64
  */
 int64 rand_int64(int64 low, int64 up) {
-    if(low > up) return low;
+    if (low > up) return low;
     return rand() % (up - low + 1) + low;
 }
 
@@ -55,9 +55,9 @@ int64 rand_int64(int64 low, int64 up) {
  * @brief checks if p is prime with (1/4)^k probability of a false positive.
  * the larger the k, the slower the calculation but higher certainty.
  * complexity is O(k)
- * 
+ *
  * @param p potential prime
- * @param k 
+ * @param k
  * @return true : p is prime with 1 - (1/4)^k certainty
  * @return false : p isn't prime with 100% certainty
  */
@@ -80,11 +80,13 @@ bool is_prime_miller(int64 p, int k) {
     int i;
     for (i = 0; i < k; i++) {
         a = rand_int64(2, p - 1);
-        if (witness(a, b, d, p)) 
+        if (witness(a, b, d, p)) {
             return false;
+        }
     }
     return true;
 }
+
 
 /**
  * @brief Generates a random prime number with number of bits
@@ -93,11 +95,11 @@ bool is_prime_miller(int64 p, int k) {
  * There is a (1/4)^k probability of a false positive.
  * The greater the value of k, the slower the calculations.
  * returns -1 if a prime wasn't found...
- * 
- * @param low_size 
- * @param up_size 
- * @param k 
- * @return int64 
+ *
+ * @param low_size
+ * @param up_size
+ * @param k
+ * @return int64
  */
 int64 random_prime_number(int low_size, int up_size, int k) {
     if (low_size > up_size) return -1;
@@ -110,21 +112,21 @@ int64 random_prime_number(int low_size, int up_size, int k) {
     // (dans ce cas le bit up_size+1 depasserait la taille du entier)
     const int64 up_bound = ((1 << up_size) - 1) | (1 << up_size);
     const int64 lo_bound = (1 << low_size);
-    for(int I=0; I<(1<<12); I++){
+    for (int I = 0; I < (1 << 12); I++) {
         int64 x = rand_int64(lo_bound, up_bound);
-        if(is_prime_miller(x, k)) return x;
+        if (is_prime_miller(x, k)) return x;
     }
     return -1;
 }
 
 /**
- * @brief calculates the exponent of a to the power 
- * of m modulo n in O(m^2). 
+ * @brief calculates the exponent of a to the power
+ * of m modulo n in O(m^2).
  * (a ^ m) % n = x
- * 
- * @param a 
- * @param m 
- * @param n 
+ *
+ * @param a
+ * @param m
+ * @param n
  * @return int : the value of x
  */
 int64 modpow_naive(int64 a, int64 m, int64 n) {
@@ -141,13 +143,13 @@ int64 modpow_naive(int64 a, int64 m, int64 n) {
 }
 
 /**
- * @brief calculates the exponent of a to the power 
+ * @brief calculates the exponent of a to the power
  * of m modulo n in O(m log m). this is the main implementation
  * (a ^ m) % n = x
- * 
- * @param a 
- * @param m 
- * @param n 
+ *
+ * @param a
+ * @param m
+ * @param n
  * @return int : the value of x
  */
 int64 modpow(int64 a, int64 m, int64 n) {
@@ -172,52 +174,52 @@ int64 modpow(int64 a, int64 m, int64 n) {
 }
 
 /**
- * @brief calculates the exponent of a to the power 
+ * @brief calculates the exponent of a to the power
  * of m modulo n in O(m log m). _r stands for recursive
  * (a ^ m) % n = x
- * 
- * @param a 
- * @param m 
- * @param n 
+ *
+ * @param a
+ * @param m
+ * @param n
  * @return int : the value of x
  */
 int64 modpow_r(int64 a, int64 m, int64 n) {
     a %= n;
     if (m == 0) return 1;
     if (m == 1) return a;
-    if (m%2==0) { // equivalent to !(m&1)
+    if (m % 2 == 0) { // equivalent to !(m&1)
         int64 x = modpow_r(a, m / 2, n);
         return (x * x) % n;
     }
     else {
         // int64 x = modpow_r(a, m / 2, n);
         // return (((x * x) % n) * a) % n;
-        int64 x = modpow_r(a, m-1, n);
+        int64 x = modpow_r(a, m - 1, n);
         return (x * a) % n;
     }
 }
 
 
 /**
- * @brief calculates the pgcd and the 
+ * @brief calculates the pgcd and the
  * corresponding Bezout decomposition.
  * pgcd = s*u + t*v
- * 
+ *
  * @param s pgcd(s, _)
  * @param t pgcd(_, t)
  * @param u return value
  * @param v return value
  * @return int64 : the value of pgcd
  */
-int64 extended_gcd(int64 s, int64 t, int64* u, int64* v) {
-    if (t == 0) {
-        *u = 1;
-        *v = 0;
-        return s;
+int64 extended_gcd(int64 s, int64 t, int64* u, int64* v){
+    if(s == 0){
+        *u = 0;
+        *v = 1;
+        return t;
     }
     int64 uPrim, vPrim;
-    int64 gcd = extended_gcd(t, s % t, &uPrim, &vPrim);
-    *u = vPrim;
-    *v = uPrim - (s / t) * vPrim;
+    int64 gcd = extended_gcd(t%s, s, &uPrim, &vPrim);
+    *u = vPrim - (t/s)*uPrim;
+    *v = uPrim;
     return gcd;
 }
