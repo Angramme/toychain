@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Toychain!: test/clocktime.h File Reference</title>
+<title>Toychain!: lib/types.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('clocktime_8h.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('types_8h.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -87,85 +87,54 @@ $(document).ready(function(){initNavTree('clocktime_8h.html',''); initResizable(
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a>  </div>
-  <div class="headertitle"><div class="title">clocktime.h File Reference</div></div>
+  <div class="headertitle"><div class="title">types.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>A simple define for timing the performance.  
+<p>a file with comfy aliases for long type signatures  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;time.h&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for clocktime.h:</div>
+<div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="clocktime_8h__incl.png" border="0" usemap="#atest_2clocktime_8h" alt=""/></div>
-<map name="atest_2clocktime_8h" id="atest_2clocktime_8h">
-<area shape="rect" title="A simple define for timing the performance." alt="" coords="5,5,120,32"/>
-<area shape="rect" title=" " alt="" coords="33,80,92,107"/>
+<div class="center"><img src="types_8h__dep__incl.png" border="0" usemap="#alib_2types_8hdep" alt=""/></div>
+<map name="alib_2types_8hdep" id="alib_2types_8hdep">
+<area shape="rect" title="a file with comfy aliases for long type signatures" alt="" coords="72,5,155,32"/>
+<area shape="rect" href="mmath_8h_source.html" title=" " alt="" coords="27,80,117,107"/>
+<area shape="rect" href="rsa_8h_source.html" title=" " alt="" coords="121,155,189,181"/>
+<area shape="rect" href="lib_2mmath_8c.html" title="a collection of math functions" alt="" coords="5,155,96,181"/>
+<area shape="rect" href="lib_2rsa_8c.html" title="a collection of RSA related functions" alt="" coords="121,229,189,256"/>
 </map>
 </div>
 </div>
-<p><a href="clocktime_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="types_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a8f3839d2a652e6a42ab94d1afb388053"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clocktime_8h.html#a8f3839d2a652e6a42ab94d1afb388053">CLOCK_TIME</a>(OUT,  FNC_CALL)</td></tr>
-<tr class="memdesc:a8f3839d2a652e6a42ab94d1afb388053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple timing function.  <a href="clocktime_8h.html#a8f3839d2a652e6a42ab94d1afb388053">More...</a><br /></td></tr>
-<tr class="separator:a8f3839d2a652e6a42ab94d1afb388053"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5125ea470cb5e419d49e07ad57eeba2"><td class="memItemLeft" align="right" valign="top"><a id="ae5125ea470cb5e419d49e07ad57eeba2" name="ae5125ea470cb5e419d49e07ad57eeba2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>int32</b>&#160;&#160;&#160;long int</td></tr>
+<tr class="memdesc:ae5125ea470cb5e419d49e07ad57eeba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">alias for long int <br /></td></tr>
+<tr class="separator:ae5125ea470cb5e419d49e07ad57eeba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09fc63bce67d19142460e915d94f732f"><td class="memItemLeft" align="right" valign="top"><a id="a09fc63bce67d19142460e915d94f732f" name="a09fc63bce67d19142460e915d94f732f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>int64</b>&#160;&#160;&#160;long long int</td></tr>
+<tr class="memdesc:a09fc63bce67d19142460e915d94f732f"><td class="mdescLeft">&#160;</td><td class="mdescRight">alias for long long int <br /></td></tr>
+<tr class="separator:a09fc63bce67d19142460e915d94f732f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9695cf1104606879c5d3f0221635a069"><td class="memItemLeft" align="right" valign="top"><a id="a9695cf1104606879c5d3f0221635a069" name="a9695cf1104606879c5d3f0221635a069"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>uint32</b>&#160;&#160;&#160;unsigned long int</td></tr>
+<tr class="memdesc:a9695cf1104606879c5d3f0221635a069"><td class="mdescLeft">&#160;</td><td class="mdescRight">alias for unsigned long int <br /></td></tr>
+<tr class="separator:a9695cf1104606879c5d3f0221635a069"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a675b708aad17b5e4de65233fe5ed3839"><td class="memItemLeft" align="right" valign="top"><a id="a675b708aad17b5e4de65233fe5ed3839" name="a675b708aad17b5e4de65233fe5ed3839"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>uint64</b>&#160;&#160;&#160;unsigned long long int</td></tr>
+<tr class="memdesc:a675b708aad17b5e4de65233fe5ed3839"><td class="mdescLeft">&#160;</td><td class="mdescRight">alias for unsigned long long int <br /></td></tr>
+<tr class="separator:a675b708aad17b5e4de65233fe5ed3839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A simple define for timing the performance. </p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a8f3839d2a652e6a42ab94d1afb388053" name="a8f3839d2a652e6a42ab94d1afb388053"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f3839d2a652e6a42ab94d1afb388053">&#9670;&nbsp;</a></span>CLOCK_TIME</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CLOCK_TIME</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">OUT, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">FNC_CALL&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div>
-<div class="line">    clock_t temps_initial; \</div>
-<div class="line">    clock_t temps_final; \</div>
-<div class="line">    temps_initial = clock();  \</div>
-<div class="line">    { FNC_CALL; } \</div>
-<div class="line">    temps_final = clock(); \</div>
-<div class="line">    (OUT) = ((<span class="keywordtype">double</span>) (temps_final - temps_initial)) / CLOCKS_PER_SEC; \</div>
-<div class="line">}</div>
-</div><!-- fragment -->
-<p>Simple timing function. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">OUT</td><td>double : the output variable </td></tr>
-    <tr><td class="paramname">FNC_CALL</td><td>(any) : the function call to time </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p >a file with comfy aliases for long type signatures </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_13e138d54eb8818da29c3992edef070a.html">test</a></li><li class="navelem"><a class="el" href="clocktime_8h.html">clocktime.h</a></li>
+    <li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="types_8h.html">types.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>

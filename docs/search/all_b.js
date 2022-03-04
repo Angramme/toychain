@@ -6,5 +6,6 @@ var searchData=
   ['test_5fsection_3',['TEST_SECTION',['../test_8h.html#ae42366e5beca7bc6233d77baa419c43b',1,'test.h']]],
   ['test_5fsection_5fend_4',['TEST_SECTION_END',['../test_8h.html#af0960ff54536595c12a9503ff667c8d9',1,'test.h']]],
   ['test_5fsummary_5',['TEST_SUMMARY',['../test_8h.html#a66a58a37b34ef08e76b8700dca4fa9ca',1,'test.h']]],
-  ['toychain_21_6',['ToyChain!',['../index.html',1,'']]]
+  ['toychain_21_6',['ToyChain!',['../index.html',1,'']]],
+  ['types_2eh_7',['types.h',['../types_8h.html',1,'']]]
 ];
