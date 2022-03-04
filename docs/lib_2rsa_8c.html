@@ -121,16 +121,113 @@ Functions</h2></td></tr>
 <tr class="memitem:ae5d8e1427339ac0a86b21ea59666b0c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0">generate_key_values</a> (int64 p, int64 q, int64 *n, int64 *s, int64 *u)</td></tr>
 <tr class="memdesc:ae5d8e1427339ac0a86b21ea59666b0c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">generates public and private RSA keys public = (s, n) ; private = (u, n)  <a href="lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0">More...</a><br /></td></tr>
 <tr class="separator:ae5d8e1427339ac0a86b21ea59666b0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafce070b9486b67d66899061e2c93386"><td class="memItemLeft" align="right" valign="top"><a id="aafce070b9486b67d66899061e2c93386" name="aafce070b9486b67d66899061e2c93386"></a>
-int64 *&#160;</td><td class="memItemRight" valign="bottom"><b>encrypt</b> (char *chaine, int64 s, int64 n)</td></tr>
+<tr class="memitem:aafce070b9486b67d66899061e2c93386"><td class="memItemLeft" align="right" valign="top">int64 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#aafce070b9486b67d66899061e2c93386">encrypt</a> (char *chaine, int64 s, int64 n)</td></tr>
+<tr class="memdesc:aafce070b9486b67d66899061e2c93386"><td class="mdescLeft">&#160;</td><td class="mdescRight">encrypt a message using modular exponentiation and a public RSA key (s,n).  <a href="lib_2rsa_8c.html#aafce070b9486b67d66899061e2c93386">More...</a><br /></td></tr>
 <tr class="separator:aafce070b9486b67d66899061e2c93386"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58260ba78c3befa4053dc047ce31f04a"><td class="memItemLeft" align="right" valign="top"><a id="a58260ba78c3befa4053dc047ce31f04a" name="a58260ba78c3befa4053dc047ce31f04a"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>decrypt</b> (int64 *crypted, int size, int64 u, int64 n)</td></tr>
+<tr class="memitem:a58260ba78c3befa4053dc047ce31f04a"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#a58260ba78c3befa4053dc047ce31f04a">decrypt</a> (int64 *crypted, int size, int64 u, int64 n)</td></tr>
+<tr class="memdesc:a58260ba78c3befa4053dc047ce31f04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">decrypt a message using modular exponentiation and a private RSA key (u,n).  <a href="lib_2rsa_8c.html#a58260ba78c3befa4053dc047ce31f04a">More...</a><br /></td></tr>
 <tr class="separator:a58260ba78c3befa4053dc047ce31f04a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >a collection of RSA related functions </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a58260ba78c3befa4053dc047ce31f04a" name="a58260ba78c3befa4053dc047ce31f04a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58260ba78c3befa4053dc047ce31f04a">&#9670;&nbsp;</a></span>decrypt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * decrypt </td>
+          <td>(</td>
+          <td class="paramtype">int64 *&#160;</td>
+          <td class="paramname"><em>crypted</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64&#160;</td>
+          <td class="paramname"><em>u</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>decrypt a message using modular exponentiation and a private RSA key (u,n). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">crypted</td><td>message to be decrypted </td></tr>
+    <tr><td class="paramname">size</td><td></td></tr>
+    <tr><td class="paramname">u</td><td></td></tr>
+    <tr><td class="paramname">n</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>char* : original message </dd></dl>
+
+</div>
+</div>
+<a id="aafce070b9486b67d66899061e2c93386" name="aafce070b9486b67d66899061e2c93386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafce070b9486b67d66899061e2c93386">&#9670;&nbsp;</a></span>encrypt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64 * encrypt </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>chaine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>encrypt a message using modular exponentiation and a public RSA key (s,n). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chaine</td><td>message to be crypted </td></tr>
+    <tr><td class="paramname">s</td><td></td></tr>
+    <tr><td class="paramname">n</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int64* : encrypted message </dd></dl>
+
+</div>
+</div>
 <a id="ae5d8e1427339ac0a86b21ea59666b0c0" name="ae5d8e1427339ac0a86b21ea59666b0c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5d8e1427339ac0a86b21ea59666b0c0">&#9670;&nbsp;</a></span>generate_key_values()</h2>
 

@@ -25,18 +25,20 @@
 var NAVTREE =
 [
   [ "Toychain!", "index.html", [
-    [ "Full Documentation", "index.html#autotoc_md8", null ],
-    [ "Building", "index.html#autotoc_md9", null ],
-    [ "Testing", "index.html#autotoc_md10", null ],
-    [ "Usage", "index.html#autotoc_md11", null ],
+    [ "Full Documentation", "index.html#autotoc_md10", null ],
+    [ "Building", "index.html#autotoc_md11", null ],
+    [ "Testing", "index.html#autotoc_md12", null ],
+    [ "Usage", "index.html#autotoc_md13", null ],
     [ "Partie 1", "md_assignement_Partie_1.html", [
       [ "Exos 1 et 2 du Sujet", "md_assignement_Partie_1.html#autotoc_md1", [
         [ "Q1.1", "md_assignement_Partie_1.html#autotoc_md2", null ],
-        [ "Q1.3", "md_assignement_Partie_1.html#autotoc_md3", null ],
-        [ "Q1.5", "md_assignement_Partie_1.html#autotoc_md4", null ],
-        [ "Q1.7", "md_assignement_Partie_1.html#autotoc_md5", null ],
-        [ "Jeu de tests", "md_assignement_Partie_1.html#autotoc_md6", null ]
-      ] ]
+        [ "Q1.2", "md_assignement_Partie_1.html#autotoc_md3", null ],
+        [ "Q1.3", "md_assignement_Partie_1.html#autotoc_md4", null ],
+        [ "Q1.5", "md_assignement_Partie_1.html#autotoc_md5", null ],
+        [ "Q1.7", "md_assignement_Partie_1.html#autotoc_md6", null ],
+        [ "Jeu de tests", "md_assignement_Partie_1.html#autotoc_md7", null ]
+      ] ],
+      [ "Difficultés rencontrées", "md_assignement_Partie_1.html#autotoc_md8", null ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
