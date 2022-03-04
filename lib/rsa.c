@@ -53,6 +53,15 @@ bool generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
     return false;
 }
 
+/**
+ * @brief encrypt a message using
+ * modular exponentiation and a public RSA key (s,n).
+ * 
+ * @param chaine message to be crypted
+ * @param s 
+ * @param n 
+ * @return int64* : encrypted message
+ */
 int64* encrypt(char* chaine, int64 s, int64 n) {
     int N = strlen(chaine);
     int64* ret = malloc(sizeof(int64) * (N + 1));
@@ -64,6 +73,16 @@ int64* encrypt(char* chaine, int64 s, int64 n) {
     return ret;
 }
 
+/**
+ * @brief decrypt a message using modular
+ * exponentiation and a private RSA key (u,n).
+ * 
+ * @param crypted message to be decrypted
+ * @param size 
+ * @param u 
+ * @param n 
+ * @return char* : original message
+ */
 char* decrypt(int64* crypted, int size, int64 u, int64 n) {
     char* ret = (char*)malloc(sizeof(char)*(size+1));
     ret[size] = '\0';
