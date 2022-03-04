@@ -10,6 +10,8 @@ Dans l'exercice suivant, on utilise les fonctions précédentes pour déterminer
 ### Q1.1
 Dans le cas où p est premier, c'est-à-dire le pire cas, la complexité de is_prime_naive est O(p).
 
+### Q1.2
+TODO
 ### Q1.3
 La complexité de modpow_naive est O(m).
 
@@ -33,11 +35,20 @@ pour k tests consecutifs est de (1/4)^k.
 > par consequent diminuerait celle de faire un faux positif pour un même nombre des tests k.
 
 ### Jeu de tests
-Les sets utilisés pour les tests de chiffrement sont générés aléatoirement. On implémente dans ./test/test.h des fonctions
-qui permettent de faires des tests simplements (voir la doc).
+Les sets utilisés pour les tests de chiffrement sont générés aléatoirement. On implémente dans test/test.h des fonctions
+qui permettent de faires des tests simplements ainsi que lib/overflow.h pour detecter des overflows (voir la doc).
 
 > Difficultés rencontrées : 
-> Nous nous sommes aperçus que l'implémentation de l'algorithme d'Euclide donnée dans le sujet comportait des failles.
-> En effet, l'algorithme n'empêche pas les overflows, ce qui peut pérturber la génération de clés publiques, et donc fausser
-> le chiffrage. Pour parer à cela nous avons introduit des fonctions qui vérifient, pour une opération donnée, si elle cause
-> un overflow. Ensuite pour générer une clé, si il y a overflow, on recommence la génération tant que c'est toujours le cas.
+> On s'apercu que pour une valeur de modulo trop grande, les résultats de la fonction modpow sont faussées a cause des overflows.
+> En effet si n*n depasse la taille de entier, alors il en va de meme pour certains nombres a, b et leur produit modulo n i.e 
+> x = (a%n) * (b%n) peut depasser la taille d'un entier.
+> Par consequent si notre paire des clès generes comporte un n où n*n depasse la taille de l'entier alors notre encryption et 
+> decryption donnent des faux resultats.
+> Pour résoudre ces problemes on a commencé par introduire des runtime warnings, pour detecter quand un overflow 
+> s'est produit dans la fonction modpow (a l'aide des defines dans lib/overflow.h). 
+> Notre théorie a été bien confirmé, dans les test-cases où le résultat etaient faux
+> on avait bien des overflows dans modpow et dans celles qui passait on en avait pas.
+> Par consequent on a decidé de ajouter un check a la fonction generate_key_values : si n*n fait un overflow alors il est 
+> impossible de génerer une paire des clé valide avec p et q passés en parametre. 
+> Cela nous conduit a essayer plusieurs paires des nombres premiers aleatoires avant que on trouve une où n n'est pas trop grand.
+> Cette approche a eliminé tout les overflows dans notre programme.
