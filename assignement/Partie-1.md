@@ -39,19 +39,19 @@ Les sets utilisés pour les tests de chiffrement sont générés aléatoirement.
 qui permettent de faires des tests simplements ainsi que lib/overflow.h pour detecter des overflows (voir la doc).
 
 ## Difficultés rencontrées
-Nous nous sommes rendus compte, dans la fonction __generate_key_values()__, que certaines valeurs générées peuvent causer
+Nous nous sommes rendus compte, dans la fonction __generate_key_values()__, que certaines valeurs générées pouvaient causer
 des overflows et ainsi perturber le chiffrement/dechiffrement.
 
-C'est le cas de l'argument n de cette même fonction. En effet, si n est trop grand, sa multiplication par lui-même peut causer un overflow. 
+C'est le cas de l'argument n de cette même fonction. En effet, si n est trop grand, sa multiplication par lui-même peut causer un overflow.
 Et il en va de même pour le produit de certains nombres modulo n.
-Par exemple :  x = (a%n) * (b%n) peut depasser la taille d'un entier.
+Par exemple :  x = (a % n) * (b % n) peut depasser la taille d'un entier.
 
-Le problème vient du fait que n est ensuite utilisé pour l'exponentiation modulaire __modpow()__ et peut donc induire la génération de clés qui ne correspondent pas à ce qui est attendu. Effectivement, si n a 'débordé', l'opération modulo n donnera
-un résultat non valide pour notre utilisation.
+Le problème vient du fait que n est ensuite utilisé pour l'exponentiation modulaire __modpow()__ et peut donc induire un mauvais chiffrement ou dechiffrement. Effectivement, si n a 'débordé', l'opération modulo n donnera
+un résultat non valide pour notre utilisation. Or n est calculé à partir du produit de p et q. Donc si p,q sont trop grands,
+p*q peut causer un overflow.
 
 Pour empêcher cela, nous avons : 
 1. Créé des runtime warnings, des fonctions qui vérifient si une opération entre deux entiers cause un overflow (voir overflow.h).
-2. Généré, pour un même message, une nouvelle clé tant qu'un overflow a eu lieu pendant la génération.
+2. Généré un nouveau couple (p,q) d'entiers premiers tant qu'un overflow a eu lieu pendant la génération, ie tant que n = p*q est trop grand.
 
-Ainsi, on s'assure que les clés générées permettent bien de chiffrer/dechiffrer le message correctement et 
-qu'aucune clé ne soit le résultat d'un overflow.
+Ainsi, on s'assure que le couple (p,q) ne cause pas d'overflow et qu'il permet bien de chiffrer/dechiffrer le message.

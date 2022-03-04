@@ -114,14 +114,14 @@ Jeu de tests</h2>
 <p >Les sets utilisés pour les tests de chiffrement sont générés aléatoirement. On implémente dans <a class="el" href="test_8h.html" title="A collection of defines for simplified testing.">test/test.h</a> des fonctions qui permettent de faires des tests simplements ainsi que <a class="el" href="overflow_8h.html" title="A helper file for checking overflows.">lib/overflow.h</a> pour detecter des overflows (voir la doc).</p>
 <h1><a class="anchor" id="autotoc_md8"></a>
 Difficultés rencontrées</h1>
-<p >Nous nous sommes rendus compte, dans la fonction <b><a class="el" href="lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0" title="generates public and private RSA keys public = (s, n) ; private = (u, n)">generate_key_values()</a></b>, que certaines valeurs générées peuvent causer des overflows et ainsi perturber le chiffrement/dechiffrement.</p>
-<p >C'est le cas de l'argument n de cette même fonction. En effet, si n est trop grand, sa multiplication par lui-même peut causer un overflow. Et il en va de même pour le produit de certains nombres modulo n. Par exemple : x = (an) * (bn) peut depasser la taille d'un entier.</p>
-<p >Le problème vient du fait que n est ensuite utilisé pour l'exponentiation modulaire <b><a class="el" href="lib_2mmath_8c.html#a62e25d64776516663d75ddb59201fc0c" title="calculates the exponent of a to the power of m modulo n in O(m log m). this is the main implementatio...">modpow()</a></b> et peut donc induire la génération de clés qui ne correspondent pas à ce qui est attendu. Effectivement, si n a 'débordé', l'opération modulo n donnera un résultat non valide pour notre utilisation.</p>
+<p >Nous nous sommes rendus compte, dans la fonction <b><a class="el" href="lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0" title="generates public and private RSA keys public = (s, n) ; private = (u, n)">generate_key_values()</a></b>, que certaines valeurs générées pouvaient causer des overflows et ainsi perturber le chiffrement/dechiffrement.</p>
+<p >C'est le cas de l'argument n de cette même fonction. En effet, si n est trop grand, sa multiplication par lui-même peut causer un overflow. Et il en va de même pour le produit de certains nombres modulo n. Par exemple : x = (a % n) * (b % n) peut depasser la taille d'un entier.</p>
+<p >Le problème vient du fait que n est ensuite utilisé pour l'exponentiation modulaire <b><a class="el" href="lib_2mmath_8c.html#a62e25d64776516663d75ddb59201fc0c" title="calculates the exponent of a to the power of m modulo n in O(m log m). this is the main implementatio...">modpow()</a></b> et peut donc induire un mauvais chiffrement ou dechiffrement. Effectivement, si n a 'débordé', l'opération modulo n donnera un résultat non valide pour notre utilisation. Or n est calculé à partir du produit de p et q. Donc si p,q sont trop grands, p*q peut causer un overflow.</p>
 <p >Pour empêcher cela, nous avons :</p><ol type="1">
 <li>Créé des runtime warnings, des fonctions qui vérifient si une opération entre deux entiers cause un overflow (voir <a class="el" href="overflow_8h.html" title="A helper file for checking overflows.">overflow.h</a>).</li>
-<li>Généré, pour un même message, une nouvelle clé tant qu'un overflow a eu lieu pendant la génération.</li>
+<li>Généré un nouveau couple (p,q) d'entiers premiers tant qu'un overflow a eu lieu pendant la génération, ie tant que n = p*q est trop grand.</li>
 </ol>
-<p >Ainsi, on s'assure que les clés générées permettent bien de chiffrer/dechiffrer le message correctement et qu'aucune clé ne soit le résultat d'un overflow. </p>
+<p >Ainsi, on s'assure que le couple (p,q) ne cause pas d'overflow et qu'il permet bien de chiffrer/dechiffrer le message. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
