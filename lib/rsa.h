@@ -5,8 +5,16 @@
 #include "lib/types.h"
 #include <stdbool.h>
 
+/**
+ * @file rsa.h
+ * @brief header of rsa.c
+ */
+
+/**
+ * A struct for storing a key
+ */
 typedef struct _Key{
-    int64 v, n;
+    int64 v, n; /**< int64 (v, n) the value of the key */
 } Key;
 
 void init_key(Key* key, int64 val, int64 n);

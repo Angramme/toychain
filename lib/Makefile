@@ -1,7 +1,7 @@
 EXE_OUTPUT=$(D_ROOT)/build/
 CFLAGS=-Wall
 
-OBJECTS = mmath rsa
+OBJECTS = mmath rsa vote
 
 all: $(OBJECTS:=.o)
 
