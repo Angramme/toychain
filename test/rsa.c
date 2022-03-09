@@ -68,6 +68,20 @@ void test_rsa_encryption_decryption(char* message) {
     free(decoded);
 }
 
+void test_key_str_conversion(){
+    Key k;
+    init_key(&k, rand()%800000, rand()%800000);
+
+    char* str = key_to_str(&k);
+    Key* key = str_to_key(str);
+
+    TEST(k.v, key->v);
+    TEST(k.n, key->n);
+
+    free(str);
+    free(key);
+}
+
 int main() {
     srand(time(NULL));
     TEST_SECTION(generate_key_values);
@@ -93,6 +107,12 @@ int main() {
 
         test_rsa_encryption_decryption(msg);
         free(msg);
+    }
+    TEST_SECTION_END();
+
+    TEST_SECTION(str_to_key and key_to_str)
+    for(int i=0; i<10; i++){
+        test_key_str_conversion();
     }
     TEST_SECTION_END();
 

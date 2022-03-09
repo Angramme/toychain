@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 #include "lib/overflow.h"
 
@@ -10,6 +11,74 @@
  * @brief a collection of RSA related functions
  * 
  */
+
+/**
+ * @brief initializes a key struct
+ *
+ * @param p prime
+ * @param q prime
+ * @return void
+ */
+void init_key(Key* key, int64 val, int64 n){
+    assert(key);
+    key->v = val;
+    key->n = n;
+}
+
+/**
+ * @brief initializes a key struct
+ *
+ * @param p prime
+ * @param q prime
+ * @return void
+ */
+void init_pair_keys(Key* pKey, Key* sKey, int low_size, int up_size){
+    assert(low_size < up_size);
+
+    int64 p, q, n, s, u;
+    int try=0;
+    do{
+        p = random_prime_number(low_size, up_size, 5000);
+        q = random_prime_number(low_size, up_size, 5000);
+        if(p == q) continue;
+        if(++try > 50000){
+            // possible si low_size est trop grand
+            printf("ERROR: couldn't generate public-private key pair!");
+            return;
+        }
+    }
+    while(!generate_key_values(p, q, &n, &s, &u));
+    init_key(pKey, s, n);
+    init_key(sKey, u, n);
+}
+
+/**
+ * @brief converts a Key to string of the form " (v, n) "
+ *
+ * @param Key key to convert
+ * @return char* : allocated on the heap
+ */
+char* key_to_str(Key* key){
+    assert(key);
+    char buff[250];
+    sprintf(buff, "(%llx, %llx)", key->v, key->n);
+    return strdup(buff);
+}
+
+/**
+ * @brief parses a string of the form " (v, n) " into a Key struct
+ *
+ * @param char string to convert
+ * @return Key* : allocated on the heap
+ */
+Key* str_to_key(char* str){
+    assert(str);
+    int64 v, n;
+    sscanf(str, " ( %llx , %llx ) ", &v, &n);
+    Key* ret = malloc(sizeof(Key));
+    init_key(ret, v, n);
+    return ret;
+}
 
 /**
  * @brief generates public and private RSA keys
