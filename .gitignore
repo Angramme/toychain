@@ -1,5 +1,4 @@
 .vscode
-.DS_Store
 */*
 !*/*.*
 !*/Makefile
@@ -8,3 +7,5 @@ build/*
 *.exe
 !docs/*
 !third-party/*
+.DS_Store
+**/.DS_Store
