@@ -77,6 +77,7 @@ void test_protected_to_str_str_to_protected(){
     TEST(pro->pKey->v, pro2->pKey->v);
     TEST(pro->pKey->n, pro2->pKey->n);
     TEST(pro->sig->len, pro2->sig->len);
+    TEST(pro->sig->len, len);
     bool good = true;
     for(int i=0; i<len+1; i++) good = good && (pro->sig->xs[i] == pro2->sig->xs[i]);
     TEST_MSG(good, true, "the protected signatures differ!");
@@ -106,4 +107,6 @@ int main(){
         test_protected_to_str_str_to_protected();
     }
     TEST_SECTION_END();
+
+    TEST_SUMMARY();
 }

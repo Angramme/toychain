@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+int _silent_success = 1;
 int _testcase_count = 0;
 int _testcase_failed = 0;
 int _section_failed = 0;
@@ -29,7 +30,7 @@ char* _c_section = "error";
     _testcase_count++; \
     _section_count++; \
     if((CALL) == (RES)){ \
-        printf(_OK " test case: %3d passed successfully! \n", _testcase_count); \
+        if(!_silent_success) printf(_OK " test case: %3d passed successfully! \n", _testcase_count); \
     }else{ \
         fprintf(stderr, _NOK " test case: %3d failed! ["__FILE__ " | line: %d]\n", _testcase_count, __LINE__); \
         fprintf(stderr, _NLF "   inside call \"%s\"\n", #CALL); \
@@ -51,7 +52,7 @@ char* _c_section = "error";
     _testcase_count++; \
     _section_count++; \
     if((CALL) == (RES)){ \
-        printf(_OK " test case: %3d passed successfully! \n", _testcase_count); \
+        if(!_silent_success) printf(_OK " test case: %3d passed successfully! \n", _testcase_count); \
     }else{ \
         fprintf(stderr, _NOK " test case: %3d failed! ["__FILE__ " | line: %d]\n", _testcase_count, __LINE__); \
         fprintf(stderr, _NLF "   inside call \"%s\"\n", #CALL); \
@@ -68,7 +69,7 @@ char* _c_section = "error";
 #define TEST_SUMMARY(){ \
     printf("\n==============================================\n"); \
     if(_testcase_failed == 0){ \
-        printf(_OK " : all "__FILE__" tests passed successfully! \n"); \
+        printf(_OK " : all %d \"%s\" tests passed successfully! \n", _testcase_count, __FILE__); \
     }else{ \
         printf(_NOK " : %d out of %d " __FILE__ " tests failed! \n", _testcase_failed, _testcase_count); \
     } \
@@ -92,7 +93,7 @@ char* _c_section = "error";
  */
 #define TEST_SECTION_END(){ \
     if(_section_failed == 0){ \
-        printf("---- %s " _OK " : all tests passed successfully! \n", _c_section); \
+        printf("---- %s " _OK " : all %d tests passed successfully! \n", _c_section, _section_count); \
     }else{ \
         printf("---- %s " _NOK " : %d out of %d tests failed! \n", _c_section, _section_failed, _section_count); \
     } \
