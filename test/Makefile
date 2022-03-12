@@ -21,7 +21,7 @@ alltests: $(TEST_FILES)
 		echo ==============================================; \
 		echo :: running "$$ftest" tests with valgrind; \
 		echo ==============================================; \
-		valgrind ./$$ftest; \
+		valgrind --leak-check=full ./$$ftest; \
 	done
 else
 alltests: $(TEST_FILES)
