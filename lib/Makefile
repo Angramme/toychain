@@ -1,5 +1,9 @@
-EXE_OUTPUT=$(D_ROOT)/build/
+ifneq ($(DEBUG),0)
+CFLAGS=-Wall -g
+else
 CFLAGS=-Wall
+endif
+EXE_OUTPUT=$(D_ROOT)/build/
 
 OBJECTS = mmath rsa vote
 

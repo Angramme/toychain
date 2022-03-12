@@ -1,5 +1,9 @@
 CC=gcc
 export CC
+VALGRIND=0
+DEBUG=$(VALGRIND)
+export DEBUG
+export VALGRIND
 
 # find current Makefiles directory i.e project root
 ROOT_MAKEFILE=$(abspath $(lastword $(MAKEFILE_LIST)))
@@ -35,5 +39,7 @@ docs::
 cleandocs::
 	rm -rf ./docs/*
 
-test::
+test:: all
 	$(MAKE) -C ./test alltests
+
+

@@ -1,4 +1,8 @@
+ifneq ($(DEBUG),0)
+CFLAGS=-Wall -g
+else
 CFLAGS=-Wall
+endif
 EXE_OUTPUT=$(D_ROOT)/build/tests
 
 TEST_FILES = mmath rsa vote
@@ -10,15 +14,25 @@ clean:
 	rm -f *.exe
 	rm -f $(TEST_FILES)
 
+
+ifneq ($(VALGRIND),0)
 alltests: $(TEST_FILES)
 	for ftest in $(TEST_FILES); do \
-		echo  ;\
+		echo ==============================================; \
+		echo :: running "$$ftest" tests with valgrind; \
+		echo ==============================================; \
+		valgrind ./$$ftest; \
+	done
+else
+alltests: $(TEST_FILES)
+	for ftest in $(TEST_FILES); do \
 		echo ==============================================; \
 		echo :: running "$$ftest" tests; \
 		echo ==============================================; \
-		echo  ;\
 		./$$ftest; \
 	done
+endif
+
 
 $(TEST_FILES): %: $(D_LIB)/%.o %.c test.h
 	$(CC) $(CFLAGS) -o $@ $@.c $(TEST_FILES:%=$(D_LIB)/%.o)
