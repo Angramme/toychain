@@ -26,9 +26,10 @@ var NAVTREE =
 [
   [ "Toychain!", "index.html", [
     [ "Full Documentation", "index.html#autotoc_md10", null ],
-    [ "Building", "index.html#autotoc_md11", null ],
-    [ "Testing", "index.html#autotoc_md12", null ],
-    [ "Usage", "index.html#autotoc_md13", null ],
+    [ "Installation", "index.html#autotoc_md11", null ],
+    [ "Building", "index.html#autotoc_md12", null ],
+    [ "Testing", "index.html#autotoc_md13", null ],
+    [ "Usage", "index.html#autotoc_md14", null ],
     [ "Partie 1", "md_assignement_Partie_1.html", [
       [ "Exos 1 et 2 du Sujet", "md_assignement_Partie_1.html#autotoc_md1", [
         [ "Q1.1", "md_assignement_Partie_1.html#autotoc_md2", null ],
@@ -40,11 +41,20 @@ var NAVTREE =
       ] ],
       [ "Difficultés rencontrées", "md_assignement_Partie_1.html#autotoc_md8", null ]
     ] ],
+    [ "Data Structures", "annotated.html", [
+      [ "Data Structures", "annotated.html", "annotated_dup" ],
+      [ "Data Structure Index", "classes.html", null ],
+      [ "Data Fields", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
+    ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "Globals", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
+        [ "Typedefs", "globals_type.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -53,7 +63,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"clocktime_8h.html"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

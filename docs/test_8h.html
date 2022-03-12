@@ -186,7 +186,6 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>_c_section</b> = &q
 <div class="line">    if((CALL) == (RES)){ \</div>
 <div class="line">        printf(_OK <span class="stringliteral">&quot; test case: %3d passed successfully! \n&quot;</span>, _testcase_count); \</div>
 <div class="line">    }<span class="keywordflow">else</span>{ \</div>
-<div class="line">        printf(_NOK <span class="stringliteral">&quot; test case: %3d failed! \n&quot;</span>, _testcase_count); \</div>
 <div class="line">        fprintf(stderr, _NOK <span class="stringliteral">&quot; test case: %3d failed! [&quot;</span>__FILE__ <span class="stringliteral">&quot; | line: %d]\n&quot;</span>, _testcase_count, __LINE__); \</div>
 <div class="line">        fprintf(stderr, _NLF <span class="stringliteral">&quot;   inside call \&quot;%s\&quot;\n&quot;</span>, #CALL); \</div>
 <div class="line">        fprintf(stderr, _NLF <span class="stringliteral">&quot;   expected result was \&quot;%s\&quot;\n&quot;</span>, #RES); \</div>

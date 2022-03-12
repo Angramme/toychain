@@ -93,31 +93,45 @@ $(document).ready(function(){initNavTree('lib_2rsa_8c.html',''); initResizable()
 
 <p>a collection of RSA related functions  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;lib/rsa.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="rsa_8h_source.html">lib/rsa.h</a>&quot;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="overflow_8h_source.html">lib/overflow.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for rsa.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="lib_2rsa_8c__incl.png" border="0" usemap="#alib_2rsa_8c" alt=""/></div>
 <map name="alib_2rsa_8c" id="alib_2rsa_8c">
-<area shape="rect" title="a collection of RSA related functions" alt="" coords="238,5,306,32"/>
-<area shape="rect" href="rsa_8h_source.html" title=" " alt="" coords="61,80,129,107"/>
+<area shape="rect" title="a collection of RSA related functions" alt="" coords="282,5,350,32"/>
+<area shape="rect" href="rsa_8h.html" title="header of rsa.c" alt="" coords="61,80,129,107"/>
 <area shape="rect" title=" " alt="" coords="153,80,217,107"/>
 <area shape="rect" title=" " alt="" coords="241,80,303,107"/>
 <area shape="rect" title=" " alt="" coords="327,80,393,107"/>
-<area shape="rect" href="overflow_8h.html" title="A helper file for checking overflows." alt="" coords="417,80,511,107"/>
+<area shape="rect" title=" " alt="" coords="417,80,487,107"/>
+<area shape="rect" href="overflow_8h.html" title="A helper file for checking overflows." alt="" coords="511,80,606,107"/>
 <area shape="rect" href="mmath_8h_source.html" title=" " alt="" coords="49,155,140,181"/>
 <area shape="rect" title=" " alt="" coords="5,229,80,256"/>
 <area shape="rect" href="types_8h.html" title="a file with comfy aliases for long type signatures" alt="" coords="120,229,203,256"/>
-<area shape="rect" title=" " alt="" coords="432,155,496,181"/>
+<area shape="rect" title=" " alt="" coords="527,155,591,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a932c9289f908135f6666cb4377cf65f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#a932c9289f908135f6666cb4377cf65f8">init_key</a> (<a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> *key, <a class="el" href="types_8h.html#a09fc63bce67d19142460e915d94f732f">int64</a> val, <a class="el" href="types_8h.html#a09fc63bce67d19142460e915d94f732f">int64</a> n)</td></tr>
+<tr class="memdesc:a932c9289f908135f6666cb4377cf65f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes a key struct  <a href="lib_2rsa_8c.html#a932c9289f908135f6666cb4377cf65f8">More...</a><br /></td></tr>
+<tr class="separator:a932c9289f908135f6666cb4377cf65f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6646cccff47a390bd59eb5926512f66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#af6646cccff47a390bd59eb5926512f66">init_pair_keys</a> (<a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> *pKey, <a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> *sKey, int low_size, int up_size)</td></tr>
+<tr class="memdesc:af6646cccff47a390bd59eb5926512f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">initializes a key struct  <a href="lib_2rsa_8c.html#af6646cccff47a390bd59eb5926512f66">More...</a><br /></td></tr>
+<tr class="separator:af6646cccff47a390bd59eb5926512f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f65d9e169616707fce8acb7ae60cc8e"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#a9f65d9e169616707fce8acb7ae60cc8e">key_to_str</a> (<a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> *key)</td></tr>
+<tr class="memdesc:a9f65d9e169616707fce8acb7ae60cc8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts a Key to string of the form " (v, n) "  <a href="lib_2rsa_8c.html#a9f65d9e169616707fce8acb7ae60cc8e">More...</a><br /></td></tr>
+<tr class="separator:a9f65d9e169616707fce8acb7ae60cc8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25545d66ac5d855f04eb2ae063362b22"><td class="memItemLeft" align="right" valign="top"><a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#a25545d66ac5d855f04eb2ae063362b22">str_to_key</a> (char *str)</td></tr>
+<tr class="memdesc:a25545d66ac5d855f04eb2ae063362b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">parses a string of the form " (v, n) " into a Key struct  <a href="lib_2rsa_8c.html#a25545d66ac5d855f04eb2ae063362b22">More...</a><br /></td></tr>
+<tr class="separator:a25545d66ac5d855f04eb2ae063362b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5d8e1427339ac0a86b21ea59666b0c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0">generate_key_values</a> (<a class="el" href="types_8h.html#a09fc63bce67d19142460e915d94f732f">int64</a> p, <a class="el" href="types_8h.html#a09fc63bce67d19142460e915d94f732f">int64</a> q, <a class="el" href="types_8h.html#a09fc63bce67d19142460e915d94f732f">int64</a> *n, <a class="el" href="types_8h.html#a09fc63bce67d19142460e915d94f732f">int64</a> *s, <a class="el" href="types_8h.html#a09fc63bce67d19142460e915d94f732f">int64</a> *u)</td></tr>
 <tr class="memdesc:ae5d8e1427339ac0a86b21ea59666b0c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">generates public and private RSA keys public = (s, n) ; private = (u, n)  <a href="lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0">More...</a><br /></td></tr>
 <tr class="separator:ae5d8e1427339ac0a86b21ea59666b0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -286,6 +300,154 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true : the generation was successfull! </dd>
 <dd>
 false : is most probably impossible to generate a valid key pair! </dd></dl>
+
+</div>
+</div>
+<a id="a932c9289f908135f6666cb4377cf65f8" name="a932c9289f908135f6666cb4377cf65f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a932c9289f908135f6666cb4377cf65f8">&#9670;&nbsp;</a></span>init_key()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_key </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> *&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a09fc63bce67d19142460e915d94f732f">int64</a>&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a09fc63bce67d19142460e915d94f732f">int64</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>initializes a key struct </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>prime </td></tr>
+    <tr><td class="paramname">q</td><td>prime </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="af6646cccff47a390bd59eb5926512f66" name="af6646cccff47a390bd59eb5926512f66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6646cccff47a390bd59eb5926512f66">&#9670;&nbsp;</a></span>init_pair_keys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_pair_keys </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> *&#160;</td>
+          <td class="paramname"><em>pKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> *&#160;</td>
+          <td class="paramname"><em>sKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>low_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>up_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>initializes a key struct </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>prime </td></tr>
+    <tr><td class="paramname">q</td><td>prime </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a9f65d9e169616707fce8acb7ae60cc8e" name="a9f65d9e169616707fce8acb7ae60cc8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f65d9e169616707fce8acb7ae60cc8e">&#9670;&nbsp;</a></span>key_to_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * key_to_str </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> *&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>converts a Key to string of the form " (v, n) " </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Key</td><td>key to convert </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>char* : allocated on the heap </dd></dl>
+
+</div>
+</div>
+<a id="a25545d66ac5d855f04eb2ae063362b22" name="a25545d66ac5d855f04eb2ae063362b22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25545d66ac5d855f04eb2ae063362b22">&#9670;&nbsp;</a></span>str_to_key()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08">Key</a> * str_to_key </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parses a string of the form " (v, n) " into a Key struct </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char</td><td>string to convert </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Key* : allocated on the heap </dd></dl>
 
 </div>
 </div>
