@@ -5,7 +5,7 @@ CFLAGS=-Wall
 endif
 EXE_OUTPUT=$(D_ROOT)/build/
 
-OBJECTS = mmath rsa vote
+OBJECTS = mmath rsa sign
 
 all: $(OBJECTS:=.o)
 

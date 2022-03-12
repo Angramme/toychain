@@ -1,4 +1,4 @@
-#include "lib/vote.h"
+#include "lib/sign.h"
 #include "lib/rsa.h"
 #include <string.h>
 #include <stdlib.h>
