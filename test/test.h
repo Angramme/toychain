@@ -31,7 +31,6 @@ char* _c_section = "error";
     if((CALL) == (RES)){ \
         printf(_OK " test case: %3d passed successfully! \n", _testcase_count); \
     }else{ \
-        printf(_NOK " test case: %3d failed! \n", _testcase_count); \
         fprintf(stderr, _NOK " test case: %3d failed! ["__FILE__ " | line: %d]\n", _testcase_count, __LINE__); \
         fprintf(stderr, _NLF "   inside call \"%s\"\n", #CALL); \
         fprintf(stderr, _NLF "   expected result was \"%s\"\n", #RES); \

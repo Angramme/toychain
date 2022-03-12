@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 /**
  * @file vote.c
@@ -44,9 +45,48 @@ void free_signature(Signature* sig){
 * @return Signature*
 */
 Signature* sign(char* mess, Key* sKey){
+    assert(mess && sKey);
     int64* con = encrypt(mess, sKey->v, sKey->n);
     int len = strlen(mess);
     return init_signature(con, len);
+}
+
+
+Protected* init_protected(Key* pKey, char* mess, Signature* sgn){
+    assert(pKey && mess && sgn);
+    Protected* ret = malloc(sizeof(Protected));
+    ret->msg = mess;
+    ret->pKey = pKey;
+    ret->sig = sgn;
+    return ret;
+}
+
+void free_protected(Protected* pr){
+    free(pr->msg);
+    free(pr->pKey);
+    free_signature(pr->sig);
+    free(pr);
+}
+
+/**
+* @brief check messages signature
+*
+* @param Protected* : protected message
+*
+* @return bool
+*/
+bool verify(Protected* pr){
+    assert(pr && pr->pKey);
+    const int N = strlen(pr->msg);
+    if(pr->sig->len != N) return false;
+    char* truth = decrypt(pr->sig->xs, N, pr->pKey->v, pr->pKey->n);
+    bool good = true;
+    for(int i=0; i<N+1; i++){
+        good = good && truth[i]==pr->msg[i];
+        if(!good) break;
+    }
+    free(truth);
+    return good;
 }
 
 /**
@@ -62,7 +102,7 @@ char* signature_to_str(Signature* sgn){
     int pos = 1;
     char buffer [156];
     for(int i=0; i < sgn->len; i++) {
-        sprintf(buffer, "%llx " , sgn->xs[i]);
+        sprintf(buffer, "%llx" , sgn->xs[i]);
         for(int j=0; j<strlen(buffer); j++) {
             result[pos] = buffer[j];
             pos = pos +1;
@@ -95,7 +135,10 @@ Signature* str_to_signature(char* str){
         }else{
             if(pos != 0) {
                 buffer[pos] = '\0';
-                sscanf(buffer , "%llx" , &(content[num]));
+                if(1 != sscanf(buffer , "%llx" , &(content[num]))){
+                    free(content);
+                    return NULL;
+                }
                 num = num + 1;
                 pos = 0;
             }
@@ -104,5 +147,52 @@ Signature* str_to_signature(char* str){
     content[num] = '\0';
     num++;
     content = realloc(content, num * sizeof(int64));
-    return init_signature(content, num);
+    return init_signature(content, num-1);
+}
+
+char* protected_to_str(Protected* prc){
+    assert(prc);
+    char* ks = key_to_str(prc->pKey);
+    char* ss = signature_to_str(prc->sig);
+    int N = strlen(ks) + strlen(prc->msg) + strlen(ss) + 2;
+    char* ret = malloc(sizeof(char)*(N+1));
+    ret[0] = '\0';
+    strcat(ret, ks);
+    strcat(ret, " ");
+    strcat(ret, prc->msg);
+    strcat(ret, " ");
+    strcat(ret, ss);
+    free(ks);
+    free(ss);
+    return ret;
+}
+
+Protected* str_to_protected(char* str){
+    Key* k = str_to_key(str);
+    if(!k) return NULL;
+    int msg_s = 0;
+    // we know ")" exists because key was parsed successfully
+    while(str[msg_s] != ')') msg_s++;
+    msg_s += 2;
+
+    const int len = strlen(str);
+    int msg_e = len-1;
+    // there are no spaces in the signature
+    while(str[msg_e] != ' ') msg_e--;
+    msg_e -= 1;
+
+    if(msg_e < msg_s){
+        free(k);
+        return NULL;
+    }
+
+    Signature* sig = str_to_signature(str+msg_e+2);
+    if(!sig) {
+        free(k);
+        return NULL;
+    }
+
+    char* msg = strndup(str+msg_s, msg_e-msg_s+1);
+
+    return init_protected(k, msg, sig);
 }

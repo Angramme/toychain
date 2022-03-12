@@ -33,6 +33,7 @@ typedef struct _Protected{
 } Protected;
 
 Protected* init_protected(Key* pKey, char* mess, Signature* sgn);
+void free_protected(Protected* pr);
 bool verify(Protected* pr);
 char* protected_to_str(Protected* prc);
 Protected* str_to_protected(char* str);

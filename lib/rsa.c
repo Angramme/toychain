@@ -74,7 +74,8 @@ char* key_to_str(Key* key){
 Key* str_to_key(char* str){
     assert(str);
     int64 v, n;
-    sscanf(str, " ( %llx , %llx ) ", &v, &n);
+    if(2 != sscanf(str, " ( %llx , %llx ) ", &v, &n))
+        return NULL;
     Key* ret = malloc(sizeof(Key));
     init_key(ret, v, n);
     return ret;
