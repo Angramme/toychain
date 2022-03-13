@@ -59,7 +59,7 @@ void test_protected_to_str_str_to_protected(){
     Key* skey = malloc(sizeof(Key));
     init_pair_keys(pkey, skey, 8, 12);
 
-    int len = rand()%500;
+    int len = rand()%500 + 1;
     char* msg = malloc(sizeof(char)*(len+1));
     for(int i=0; i<len; i++) msg[i] = (char)rand_int64('a', 'z');
     msg[len] = '\0';
@@ -88,7 +88,6 @@ void test_protected_to_str_str_to_protected(){
     free(skey);
 }
 
-
 int main(){
     TEST_SECTION(signature_to_str and str_to_signature);
     for(int i=0; i<10; i++){
@@ -108,5 +107,10 @@ int main(){
     }
     TEST_SECTION_END();
 
+    TEST_SECTION(generate_random_data);
+    generate_random_data(100, 5);
+    TEST_SECTION_END();
+
     TEST_SUMMARY();
+
 }
