@@ -7,12 +7,14 @@ EXE_OUTPUT=$(D_ROOT)/build/tests
 
 TEST_FILES = mmath rsa sign
 
+
 all:
 
 clean:
 	rm -f *.o
 	rm -f *.exe
 	rm -f $(TEST_FILES)
+	rm -f *.txt
 
 
 ifneq ($(VALGRIND),0)
