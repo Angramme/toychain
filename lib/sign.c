@@ -51,7 +51,14 @@ Signature* sign(char* mess, Key* sKey){
     return init_signature(con, len);
 }
 
-
+/**
+ * @brief create a signed declaration
+ * 
+ * @param pKey : public key
+ * @param mess : associated message
+ * @param sgn : signature
+ * @return Protected* 
+ */
 Protected* init_protected(Key* pKey, char* mess, Signature* sgn){
     assert(pKey && mess && sgn);
     Protected* ret = malloc(sizeof(Protected));
@@ -61,6 +68,11 @@ Protected* init_protected(Key* pKey, char* mess, Signature* sgn){
     return ret;
 }
 
+/**
+ * @brief free a signed declaration and it's content
+ * 
+ * @param pr : element to free
+ */
 void free_protected(Protected* pr){
     free(pr->msg);
     free(pr->pKey);
@@ -69,7 +81,7 @@ void free_protected(Protected* pr){
 }
 
 /**
-* @brief check messages signature
+* @brief checks if the signature matches the message
 *
 * @param Protected* : protected message
 *
@@ -92,7 +104,7 @@ bool verify(Protected* pr){
 /**
 * @brief convert a signature to string
 *
-* @param sgn 
+* @param sgn : signature to convert
 *
 * @return char* 
 */
@@ -150,6 +162,12 @@ Signature* str_to_signature(char* str){
     return init_signature(content, num-1);
 }
 
+/**
+ * @brief convert a signed declation to string
+ * 
+ * @param prc : declaration to convert
+ * @return char* 
+ */
 char* protected_to_str(Protected* prc){
     assert(prc);
     char* ks = key_to_str(prc->pKey);
@@ -167,6 +185,12 @@ char* protected_to_str(Protected* prc){
     return ret;
 }
 
+/**
+ * @brief parse a string to a signed declaration
+ * 
+ * @param str : string to parse
+ * @return Protected* 
+ */
 Protected* str_to_protected(char* str){
     Key* k = str_to_key(str);
     if(!k) return NULL;
