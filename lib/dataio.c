@@ -1,5 +1,10 @@
 #include "lib/dataio.h"
-
+#include "lib/rsa.h"
+#include "lib/sign.h"
+#include <assert.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 
 /**
