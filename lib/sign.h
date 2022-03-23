@@ -38,6 +38,4 @@ bool verify(Protected* pr);
 char* protected_to_str(Protected* prc);
 Protected* str_to_protected(char* str);
 
-void generate_random_data(int nv, int nc);
-
 #endif

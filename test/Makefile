@@ -5,7 +5,7 @@ CFLAGS=-Wall
 endif
 EXE_OUTPUT=$(D_ROOT)/build/tests
 
-TEST_FILES = mmath rsa sign
+TEST_FILES = mmath rsa sign dataio
 
 
 all:

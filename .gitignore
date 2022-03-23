@@ -9,3 +9,4 @@ build/*
 !third-party/*
 .DS_Store
 **/.DS_Store
+temp/

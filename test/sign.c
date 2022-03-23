@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include <string.h>
 
+#define TEMP_DIRECTORY "../temp"
+
 int64* garbage(int len){
     int64* con = malloc(sizeof(int64)*(len+1));
     con[len] = '\0';
@@ -105,10 +107,6 @@ int main(){
     for(int i=0; i<10; i++){
         test_protected_to_str_str_to_protected();
     }
-    TEST_SECTION_END();
-
-    TEST_SECTION(generate_random_data);
-    generate_random_data(100, 5);
     TEST_SECTION_END();
 
     TEST_SUMMARY();
