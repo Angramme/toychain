@@ -83,3 +83,115 @@ void generate_random_data(int nv, int nc, char* dir){
     fclose(cand);
     fclose(decl);
 }
+/**
+ * @brief Allocate and initialize a CellKey object.
+ * 
+ * @param key key to assign
+ * @return CellKey* 
+ */
+CellKey* create_cell_key(Key* key){
+    CellKey* newcell = malloc(sizeof(CellKey));
+    if(!newcell) return NULL;
+    newcell->data = key;
+    newcell->next = NULL;
+    return newcell;
+}
+
+/**
+ * @brief Insert a new element to cellkey (head insertion).
+ * 
+ * @param cellkey list of key
+ * @param key key to insert
+ * @return CellKey* 
+ */
+CellKey* insert_cell_key(CellKey* cellkey, Key* key){
+    CellKey* newck = create_cell_key(key);
+    if(!cellkey) {
+        cellkey = newck;
+    } else {
+        newck->next = cellkey;
+        cellkey = newck;
+    }
+    return cellkey;
+}
+
+/**
+ * @brief Read the public keys of a file, return them in a CellKey structure.
+ * 
+ * @param file path to the file
+ * @return CellKey* 
+ */
+CellKey* read_public_keys(char* file){
+    FILE *f = fopen(file, "r");
+    if(!f) {
+        fprintf(stderr, "read_public_keys : file opening error");
+        return NULL;
+    }
+    CellKey* res = malloc(sizeof(CellKey));
+    if(!res) return NULL;
+
+    char buf[256];
+    while(fgets(buf, 256, f)){
+        char tmp[100];
+        int i = 0;
+        while(buf[i] != ')' && i < 99){
+            tmp[i] = buf[i];
+            i++;
+        }
+        tmp[i] = buf[i];
+        tmp[i+1] = '\0';
+
+        if(!res->data) {
+            res->data = str_to_key(tmp);
+            res->next =  NULL;
+        } else {
+            res = insert_cell_key(res, str_to_key(tmp));
+        }
+    }
+    fclose(f);
+    return res;
+}
+
+/**
+ * @brief print the keys from a list
+ * 
+ * @param LCK list of keys
+ */
+void print_list_keys(CellKey* LCK){
+    if(!LCK){
+        printf("print_list_keys() : Argument NULL\n");
+        return;
+    }
+    CellKey* temp = LCK;
+    while(temp != NULL && temp->data != NULL){
+        char* keystr = key_to_str(temp->data);
+        printf("%s\n", keystr);
+        free(keystr);
+        temp = temp->next;
+    }
+}
+
+/**
+ * @brief free a CellKey
+ * 
+ * @param c 
+ */
+void free_cell_keys(CellKey* c){
+    if(!c)return;
+    free(c->data);
+    free(c);
+}
+
+/**
+ * @brief free a list of keys
+ * 
+ * @param cellkey 
+ */
+void free_list_keys(CellKey* cellkey){
+    if(!cellkey) return;
+    while(cellkey){
+        CellKey* temp = cellkey;
+        cellkey = cellkey->next;
+        free_cell_keys(temp);
+    }
+}
