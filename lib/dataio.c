@@ -65,7 +65,7 @@ void generate_random_data(int nv, int nc, const char* dir){
         char* msg = key_to_str(rcand);
 
         Signature* s = sign(msg, &tab_pkey[i]);
-        Protected* p = init_protected(&tab_pkey[i], msg, s);
+        Protected* p = init_protected_raw(&tab_pkey[i], msg, s);
         char* protstr = protected_to_str(p);
         fprintf(decl, "%s\n", protstr);
 
@@ -86,6 +86,22 @@ void generate_random_data(int nv, int nc, const char* dir){
     fclose(cand);
     fclose(decl);
 }
+
+/**
+ * @brief Allocate and initialize a CellKey object.
+ * !!! takes ownership of key!
+ * 
+ * @param key key to assign
+ * @return CellKey* 
+ */
+CellKey* create_cell_key_raw(Key* key){
+    CellKey* newcell = malloc(sizeof(CellKey));
+    if(!newcell) return NULL;
+    newcell->data = key;
+    newcell->next = NULL;
+    return newcell;
+}
+
 /**
  * @brief Allocate and initialize a CellKey object.
  * 
@@ -93,11 +109,7 @@ void generate_random_data(int nv, int nc, const char* dir){
  * @return CellKey* 
  */
 CellKey* create_cell_key(Key* key){
-    CellKey* newcell = malloc(sizeof(CellKey));
-    if(!newcell) return NULL;
-    newcell->data = key;
-    newcell->next = NULL;
-    return newcell;
+    return create_cell_key(copy_key(key));
 }
 
 /**
@@ -174,16 +186,39 @@ void print_list_keys(CellKey* LCK){
     }
 }
 
-CellProtected* create_cell_protected(Protected* pr){
+/**
+ * @brief Create a cell protected object
+ * !!! takes ownership of protected
+ * 
+ * @param pr 
+ * @return CellProtected* 
+ */
+CellProtected* create_cell_protected_raw(Protected* pr){
     CellProtected* ret = malloc(sizeof(CellProtected));
     ret->data = pr;
     ret->next = NULL;
     return ret;
 }
 
+/**
+ * @brief Create a cell protected object
+ * 
+ * @param pr 
+ * @return CellProtected* 
+ */
+CellProtected* create_cell_protected(Protected* pr){
+    return create_cell_protected_raw(copy_protected(pr));
+}
+
+/**
+ * @brief Prepend CellProtected to a list
+ * 
+ * @param list 
+ * @param pr 
+ */
 void prepend_protected(CellProtected** list, Protected* pr){
     CellProtected* old = *list;
-    *list = create_cell_protected(pr);
+    *list = create_cell_protected_raw(pr);
     (*list)->next = old;
 }
 
@@ -217,7 +252,11 @@ CellProtected* read_protected(const char* filename){
     return ret;
 }
 
-
+/**
+ * @brief prints the chained list of protected
+ * 
+ * @param list 
+ */
 void print_protected_list(CellProtected* list){
     while(list){
         char* str = protected_to_str(list->data);
@@ -262,6 +301,11 @@ void free_cell_protected(CellProtected* c){
     free(c);
 }
 
+/**
+ * @brief frees the list of pretected
+ * 
+ * @param c 
+ */
 void free_list_protected(CellProtected* c){
     while(c){
         CellProtected* next = c->next;
@@ -270,6 +314,11 @@ void free_list_protected(CellProtected* c){
     }
 }
 
+/**
+ * @brief removes fraudulent block from the chain. Fraudulent blocks are the ones that don't verify the signature.
+ * 
+ * @param list 
+ */
 void remove_fraudulent_blocks(CellProtected** list){
     while(*list){
         if(!verify((*list)->data)){

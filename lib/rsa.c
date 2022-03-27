@@ -26,6 +26,18 @@ void init_key(Key* key, int64 val, int64 n){
 }
 
 /**
+ * @brief copies key
+ * 
+ * @param o 
+ * @return Key* 
+ */
+Key* copy_key(const Key* o){
+    Key* ret = malloc(sizeof(Key));
+    init_key(ret, o->v, o->n);
+    return ret;
+}
+
+/**
  * @brief initializes a key struct
  *
  * @param p prime

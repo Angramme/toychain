@@ -19,7 +19,7 @@ int64* garbage(int len){
 void test_signature_to_str_to_signature(){
     int len = rand() % 250;
     int64* con = garbage(len);
-    Signature* S = init_signature(con, len);
+    Signature* S = init_signature_raw(con, len);
 
     char* str = signature_to_str(S);
     Signature* sig = str_to_signature(str);
@@ -42,18 +42,18 @@ void test_sign_verify(){
     for(int i=0; i<len; i++) msg[i] = (char)rand_int64('a', 'z');
     msg[len] = '\0';
 
-    Key pk, sk;
-    init_pair_keys(&pk, &sk, 8, 12);
+    Key* pk = malloc(sizeof(Key));
+    Key* sk = malloc(sizeof(Key));
+    init_pair_keys(pk, sk, 8, 12);
 
-    Signature* sig = sign(msg, &sk);
-    Protected* pro = init_protected(&pk, msg, sig);
+    Signature* sig = sign(msg, sk);
+    Protected* pro = init_protected_raw(pk, msg, sig); // Protected takes ownership of signature, message and public key
     if(sig == NULL || pro == NULL) TEST_MSG(0, 1, "expected a valid return value");
 
     TEST(verify(pro), true);
 
-    free(msg);
-    free_signature(sig);
-    free(pro); // free_protected would crash as signature is already freed and keys are not mallocd
+    free_protected(pro);
+    free(sk);
 }
 
 void test_protected_to_str_str_to_protected(){
@@ -66,7 +66,7 @@ void test_protected_to_str_str_to_protected(){
     for(int i=0; i<len; i++) msg[i] = (char)rand_int64('a', 'z');
     msg[len] = '\0';
 
-    Protected* pro = init_protected(
+    Protected* pro = init_protected_raw(
         pkey, 
         msg, 
         sign(msg, skey)

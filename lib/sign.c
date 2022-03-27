@@ -12,6 +12,22 @@
  */
 
 /**
+* @brief initialize a signaure without copying the data
+* !!! takes ownership of content
+* 
+* @param content : content of the signature
+* @param size : size of content
+*
+* @return Signature* : a new signature on the heap
+*/
+Signature* init_signature_raw(int64* content, int size){
+    Signature* ret = malloc(sizeof(Signature));
+    ret->xs = content;
+    ret->len = size;
+    return ret;
+}
+
+/**
 * @brief initialize a signaure
 *
 * @param content : content of the signature
@@ -20,10 +36,13 @@
 * @return Signature* : a new signature on the heap
 */
 Signature* init_signature(int64* content, int size){
-    Signature* ret = malloc(sizeof(Signature));
-    ret->xs = content;
-    ret->len = size;
-    return ret;
+    int64* cpy = malloc(sizeof(int64)*(size+1));
+    memcpy(cpy, content, sizeof(int64)*(size+1));
+    return init_signature_raw(cpy, size);
+}
+
+Signature* copy_signature(Signature* o){
+    return init_signature(o->xs, o->len);
 }
 
 /**
@@ -48,7 +67,25 @@ Signature* sign(char* mess, Key* sKey){
     assert(mess && sKey);
     int64* con = encrypt(mess, sKey->v, sKey->n);
     int len = strlen(mess);
-    return init_signature(con, len);
+    return init_signature_raw(con, len);
+}
+
+/**
+ * @brief create a signed declaration
+ * !!! Takes ownership of key, message and signature
+ * 
+ * @param pKey : public key
+ * @param mess : associated message
+ * @param sgn : signature
+ * @return Protected* 
+ */
+Protected* init_protected_raw(Key* pKey, char* mess, Signature* sgn){
+    assert(pKey && mess && sgn);
+    Protected* ret = malloc(sizeof(Protected));
+    ret->msg = mess;
+    ret->pKey = pKey;
+    ret->sig = sgn;
+    return ret;
 }
 
 /**
@@ -61,11 +98,20 @@ Signature* sign(char* mess, Key* sKey){
  */
 Protected* init_protected(Key* pKey, char* mess, Signature* sgn){
     assert(pKey && mess && sgn);
-    Protected* ret = malloc(sizeof(Protected));
-    ret->msg = mess;
-    ret->pKey = pKey;
-    ret->sig = sgn;
-    return ret;
+    Key* pkeycpy = copy_key(pKey);
+    char* msgcpy = strdup(mess);
+    Signature* sgncpy = copy_signature(sgn);
+    return init_protected_raw(pkeycpy, msgcpy, sgncpy);
+}
+
+/**
+ * @brief copy protected 
+ * 
+ * @param o 
+ * @return Protected* 
+ */
+Protected* copy_protected(Protected* o){
+    return init_protected(o->pKey, o->msg, o->sig);
 }
 
 /**
@@ -159,7 +205,7 @@ Signature* str_to_signature(char* str){
     content[num] = '\0';
     num++;
     content = realloc(content, num * sizeof(int64));
-    return init_signature(content, num-1);
+    return init_signature_raw(content, num-1);
 }
 
 /**
@@ -218,5 +264,5 @@ Protected* str_to_protected(char* str){
 
     char* msg = strndup(str+msg_s, msg_e-msg_s+1);
 
-    return init_protected(k, msg, sig);
+    return init_protected_raw(k, msg, sig);
 }
