@@ -17,19 +17,22 @@
  * @param nv number of couple of keys(citizen) to be generated
  * @param nc number of candidates among the nv couples
  */
-void generate_random_data(int nv, int nc, char* dir){
+void generate_random_data(int nv, int nc, const char* dir){
     assert(strlen(dir)+20 < 500);
     char pth[500];
     strcpy(pth, dir);
     strcat(pth, "/keys.txt");
     FILE* keys = fopen(pth, "w+");
+    if(!keys) printf("couldn't open %s !\n", pth);
     strcpy(pth, dir);
     strcat(pth, "/candidates.txt");
     FILE* cand = fopen(pth, "w+");
+    if(!cand) printf("couldn't open %s !\n", pth);
     strcpy(pth, dir);
     strcat(pth, "/declarations.txt");
     FILE* decl = fopen(pth, "w+");
-    if(!keys || !cand || !decl)return;
+    if(!decl) printf("couldn't open %s !\n", pth);
+    if(!keys || !cand || !decl) return;
 
     Key* tab_pkey = malloc(sizeof(Key) * nv);
     Key* tab_skey = malloc(sizeof(Key) * nv);
@@ -171,6 +174,59 @@ void print_list_keys(CellKey* LCK){
     }
 }
 
+CellProtected* create_cell_protected(Protected* pr){
+    CellProtected* ret = malloc(sizeof(CellProtected));
+    ret->data = pr;
+    ret->next = NULL;
+    return ret;
+}
+
+void prepend_protected(CellProtected** list, Protected* pr){
+    CellProtected* old = *list;
+    *list = create_cell_protected(pr);
+    (*list)->next = old;
+}
+
+/**
+ * @brief read protected list from file.
+ * data format is lines in 
+ * protected_to_str format each 
+ * representing a protected
+ * 
+ * @param filename 
+ * @return CellProtected* 
+ */
+CellProtected* read_protected(const char* filename){
+    FILE* file = fopen(filename, "r");
+    if(!file){
+        printf("couldn't open %s !\n", filename);
+        return NULL;
+    }
+    size_t buff_size = 500;
+    char* buffer = malloc(sizeof(char)*buff_size);
+
+    CellProtected* ret = NULL;
+
+    while(getline(&buffer, &buff_size, file) > 1){
+        Protected* proc = str_to_protected(buffer);
+        prepend_protected(&ret, proc);
+    }
+
+    free(buffer);
+    fclose(file);
+    return ret;
+}
+
+
+void print_protected_list(CellProtected* list){
+    while(list){
+        char* str = protected_to_str(list->data);
+        printf("%s \n", str);
+        free(str);
+        list = list->next;
+    }
+}
+
 /**
  * @brief free a CellKey
  * 
@@ -193,5 +249,34 @@ void free_list_keys(CellKey* cellkey){
         CellKey* temp = cellkey;
         cellkey = cellkey->next;
         free_cell_keys(temp);
+    }
+}
+
+/**
+ * @brief correspond au delete_cell_protected dans le sujet
+ * 
+ * @param c 
+ */
+void free_cell_protected(CellProtected* c){
+    free_protected(c->data);
+    free(c);
+}
+
+void free_list_protected(CellProtected* c){
+    while(c){
+        CellProtected* next = c->next;
+        free_cell_protected(c);
+        c = next;
+    }
+}
+
+void remove_fraudulent_blocks(CellProtected** list){
+    while(*list){
+        if(!verify((*list)->data)){
+            CellProtected* tmp = *list;
+            *list = (*list)->next;
+            free(tmp);
+        }
+        list = &((*list)->next);
     }
 }
