@@ -1,5 +1,6 @@
 #include "lib/sign.h"
 #include "lib/rsa.h"
+#include "lib/error.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -22,6 +23,10 @@
 */
 Signature* init_signature_raw(int64* content, int size){
     Signature* ret = malloc(sizeof(Signature));
+    if(!ret){
+        MALLOC_ERROR("couldn't initialize signature!");
+        return NULL;
+    }
     ret->xs = content;
     ret->len = size;
     return ret;
@@ -37,6 +42,10 @@ Signature* init_signature_raw(int64* content, int size){
 */
 Signature* init_signature(int64* content, int size){
     int64* cpy = malloc(sizeof(int64)*(size+1));
+    if(!cpy){
+        MALLOC_ERROR("couldn't initialize signature");
+        return NULL;
+    }
     memcpy(cpy, content, sizeof(int64)*(size+1));
     return init_signature_raw(cpy, size);
 }
@@ -82,6 +91,10 @@ Signature* sign(char* mess, Key* sKey){
 Protected* init_protected_raw(Key* pKey, char* mess, Signature* sgn){
     assert(pKey && mess && sgn);
     Protected* ret = malloc(sizeof(Protected));
+    if(!ret){
+        MALLOC_ERROR("coudln't initialize protected");
+        return NULL;
+    }
     ret->msg = mess;
     ret->pKey = pKey;
     ret->sig = sgn;
@@ -156,6 +169,10 @@ bool verify(Protected* pr){
 */
 char* signature_to_str(Signature* sgn){
     char* result = malloc (10* sgn->len * sizeof(char));
+    if(!result){
+        MALLOC_ERROR("coudln't convert signature to string");
+        return NULL;
+    }
     result [0]= '#';
     int pos = 1;
     char buffer [156];
@@ -183,6 +200,10 @@ char* signature_to_str(Signature* sgn){
 Signature* str_to_signature(char* str){
     int len = strlen(str);
     int64* content = (int64*)malloc(sizeof(int64) * (len+1));
+    if(!content){
+        MALLOC_ERROR("coudln't convert string to signature");
+        return NULL;
+    }
     int num = 0;
     char buffer [256];
     int pos = 0;
@@ -220,6 +241,10 @@ char* protected_to_str(Protected* prc){
     char* ss = signature_to_str(prc->sig);
     int N = strlen(ks) + strlen(prc->msg) + strlen(ss) + 2;
     char* ret = malloc(sizeof(char)*(N+1));
+    if(!ret){
+        MALLOC_ERROR("coudln't convert protected to string");
+        return NULL;
+    }
     ret[0] = '\0';
     strcat(ret, ks);
     strcat(ret, " ");

@@ -1,6 +1,7 @@
 #include "lib/dataio.h"
 #include "lib/rsa.h"
 #include "lib/sign.h"
+#include "lib/error.h"
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
@@ -38,6 +39,10 @@ void generate_random_data(int nv, int nc, const char* dir){
     Key* tab_skey = malloc(sizeof(Key) * nv);
     Key* pkey_cand = malloc(sizeof(Key) * nc);
     Key* skey_cand = malloc(sizeof(Key) * nc);
+    if(!tab_pkey || !tab_skey || !pkey_cand || !skey_cand){
+        MALLOC_ERROR("coudln't malloc!!!");
+        return;
+    }
 
     //generation des nv citoyens
     for(int i = 0; i < nv; i++){
@@ -96,7 +101,10 @@ void generate_random_data(int nv, int nc, const char* dir){
  */
 CellKey* create_cell_key_raw(Key* key){
     CellKey* newcell = malloc(sizeof(CellKey));
-    if(!newcell) return NULL;
+    if(!newcell){
+        MALLOC_ERROR("coudln't create cell key");
+        return NULL;
+    }
     newcell->data = key;
     newcell->next = NULL;
     return newcell;
@@ -109,7 +117,7 @@ CellKey* create_cell_key_raw(Key* key){
  * @return CellKey* 
  */
 CellKey* create_cell_key(Key* key){
-    return create_cell_key(copy_key(key));
+    return create_cell_key_raw(copy_key(key));
 }
 
 /**
@@ -143,7 +151,10 @@ CellKey* read_public_keys(char* file){
         return NULL;
     }
     CellKey* res = malloc(sizeof(CellKey));
-    if(!res) return NULL;
+    if(!res){
+        MALLOC_ERROR("couldn't read public key");   
+        return NULL;
+    }
 
     char buf[256];
     while(fgets(buf, 256, f)){
@@ -195,6 +206,10 @@ void print_list_keys(CellKey* LCK){
  */
 CellProtected* create_cell_protected_raw(Protected* pr){
     CellProtected* ret = malloc(sizeof(CellProtected));
+    if(!ret){
+        MALLOC_ERROR("coudln't create cell protected")
+        return NULL;
+    }
     ret->data = pr;
     ret->next = NULL;
     return ret;
@@ -239,6 +254,10 @@ CellProtected* read_protected(const char* filename){
     }
     size_t buff_size = 500;
     char* buffer = malloc(sizeof(char)*buff_size);
+    if(!buffer){
+        MALLOC_ERROR("couldn't read prtected");
+        return NULL;
+    }
 
     CellProtected* ret = NULL;
 

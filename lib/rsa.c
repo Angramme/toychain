@@ -1,4 +1,5 @@
 #include "lib/rsa.h"
+#include "lib/error.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -33,6 +34,10 @@ void init_key(Key* key, int64 val, int64 n){
  */
 Key* copy_key(const Key* o){
     Key* ret = malloc(sizeof(Key));
+    if(!ret){
+        MALLOC_ERROR("key copy failed");
+        return NULL;
+    }
     init_key(ret, o->v, o->n);
     return ret;
 }
@@ -89,6 +94,10 @@ Key* str_to_key(char* str){
     if(2 != sscanf(str, " ( %llx , %llx ) ", &v, &n))
         return NULL;
     Key* ret = malloc(sizeof(Key));
+    if(!ret){
+        MALLOC_ERROR("stro to key failed");
+        return NULL;
+    }
     init_key(ret, v, n);
     return ret;
 }
@@ -147,6 +156,10 @@ bool generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
 int64* encrypt(char* chaine, int64 s, int64 n) {
     int N = strlen(chaine);
     int64* ret = malloc(sizeof(int64) * (N + 1));
+    if(!ret){
+        MALLOC_ERROR("encryption failed!");
+        return NULL;
+    }
     ret[N] = '\0';
     for (int i = 0; i < N; i++) {
         int m = chaine[i];
@@ -167,6 +180,10 @@ int64* encrypt(char* chaine, int64 s, int64 n) {
  */
 char* decrypt(int64* crypted, int size, int64 u, int64 n) {
     char* ret = (char*)malloc(sizeof(char)*(size+1));
+    if(!ret){
+        MALLOC_ERROR("decryption failed!");
+        return NULL;
+    }
     ret[size] = '\0';
     for(int i=0; i<size; i++){        
         int64 c = crypted[i];
