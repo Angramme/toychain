@@ -57,8 +57,8 @@ void init_pair_keys(Key* pKey, Key* sKey, int low_size, int up_size){
     do{
         p = random_prime_number(low_size, up_size, 5000);
         q = random_prime_number(low_size, up_size, 5000);
-        if(p == q) continue;
-        if(++try > 50000){
+        if(p == q || p == -1 || q == -1) continue;
+        if(++try > 1000){
             // possible si low_size est trop grand
             printf("ERROR: couldn't generate public-private key pair!");
             return;

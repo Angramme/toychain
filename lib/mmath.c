@@ -117,6 +117,7 @@ int64 random_prime_number(int low_size, int up_size, int k) {
     const int64 lo_bound = (1 << low_size);
     for (int I = 0; I < (1 << 12); I++) {
         int64 x = rand_int64(lo_bound, up_bound);
+        if (x <= 2) continue;
         if (is_prime_miller(x, k)) return x;
     }
     return -1;

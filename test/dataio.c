@@ -22,5 +22,6 @@ int main(){
 
     CellKey* cellkey = read_public_keys("../temp/keys.txt");
     print_list_keys(cellkey);
+    free_list_keys(cellkey);
     TEST_SUMMARY();
 }

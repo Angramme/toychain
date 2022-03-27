@@ -128,7 +128,7 @@ CellKey* create_cell_key(Key* key){
  * @return CellKey* 
  */
 CellKey* insert_cell_key(CellKey* cellkey, Key* key){
-    CellKey* newck = create_cell_key(key);
+    CellKey* newck = create_cell_key_raw(key);
     if(!cellkey) {
         cellkey = newck;
     } else {
@@ -155,6 +155,7 @@ CellKey* read_public_keys(char* file){
         MALLOC_ERROR("couldn't read public key");   
         return NULL;
     }
+    res->data = NULL;
 
     char buf[256];
     while(fgets(buf, 256, f)){
