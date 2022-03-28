@@ -8,20 +8,20 @@
 int main(){
     srand(time(NULL));
     char* dir = "../temp";
-    generate_random_data(100,10,dir);
-    // const char* tempdir = "../temp";
-    // generate_random_data(50, 10, tempdir);
+    char path[500];
+    generate_random_data(30,10,dir);
 
-    // char declarations[500];
-    // strcpy(declarations, tempdir);
-    // strcat(declarations, "/declarations.txt");
-    // CellProtected* plist = read_protected(declarations);
-    // print_protected_list(plist);
+    strcpy(path, dir);
+    strcat(path, "/declarations.txt");
+    CellProtected* plist = read_protected(path);
+    print_protected_list(plist);
+    free_list_protected(plist);
 
-    // free_list_protected(plist);
-
-    CellKey* cellkey = read_public_keys("../temp/keys.txt");
+    strcpy(path, dir);
+    strcat(path, "/keys.txt");
+    CellKey* cellkey = read_public_keys(path);
     print_list_keys(cellkey);
     free_list_keys(cellkey);
+    
     TEST_SUMMARY();
 }
