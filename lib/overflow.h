@@ -59,7 +59,7 @@
  * @return 0 : no overflow 
  */
 #define MULTIPLICATION_OVERFLOW_CHECK(a, x, tmax, tmin) ( \
-    (x) * (a) < 0 \
+    (x) != 0 && (x) * (a) < 0 \
     || ((a) > (tmax) / (x)) /* `a * x` would overflow */ \
     || (((a) < (tmin) / (x))) /* `a * x` would underflow */ \
 )

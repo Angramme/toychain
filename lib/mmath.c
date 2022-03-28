@@ -188,7 +188,12 @@ int64 modpow(int64 a, int64 m, int64 n) {
  * @return int : the value of x
  */
 int64 modpow_r(int64 a, int64 m, int64 n) {
+    if(n == 0){
+        printf("Warning : modulo of 0 passed as parameter to modpow_r ! \n");
+        return 0;
+    }
     a %= n;
+    if (a == 0) return 0;
     if (m == 0) return 1;
     if (m == 1) return a;
     if (!(m & 1)) { 
