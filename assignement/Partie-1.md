@@ -11,7 +11,7 @@ Dans l'exercice suivant, on utilise les fonctions précédentes pour déterminer
 Dans le cas où p est premier, c'est-à-dire le pire cas, la complexité de is_prime_naive est O(p).
 
 ### Q1.2
-TODO
+Le plus grand nombre premier qu'on parviens a verifier avec is_prime_naive en moins de 0.002s est 5279.
 ### Q1.3
 La complexité de modpow_naive est O(m).
 
