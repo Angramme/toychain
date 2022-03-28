@@ -56,6 +56,7 @@ void generate_random_data(int nv, int nc, const char* dir){
     }
 
     int *is_cand = malloc(nv * sizeof(int)); // pour eviter de retomber sur le meme canditat. 1 si deja candidat, 0 sinon.
+    for(int i=0; i<nv; i++) is_cand[i] = 0;
     //generation des nc candidats
     for(int i = 0; i < nc; i++){
         int l = rand()%nv;

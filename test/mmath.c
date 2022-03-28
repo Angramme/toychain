@@ -25,6 +25,7 @@ int main(){
     TEST_SECTION_END();
     
     TEST_SECTION(modpow_r);
+    TEST(modpow_r(0, 3, 11), 0);
     TEST(modpow_r(3, 3, 11), 5);
     TEST(modpow_r(2, 10, 69), 58);
     TEST_SECTION_END();

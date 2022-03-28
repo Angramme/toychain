@@ -189,7 +189,7 @@ int64 modpow(int64 a, int64 m, int64 n) {
  */
 int64 modpow_r(int64 a, int64 m, int64 n) {
     if(n == 0){
-        printf("Warning : modulo of 0 passed as parameter to modpow_r ! \n");
+        fprintf(stderr, "Warning : modulo of 0 passed as parameter to modpow_r ! \n");
         return 0;
     }
     a %= n;
@@ -198,12 +198,12 @@ int64 modpow_r(int64 a, int64 m, int64 n) {
     if (m == 1) return a;
     if (!(m & 1)) { 
         int64 x = modpow_r(a, m / 2, n);
-        if(MULTIPLICATION_OVERFLOW_CHECK_i64(x, x)) printf("overflow! ("__FILE__" | line %d)\n", __LINE__);
+        if(MULTIPLICATION_OVERFLOW_CHECK_i64(x, x)) fprintf(stderr, "overflow! ("__FILE__" | line %d)\n", __LINE__);
         return (x * x) % n;
     }
     else {
         int64 x = modpow_r(a, m - 1, n);
-        if(MULTIPLICATION_OVERFLOW_CHECK_i64(x, a)) printf("overflow! ("__FILE__" | line %d)\n", __LINE__);
+        if(MULTIPLICATION_OVERFLOW_CHECK_i64(x, a)) fprintf(stderr, "overflow! ("__FILE__" | line %d)\n", __LINE__);
         return (x * a) % n;
     }
 }
