@@ -19,6 +19,7 @@
  * @param nc number of candidates among the nv couples
  */
 void generate_random_data(int nv, int nc, const char* dir){
+    if(nc > nv) printf("Wrong arguments, too much candidats : nc = %d > nv = %d\n",nc,nv);
     assert(strlen(dir)+20 < 500);
     char pth[500];
     strcpy(pth, dir);
@@ -54,15 +55,19 @@ void generate_random_data(int nv, int nc, const char* dir){
         free(sstr);
     }
 
+    int *is_cand = malloc(nv * sizeof(int)); // pour eviter de retomber sur le meme canditat. 1 si deja candidat, 0 sinon.
     //generation des nc candidats
     for(int i = 0; i < nc; i++){
-        int l = rand()%nv; //possibilité de tomber sur la meme cle, a corriger ou non selon les consignes
+        int l = rand()%nv;
+        while(is_cand[l] == 1) l = rand()%nv;
+        is_cand[l] = 1;
         init_key(&pkey_cand[i], tab_pkey[l].v, tab_pkey[l].n);
         init_key(&skey_cand[i], tab_skey[l].v, tab_skey[l].n);
         char* pstr = key_to_str(&tab_pkey[l]);
         fprintf(cand, "%s\n", pstr);
         free(pstr);
     }
+    free(is_cand);
 
     //generation des nv declarations
     for(int i = 0; i < nv; i++){
