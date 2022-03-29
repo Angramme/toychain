@@ -92,37 +92,39 @@ $(document).ready(function(){initNavTree('md_assignement_Rapport.html',''); init
 <h1><a class="anchor" id="autotoc_md1"></a>
 Choix de structure</h1>
 <ul>
-<li><p class="startli">Afin d'avoir une meilleure arborescence nous avons choisit, d'une part de séparer les différents fichiers. Les fichiers définnissant les structures et les fonctions de manipulation de ces dernières sont présentes dans /lib. Tandis que les jeux de tests sont générés dans /test. Ca devient vite pratique quand on a pleins d'éxécutables.</p>
-<p class="startli">Nous avons d'ailleurs choisi d'utiliser Doxygen, outil très utile pour faire de la documentation. Les fichiers qui permettent de générer la doc sont contenus dans /docs.</p>
+<li><p class="startli">Afin d'avoir une meilleure arborescence nous avons choisit, d'une part de séparer les différents fichiers. Les fichiers définnissant les structures et les fonctions de manipulation de ces dernières sont présentes dans <code>/lib</code>. Tandis que les jeux de tests sont générés dans <code>/test</code>. Ca devient vite pratique quand on a pleins d'éxécutables.</p>
+<p class="startli">Nous avons d'ailleurs choisi d'utiliser __<code>Doxygen</code>__, outil très utile pour faire de la documentation. Les fichiers qui permettent de générer la doc sont contenus dans <code>/docs</code>.</p>
 </li>
-<li>Le projet contient plusieurs fichiers Makefile, un principal, et d'autres dans différents dossier(lib et test pour l'instant). Cela nous permet depuis un makefile principal, de séparer les tâches, mais surtout de pouvoir accéder à des fichiers qui peuvent être contenus dans des dossiers différents. A titre d'exemple, les fichiers de tests font appel aux fichiers de lib lors de la compilation. Ainsi on a une structure très fléxible. Dès qu'on veut rajouter un nouveau fichier, il suffit de le spécifier dans son makefile localement, sans avoir besoin de le donner dans le makefile principal(qui sinon serait trop rempli et illisible). On peut également, grâce à cette structure exporter des variables. C'est le cas avec le file directory qu'on exporte et qui est accessible par les makefiles des sous-dossiers.</li>
-<li>/assignement contient notre rapport et le sujet du projet.</li>
+<li>Le projet contient plusieurs fichiers __<code>Makefile</code>__, un principal, et d'autres dans différents dossier (<code>lib</code> et <code>test</code> pour l'instant). Cela nous permet depuis un makefile principal, de séparer les tâches, mais surtout de pouvoir accéder à des fichiers qui peuvent être contenus dans des dossiers différents. A titre d'exemple, les fichiers de tests font appel aux fichiers de <code>lib</code> lors de la compilation. Ainsi on a une structure très fléxible. Dès qu'on veut rajouter un nouveau fichier, il suffit de le spécifier dans son makefile localement, sans avoir besoin de le donner dans le makefile principal(qui sinon serait trop rempli et illisible). On peut également, grâce à cette structure exporter des variables. C'est le cas avec le file directory qu'on exporte et qui est accessible par les makefiles des sous-dossiers ou encore la constante <code>C_INCLUDE_PATH</code> qui nous permet d'ecrire des chemins absolus a partir de tout fichier faisant partie du projet.</li>
+<li><code>/assignement</code> contient notre rapport et le sujet du projet.</li>
 <li>Pour les tests, nous avons défini dans <a class="el" href="test_8h.html" title="A collection of defines for simplified testing.">test.h</a> des fonctions qui vérifient le résultat d'un appel à une fonction.<ul>
-<li><a class="el" href="test_8h.html#ae42366e5beca7bc6233d77baa419c43b" title="beggining of a section of tests">TEST_SECTION()</a> annonce le début d'un jeu de test dont on donne le nom en paramètre.</li>
-<li><a class="el" href="test_8h.html#af0960ff54536595c12a9503ff667c8d9" title="end of a section of tests">TEST_SECTION_END()</a> annonce la fin du jeu de test en cours.</li>
-<li><a class="el" href="test_8h.html#a4df1b343ea082178632aa8d37fe2134d" title="tests if CALL is equal to RES and makes according output">TEST()</a> et <a class="el" href="test_8h.html#a39b21f559b03083fef3eca15d899e0c2" title="tests if CALL is equal to RES and makes according output in the case of an error, outputs the error m...">TEST_MSG()</a> vérifient si le résultat attendu est bien obtenus par la fonction donnée en paramètre. Dans le cas d'un succès, un compteur de succès est incrémenté, sinon un compteur d'échec est incrémenté. A chaque appel à une des 2 fonctions un compteur général est incrémenté.</li>
-<li><a class="el" href="test_8h.html#a66a58a37b34ef08e76b8700dca4fa9ca" title="outputs the test summary for the file">TEST_SUMMARY()</a> fait le bilan du dernier jeu de test : le nombre des tests réussis et échoués.</li>
+<li><b><a class="el" href="test_8h.html#ae42366e5beca7bc6233d77baa419c43b" title="beggining of a section of tests">TEST_SECTION()</a></b> annonce le début d'un jeu de test dont on donne le nom en paramètre.</li>
+<li><b><a class="el" href="test_8h.html#af0960ff54536595c12a9503ff667c8d9" title="end of a section of tests">TEST_SECTION_END()</a></b> annonce la fin du jeu de test en cours.</li>
+<li><b><a class="el" href="test_8h.html#a4df1b343ea082178632aa8d37fe2134d" title="tests if CALL is equal to RES and makes according output">TEST()</a></b> et <b><a class="el" href="test_8h.html#a39b21f559b03083fef3eca15d899e0c2" title="tests if CALL is equal to RES and makes according output in the case of an error, outputs the error m...">TEST_MSG()</a></b> vérifient si le résultat attendu est bien obtenus par la fonction donnée en paramètre. Dans le cas d'un succès, un compteur de succès est incrémenté, sinon un compteur d'échec est incrémenté. A chaque appel à une des 2 fonctions un compteur général est incrémenté.</li>
+<li><b><a class="el" href="test_8h.html#a66a58a37b34ef08e76b8700dca4fa9ca" title="outputs the test summary for the file">TEST_SUMMARY()</a></b> fait le bilan du dernier jeu de test : le nombre des tests réussis et échoués.</li>
 </ul>
 </li>
-<li>Vérification de la présence d'overflow. Dans <a class="el" href="overflow_8h.html" title="A helper file for checking overflows.">overflow.h</a> on définit des fonctions qui vérifient si une opération(addition, multiplication ...) va causer un dépassement. La raison de cette implémentation vient du fait que des entiers trops grands peuvent amener à des mauvaises clés. Ce problème est détaillé dans la partie 1.</li>
+<li>Vérification de la présence d'overflow. Dans <code><a class="el" href="overflow_8h.html" title="A helper file for checking overflows.">overflow.h</a></code> on définit des fonctions qui vérifient si une opération(addition, multiplication ...) va causer un dépassement. La raison de cette implémentation vient du fait que des entiers trops grands peuvent amener à des mauvaises clés. Ce problème est détaillé dans la partie 1.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Partie 1</h1>
-<p >Dans cette première partie nous nous intéressons au chiffrement et dechiffrement d'un message à l'aide du protocole RSA. Dans le premier exercice on implémente des fonctions permettant de calculer des nombres premiers dont le test de Miller-Rabin. Dans l'exercice suivant, on utilise les fonctions précédentes pour déterminer des clés publiques et privées grâce à l'algorithme d'Euclide.</p>
+<p >Dans cette première partie nous nous intéressons au chiffrement et dechiffrement d'un message à l'aide du protocole <code>RSA</code>. Dans le premier exercice on implémente des fonctions permettant de calculer des nombres premiers dont le test de <code>Miller-Rabin</code>. Dans l'exercice suivant, on utilise les fonctions précédentes pour déterminer des clés publiques et privées grâce à <code>l'Algorithme d'Euclide</code>.</p>
 <h2><a class="anchor" id="autotoc_md3"></a>
 Exercices 1 et 2</h2>
 <h3><a class="anchor" id="autotoc_md4"></a>
 Q1.1</h3>
-<p >Dans le cas où p est premier, c'est-à-dire le pire cas, la complexité de is_prime_naive est O(p).</p>
+<p >Dans le cas où p est premier, c'est-à-dire le pire cas, la complexité de <b>is_prime_naive</b> est O(p).</p>
 <h3><a class="anchor" id="autotoc_md5"></a>
 Q1.2</h3>
-<p >Le plus grand nombre premier qu'on parviens a verifier avec is_prime_naive en moins de 0.002s est 5279. </p>
+<p >Le plus grand nombre premier qu'on parviens a verifier avec <b>is_prime_naive</b> en moins de <code>0.002s</code> est <code>5279</code>. </p>
 <h3><a class="anchor" id="autotoc_md6"></a>
 Q1.3</h3>
-<p >La complexité de modpow_naive est O(m).</p>
+<p >La complexité de <b>modpow_naive(a, m, n)</b> est O(m).</p>
 <h3><a class="anchor" id="autotoc_md7"></a>
 Q1.5</h3>
-<p >Pour les 2 fonctions, les temps sont très faibles même pour des grands m. On remarque cependant qu'au bout d'un moment le durée de modpow_naive commence à augmenter. Pour modpow, la durée est trop courte, on ne remarque pas d'augmentation même pour des grands nombres, un graphe ne permet pas vraiment de les comparer. Exemple : </p><table class="markdownTable">
+<p >Pour les 2 fonctions, les temps sont très faibles même pour des grands m. La courbe de <b>modpow_naive</b> est bien lineaire et correspond bien a la complexité de O(n). La courbe de <b>modpow</b> est négligeable devant celle de <b>modpow_naive</b> et ne depasse jamais <code>0.0001s</code></p>
+<p >Exemple:</p>
+<table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Values (a, m, n)   </th><th class="markdownTableHeadNone">modpow_naive   </th><th class="markdownTableHeadNone">modpow    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -130,59 +132,72 @@ Q1.5</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">(160986, 134217728, 25000)   </td><td class="markdownTableBodyNone">0.817935 sec   </td><td class="markdownTableBodyNone">0.000001 sec    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">(9435000329, 134217728, 1093)   </td><td class="markdownTableBodyNone">1.491 sec   </td><td class="markdownTableBodyNone">~ 0 sec   </td></tr>
+<td class="markdownTableBodyNone">(9435000329, 134217728, 1093)   </td><td class="markdownTableBodyNone">1.491000 sec   </td><td class="markdownTableBodyNone">0.000001 sec   </td></tr>
 </table>
+<blockquote class="doxtable">
+<p ><img src="graph1.jpeg" alt="graphe 1" class="inline"/></p>
+<p >Graphe d'execution de <code>modpow</code> et <code>modpow_naive</code> pour a = 1234 (la base), n = 667 (le module) et m (l'exposant) de 1 à 8000000 par pas de 10000 </p>
+</blockquote>
+<blockquote class="doxtable">
+<p ><img src="graph2.jpeg" alt="graphe 2" class="inline"/></p>
+<p >Graphe d'execution de <code>modpow</code> et <code>modpow_naive</code> pour a = 123456789 (la base), n = 66666 (le module) et m (l'exposant) de 1 à 8000000 par pas de 10000 </p>
+</blockquote>
 <h3><a class="anchor" id="autotoc_md8"></a>
 Q1.7</h3>
-<p >Parmi les valeurs de 2 a p-1, cad p-3 valeurs. On a une probabilité de 1/4 de ne pas tomber sur un temoin de Miller. De plus on effectue le test k fois avec remise (la fonction rand_long peut tomber deux fois sur la meme valeur). Autrement dit la probabilité ne change pas entre les lancers. Donc la probabilité de ne pas tomber sur un temoin de Miller pour k tests consecutifs est de (1/4)^k.</p>
+<p >Parmi les valeurs de <code>2</code> a <code>p-1</code>, cad <code>p-3</code> valeurs. On a une probabilité de <code>1/4</code> de ne pas tomber sur un temoin de Miller. De plus on effectue le test <code>k</code> fois avec remise (la fonction <b>rand_long</b> peut tomber deux fois sur la meme valeur). Autrement dit la probabilité ne change pas entre les lancers. Donc la probabilité de ne pas tomber sur un temoin de Miller pour <code>k</code> tests consecutifs est de <code>(1/4)^k</code>.</p>
 <blockquote class="doxtable">
-<p >Rmq: Il serait tres preferable d'adapter notre fonction de tirage aléatoire pour qu'elle ne répète pas deux fois la meme valeur. Cela augmenterait la probabilité de tomber sur un temoin de Miller à chaque iteration consecutive et par consequent diminuerait celle de faire un faux positif pour un même nombre des tests k. </p>
+<p >Rmq: Il serait preferable d'adapter notre fonction de tirage aléatoire pour qu'elle ne répète pas deux fois la meme valeur. Cela augmenterait la probabilité de tomber sur un temoin de Miller à chaque iteration consecutive et par consequent diminuerait celle de faire un faux positif pour un même nombre des tests k. Cependant il se trouve que le gain de cette alteration serait négligeable devant la perte pour l'implementation de la fonction de tirage. </p>
 </blockquote>
 <h3><a class="anchor" id="autotoc_md9"></a>
 Jeu de tests</h3>
-<p >Les sets utilisés pour les tests de chiffrement sont générés aléatoirement. On implémente dans <a class="el" href="test_8h.html" title="A collection of defines for simplified testing.">test/test.h</a> des fonctions qui permettent de faires des tests simplements ainsi que <a class="el" href="overflow_8h.html" title="A helper file for checking overflows.">lib/overflow.h</a> pour detecter des overflows (voir la doc). Nous avons fournis un assez large set de tests, dont les résultats sont valides. Libre au lecteur de rajouteur ses propres tests. Cela se fait très simplement avec un appel à <a class="el" href="test_8h.html#a4df1b343ea082178632aa8d37fe2134d" title="tests if CALL is equal to RES and makes according output">TEST()</a>.</p>
+<p >Les sets utilisés pour les tests de chiffrement sont générés aléatoirement. On implémente dans <code><a class="el" href="test_8h.html" title="A collection of defines for simplified testing.">test/test.h</a></code> des fonctions qui permettent de faires des tests simplements ainsi que <code><a class="el" href="overflow_8h.html" title="A helper file for checking overflows.">lib/overflow.h</a></code> pour detecter des overflows (voir la doc). Nous avons fournis un assez large set de tests, dont les résultats sont valides. Libre au lecteur de rajouteur ses propres tests. Cela se fait très simplement avec un appel à <b><a class="el" href="test_8h.html#a4df1b343ea082178632aa8d37fe2134d" title="tests if CALL is equal to RES and makes according output">TEST()</a></b> ou tout simplement avec des <b>printf</b>.</p>
 <h2><a class="anchor" id="autotoc_md10"></a>
 Difficultés rencontrées</h2>
 <p >Nous nous sommes rendus compte, dans la fonction <b><a class="el" href="lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0" title="generates public and private RSA keys public = (s, n) ; private = (u, n)">generate_key_values()</a></b>, que certaines valeurs générées pouvaient causer des overflows et ainsi perturber le chiffrement/dechiffrement.</p>
-<p >C'est le cas de l'argument n de cette même fonction. En effet, si n est trop grand, sa multiplication par lui-même peut causer un overflow. Et il en va de même pour le produit de certains nombres modulo n. Par exemple : x = (a % n) * (b % n) peut depasser la taille d'un entier.</p>
-<p >Le problème vient du fait que n est ensuite utilisé pour l'exponentiation modulaire <b><a class="el" href="lib_2mmath_8c.html#a62e25d64776516663d75ddb59201fc0c" title="calculates the exponent of a to the power of m modulo n in O(m log m). this is the main implementatio...">modpow()</a></b> et peut donc induire un mauvais chiffrement ou dechiffrement. Effectivement, si n a 'débordé', l'opération modulo n donnera un résultat non valide pour notre utilisation. Or n est calculé à partir du produit de p et q. Donc si p,q sont trop grands, p*q peut causer un overflow.</p>
+<p >C'est le cas de l'argument <code>n</code> de cette même fonction. En effet, si <code>n</code> est trop grand, sa multiplication par lui-même peut causer un <em>overflow</em>. Et il en va de même pour le produit de certains nombres modulo <code>n</code>. Par exemple : <code>x = (a % n) * (b % n)</code> _(où <code>a</code> et <code>b</code> entiers positifs quelconques)_ peut depasser la taille d'un entier.</p>
+<p >Le problème vient du fait que n est ensuite utilisé pour l'exponentiation modulaire <b><a class="el" href="lib_2mmath_8c.html#a62e25d64776516663d75ddb59201fc0c" title="calculates the exponent of a to the power of m modulo n in O(m log m). this is the main implementatio...">modpow()</a></b> et peut donc induire un mauvais chiffrement ou dechiffrement. Effectivement, si n a _"débordé"_, l'opération modulo n donnera un résultat non valide pour notre utilisation. Or n est calculé à partir du produit de <code>p</code> et <code>q</code>. Donc si <code>p</code>, <code>q</code> sont trop grands, <code>p*q</code> peut causer un overflow.</p>
 <p >Pour empêcher cela, nous avons :</p><ol type="1">
-<li>Créé des runtime warnings, des fonctions qui vérifient si une opération entre deux entiers cause un overflow (voir <a class="el" href="overflow_8h.html" title="A helper file for checking overflows.">overflow.h</a>).</li>
-<li>Généré un nouveau couple (p,q) d'entiers premiers tant qu'un overflow a eu lieu pendant la génération, ie tant que n = p*q est trop grand.</li>
+<li>Créé des runtime warnings dans les fonctions de base comme <b>modpow_r</b>.</li>
+<li>Créé des define qui vérifient si une opération entre deux entiers cause un overflow (voir <code><a class="el" href="overflow_8h.html" title="A helper file for checking overflows.">overflow.h</a></code>).</li>
+<li>Généré un nouveau couple <code>(p,q)</code> d'entiers premiers tant qu'un overflow a eu lieu pendant la génération, ie tant que <code>n = p*q</code> est trop grand. _(Qu'on vérifie grace aux fonctions dans <code><a class="el" href="overflow_8h.html" title="A helper file for checking overflows.">overflow.h</a></code>)_</li>
 </ol>
-<p >Ainsi, on s'assure que le couple (p,q) ne cause pas d'overflow et qu'il permet bien de chiffrer/dechiffrer le message.</p>
+<p >Ainsi, on s'assure que le couple <code>(p,q)</code> ne cause pas d'overflow et qu'il permet bien de chiffrer/dechiffrer le message.</p>
 <h1><a class="anchor" id="autotoc_md11"></a>
 Partie 2</h1>
 <p >Dans cette partie, nous implémentons des structures qui permettront par la suite de générer des intentions de votes. L'un des objectifs est de rendre les déclarations de tous les participants uniques, de cette façon il devient impossible de voter à la place d'une autre personne sans sa clé secrète (dont on supposera qu'elle n'est jamais transmise). Ici pas de questions auxquelles répondre, donc on va plutôt faire une présentation de notre code, des choix de structures et des difficultés rencontrées. Et possiblement des tests de performance.</p>
 <h2><a class="anchor" id="autotoc_md12"></a>
 Exercice 3</h2>
-<p >Ici sont implémentées 3 structures(et leurs fonctions de manipulation) qui représentent : 1) Tous les citoyens, ansi que les candidats(1 clé publique et une clé privée) en utilisant une structure <a class="el" href="struct__Key.html">_Key</a>. 2) Les signatures(tableau de long), qui permettent d'attester de l'authenticité d'une déclaration. Dont la structure est <a class="el" href="struct__Signature.html">_Signature</a>. 3) Des déclarations, contenant la clé publique du votant, un message(clé publique d'un candidat), et une signature. C'est représenté par la structure <a class="el" href="struct__Protected.html">_Protected</a>.</p>
+<p >Ici sont implémentées 3 structures(et leurs fonctions de manipulation) qui représentent :</p><ol type="1">
+<li>Tous les citoyens, ansi que les candidats(1 clé publique et une clé privée) en utilisant une structure ___Key__.</li>
+<li>Les signatures(tableau de <code>long</code>), qui permettent d'attester de l'authenticité d'une déclaration. Dont la structure est ___Signature__.</li>
+<li>Des déclarations, contenant la clé publique du votant, un message(clé publique d'un candidat), et une signature. C'est représenté par la structure ___Protected__.</li>
+</ol>
 <h3><a class="anchor" id="autotoc_md13"></a>
 Tests</h3>
-<p >Les jeux de tests de cet exercice sont disponibles dans test/rsa.c et test/sign.c.</p>
+<p >Les jeux de tests de cet exercice sont disponibles dans <code>test/rsa.c</code> et <code>test/sign.c</code>.</p>
 <ul>
-<li><a class="el" href="lib_2rsa_8c.html#a9f65d9e169616707fce8acb7ae60cc8e" title="converts a Key to string of the form &quot; (v, n) &quot;">key_to_str()</a> et <a class="el" href="lib_2rsa_8c.html#a25545d66ac5d855f04eb2ae063362b22" title="parses a string of the form &quot; (v, n) &quot; into a Key struct">str_to_key()</a> : les tests sont effectués dans une fonction test/test_key_str_conversion(), on vérifie la conversion Key -&gt; string -&gt; Key.</li>
-<li>De même pour <a class="el" href="lib_2sign_8c.html#a09440ac456fbb9b26c543a434f78acca" title="convert a signature to string">signature_to_str()</a>, <a class="el" href="lib_2sign_8c.html#a15f72530fd1891aa6cb1ed3273dfa614" title="parse a string to a signature">str_to_signature()</a> et <a class="el" href="lib_2sign_8c.html#acf2d8bf1c624883e0e74b98ae5167722" title="convert a signed declation to string">protected_to_str()</a>, <a class="el" href="lib_2sign_8c.html#a2df0e2a67e186fcea59625051d3a1d65" title="parse a string to a signed declaration">str_to_protected()</a>.</li>
-<li>On vérifie que la signature est valide avec <a class="el" href="lib_2sign_8c.html#a71608aa8093fee01ea9e04de5f1dfb3c" title="checks if the signature matches the message">verify()</a> pour laquelle on génère un set aléatoire de clés.</li>
+<li><code><a class="el" href="lib_2rsa_8c.html#a9f65d9e169616707fce8acb7ae60cc8e" title="converts a Key to string of the form &quot; (v, n) &quot;">key_to_str()</a></code> et <code><a class="el" href="lib_2rsa_8c.html#a25545d66ac5d855f04eb2ae063362b22" title="parses a string of the form &quot; (v, n) &quot; into a Key struct">str_to_key()</a></code> : les tests sont effectués dans une fonction <code>test/test_key_str_conversion()</code>, on vérifie la conversion <code>Key</code> -&gt; <code>string</code> -&gt; <code>Key</code>.</li>
+<li>De même pour <code><a class="el" href="lib_2sign_8c.html#a09440ac456fbb9b26c543a434f78acca" title="convert a signature to string">signature_to_str()</a></code>, <code><a class="el" href="lib_2sign_8c.html#a15f72530fd1891aa6cb1ed3273dfa614" title="parse a string to a signature">str_to_signature()</a></code> et <code><a class="el" href="lib_2sign_8c.html#acf2d8bf1c624883e0e74b98ae5167722" title="convert a signed declation to string">protected_to_str()</a></code>, <code><a class="el" href="lib_2sign_8c.html#a2df0e2a67e186fcea59625051d3a1d65" title="parse a string to a signed declaration">str_to_protected()</a></code>.</li>
+<li>On vérifie que la signature est valide avec <code><a class="el" href="lib_2sign_8c.html#a71608aa8093fee01ea9e04de5f1dfb3c" title="checks if the signature matches the message">verify()</a></code> pour laquelle on génère un set aléatoire de clés.</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md14"></a>
 Exercice 4</h2>
-<p >Cet exercice est une application directe des fonctions définies dans l'exercice 3. Avec generate_random_data(), on simule une élection et on sauvegarde les résultats dans 3 fichiers txt contenus dans /temp.</p>
+<p >Cet exercice est une application directe des fonctions définies dans l'exercice 3. Avec <code>generate_random_data()</code>, on simule une élection et on sauvegarde les résultats dans 3 fichiers txt contenus dans /temp.</p>
 <blockquote class="doxtable">
 <p >Nous avons fait attention à ce qu'il ne soit pas possible qu'un citoyen soit plusieurs fois candidat, ce qui est possible quand on fait plusieurs tirages aléatoires dans une liste. </p>
 </blockquote>
 <p>Nous ferons des tests pour vérifier que la sauvegarde des données s'est bien déroulée dans la partie 3 dans laquelle sont définies des fonctions de lecture.</p>
 <h1><a class="anchor" id="autotoc_md15"></a>
 Partie 3</h1>
-<p >Ici on implémente des fonctions de lecture et des structures qui peuvent stocker le contenu des .txt générés précédemment. Concrètement on à défini des listes chaînées pour les structures <a class="el" href="struct__Key.html">_Key</a> et <a class="el" href="struct__Protected.html">_Protected</a>. Lors de la lecture d'un fichier texte. On ajoute en tête d'une liste chaînée chaque clé lue(après l'avoir convertie en clé bien sur).</p>
+<p >Ici on implémente des fonctions de lecture et des structures qui peuvent stocker le contenu des _.txt_ générés précédemment. Concrètement on à défini des listes chaînées pour les structures ___Key__ et ___Protected__. Lors de la lecture d'un fichier texte. On ajoute en tête d'une liste chaînée chaque clé lue(après l'avoir convertie en clé bien sur).</p>
 <h2><a class="anchor" id="autotoc_md16"></a>
 Exercices 5 et 6</h2>
 <h3><a class="anchor" id="autotoc_md17"></a>
 Tests</h3>
-<p >Dans l'exercice il est demandé de vérifier que read_public_keys() puis print_list_keys() donnent les mêmes clés que dans keys.txt. Faire des tests pour comparer des strings n'aurait pas beaucoup d'intérêt ici. En effet, pour faire les tests il faudrait redéfinir une autre fonction de lecture qui ferait exactement la même chose que celles demandées, qui serait alors elle aussi sujet à de potentielles erreurs. De plus les tests de conversions de clés on déjà été effectués plus tôt, le refaire ici serait rendondant. Cependant, en affichant le résultat de print_list_keys() on observe que la lecture puis conversion s'est bien déroulée. Pour s'en convaincre, ces clés sont affichées lors d'un appel à make test.</p>
+<p >Dans l'exercice il est demandé de vérifier que <b>read_public_keys()</b> puis <b>print_list_keys()</b> donnent les mêmes clés que dans <code>keys.txt</code>. Faire des tests pour comparer des strings n'aurait pas beaucoup d'intérêt ici. En effet, pour faire les tests il faudrait redéfinir une autre fonction de lecture qui ferait exactement la même chose que celles demandées, qui serait alors elle aussi sujet à de potentielles erreurs. De plus les tests de conversions de clés on déjà été effectués plus tôt, le refaire ici serait rendondant. Cependant, en affichant le résultat de <b>print_list_keys()</b> on observe que la lecture puis conversion s'est bien déroulée. Pour s'en convaincre, ces clés sont affichées lors d'un appel à make test.</p>
 <h1><a class="anchor" id="autotoc_md18"></a>
 Résumé</h1>
-<p >Dans ces trois grandes parties nous avons développé des outils qui nous permettent de chiffrer/dechiffrer des messages. Pour cela nous avons utilisé le protocole RSA et les algorithmes permettant de générer des clés publiques et privées. Ces dernières sont l'élément clé (ahah) de notre simulation d'élection car nécessaires quand on veut créer un message unique et identifiable, de sorte qu'il est impossible d'usurper une autre personne(en considérant que les clés sont gardés bien secrètement). </p>
+<p >Dans ces trois grandes parties nous avons développé des outils qui nous permettent de chiffrer/dechiffrer des messages. Pour cela nous avons utilisé le protocole <code>RSA</code> et les algorithmes permettant de générer des clés publiques et privées. Ces dernières sont l'élément clé _(ahah)_ de notre simulation d'élection car nécessaires quand on veut créer un message unique et identifiable, de sorte qu'il est impossible d'usurper une autre personne(en considérant que les clés sont gardés bien secrètement). </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

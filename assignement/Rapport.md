@@ -57,9 +57,11 @@ Values (a, m, n)              |modpow_naive |modpow
 (9435000329, 134217728, 1093) |1.491000 sec    |0.000001 sec
 
 > ![graphe 1](graph1.jpeg)
+> 
 > Graphe d'execution de `modpow` et `modpow_naive` pour a = 1234 (la base), n = 667 (le module) et m (l'exposant) de 1 à 8000000 par pas de 10000
 
 > ![graphe 2](graph2.jpeg)
+> 
 > Graphe d'execution de `modpow` et `modpow_naive` pour a = 123456789 (la base), n = 66666 (le module) et m (l'exposant) de 1 à 8000000 par pas de 10000
 
 
