@@ -158,7 +158,7 @@ CellKey* read_public_keys(char* file){
     }
     CellKey* res = malloc(sizeof(CellKey));
     if(!res){
-        MALLOC_ERROR("couldn't read public key");   
+        MALLOC_ERROR("couldn't read public keys");   
         return NULL;
     }
     res->data = NULL;
