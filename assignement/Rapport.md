@@ -48,11 +48,11 @@ Pour les 2 fonctions, les temps sont très faibles même pour des grands m.
 On remarque cependant qu'au bout d'un moment le durée de modpow_naive commence à augmenter.
 Pour modpow, la durée est trop courte, on ne remarque pas d'augmentation même pour des grands nombres, un graphe ne permet pas vraiment de les comparer.
 Exemple :
-    Values (a, m, n)              |modpow_naive |modpow 
-    ------------------------------|-------------|-------
-    (9435000329, 16, 1093)        |0.000001 sec |0.000001 sec
-    (160986, 134217728, 25000)    |0.817935 sec |0.000001 sec
-    (9435000329, 134217728, 1093) |1.491 sec    |~ 0 sec
+Values (a, m, n)              |modpow_naive |modpow 
+------------------------------|-------------|-------
+(9435000329, 16, 1093)        |0.000001 sec |0.000001 sec
+(160986, 134217728, 25000)    |0.817935 sec |0.000001 sec
+(9435000329, 134217728, 1093) |1.491 sec    |~ 0 sec
 
 ### Q1.7
 Parmi les valeurs de 2 a p-1, cad p-3 valeurs. On a une probabilité de 1/4 de ne pas tomber sur un temoin de Miller.
