@@ -136,6 +136,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a48f2149350aba97cee10e92e6d424d28"><td class="memItemLeft" align="right" valign="top"><a id="a48f2149350aba97cee10e92e6d424d28" name="a48f2149350aba97cee10e92e6d424d28"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>_silent_success</b> = 1</td></tr>
+<tr class="separator:a48f2149350aba97cee10e92e6d424d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83f808d19df574d02169111f432efdab"><td class="memItemLeft" align="right" valign="top"><a id="a83f808d19df574d02169111f432efdab" name="a83f808d19df574d02169111f432efdab"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>_testcase_count</b> = 0</td></tr>
 <tr class="separator:a83f808d19df574d02169111f432efdab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,7 +187,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>_c_section</b> = &q
 <div class="line">    _testcase_count++; \</div>
 <div class="line">    _section_count++; \</div>
 <div class="line">    if((CALL) == (RES)){ \</div>
-<div class="line">        printf(_OK <span class="stringliteral">&quot; test case: %3d passed successfully! \n&quot;</span>, _testcase_count); \</div>
+<div class="line">        if(!_silent_success) printf(_OK <span class="stringliteral">&quot; test case: %3d passed successfully! \n&quot;</span>, _testcase_count); \</div>
 <div class="line">    }<span class="keywordflow">else</span>{ \</div>
 <div class="line">        fprintf(stderr, _NOK <span class="stringliteral">&quot; test case: %3d failed! [&quot;</span>__FILE__ <span class="stringliteral">&quot; | line: %d]\n&quot;</span>, _testcase_count, __LINE__); \</div>
 <div class="line">        fprintf(stderr, _NLF <span class="stringliteral">&quot;   inside call \&quot;%s\&quot;\n&quot;</span>, #CALL); \</div>
@@ -240,7 +243,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>_c_section</b> = &q
 <div class="line">    _testcase_count++; \</div>
 <div class="line">    _section_count++; \</div>
 <div class="line">    if((CALL) == (RES)){ \</div>
-<div class="line">        printf(_OK <span class="stringliteral">&quot; test case: %3d passed successfully! \n&quot;</span>, _testcase_count); \</div>
+<div class="line">        if(!_silent_success) printf(_OK <span class="stringliteral">&quot; test case: %3d passed successfully! \n&quot;</span>, _testcase_count); \</div>
 <div class="line">    }<span class="keywordflow">else</span>{ \</div>
 <div class="line">        fprintf(stderr, _NOK <span class="stringliteral">&quot; test case: %3d failed! [&quot;</span>__FILE__ <span class="stringliteral">&quot; | line: %d]\n&quot;</span>, _testcase_count, __LINE__); \</div>
 <div class="line">        fprintf(stderr, _NLF <span class="stringliteral">&quot;   inside call \&quot;%s\&quot;\n&quot;</span>, #CALL); \</div>
@@ -311,7 +314,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>_c_section</b> = &q
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">    if(_section_failed == 0){ \</div>
-<div class="line">        printf(<span class="stringliteral">&quot;---- %s &quot;</span> _OK <span class="stringliteral">&quot; : all tests passed successfully! \n&quot;</span>, _c_section); \</div>
+<div class="line">        printf(<span class="stringliteral">&quot;---- %s &quot;</span> _OK <span class="stringliteral">&quot; : all %d tests passed successfully! \n&quot;</span>, _c_section, _section_count); \</div>
 <div class="line">    }<span class="keywordflow">else</span>{ \</div>
 <div class="line">        printf(<span class="stringliteral">&quot;---- %s &quot;</span> _NOK <span class="stringliteral">&quot; : %d out of %d tests failed! \n&quot;</span>, _c_section, _section_failed, _section_count); \</div>
 <div class="line">    } \</div>
@@ -338,7 +341,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>_c_section</b> = &q
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">    printf(<span class="stringliteral">&quot;\n==============================================\n&quot;</span>); \</div>
 <div class="line">    if(_testcase_failed == 0){ \</div>
-<div class="line">        printf(_OK <span class="stringliteral">&quot; : all &quot;</span>__FILE__<span class="stringliteral">&quot; tests passed successfully! \n&quot;</span>); \</div>
+<div class="line">        printf(_OK <span class="stringliteral">&quot; : all %d \&quot;%s\&quot; tests passed successfully! \n&quot;</span>, _testcase_count, __FILE__); \</div>
 <div class="line">    }<span class="keywordflow">else</span>{ \</div>
 <div class="line">        printf(_NOK <span class="stringliteral">&quot; : %d out of %d &quot;</span> __FILE__ <span class="stringliteral">&quot; tests failed! \n&quot;</span>, _testcase_failed, _testcase_count); \</div>
 <div class="line">    } \</div>

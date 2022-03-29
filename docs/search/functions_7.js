@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['str_5fto_5fkey_0',['str_to_key',['../lib_2rsa_8c.html#a25545d66ac5d855f04eb2ae063362b22',1,'str_to_key(char *str):&#160;rsa.c'],['../rsa_8h.html#a25545d66ac5d855f04eb2ae063362b22',1,'str_to_key(char *str):&#160;rsa.c']]]
+  ['modpow_0',['modpow',['../lib_2mmath_8c.html#a62e25d64776516663d75ddb59201fc0c',1,'mmath.c']]],
+  ['modpow_5fnaive_1',['modpow_naive',['../lib_2mmath_8c.html#a7c7fd6b879d905fd46a1ba5c1ab39fe2',1,'mmath.c']]],
+  ['modpow_5fr_2',['modpow_r',['../lib_2mmath_8c.html#a3b305c74a50548b4b14e4ffb338840e2',1,'mmath.c']]]
 ];

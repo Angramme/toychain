@@ -25,21 +25,36 @@
 var NAVTREE =
 [
   [ "Toychain!", "index.html", [
-    [ "Full Documentation", "index.html#autotoc_md10", null ],
-    [ "Installation", "index.html#autotoc_md11", null ],
-    [ "Building", "index.html#autotoc_md12", null ],
-    [ "Testing", "index.html#autotoc_md13", null ],
-    [ "Usage", "index.html#autotoc_md14", null ],
-    [ "Partie 1", "md_assignement_Partie_1.html", [
-      [ "Exos 1 et 2 du Sujet", "md_assignement_Partie_1.html#autotoc_md1", [
-        [ "Q1.1", "md_assignement_Partie_1.html#autotoc_md2", null ],
-        [ "Q1.2", "md_assignement_Partie_1.html#autotoc_md3", null ],
-        [ "Q1.3", "md_assignement_Partie_1.html#autotoc_md4", null ],
-        [ "Q1.5", "md_assignement_Partie_1.html#autotoc_md5", null ],
-        [ "Q1.7", "md_assignement_Partie_1.html#autotoc_md6", null ],
-        [ "Jeu de tests", "md_assignement_Partie_1.html#autotoc_md7", null ]
+    [ "Full Documentation", "index.html#autotoc_md20", null ],
+    [ "Installation", "index.html#autotoc_md21", null ],
+    [ "Building", "index.html#autotoc_md22", null ],
+    [ "Testing", "index.html#autotoc_md23", null ],
+    [ "Usage", "index.html#autotoc_md24", null ],
+    [ "Rapport Toychain", "md_assignement_Rapport.html", [
+      [ "Choix de structure", "md_assignement_Rapport.html#autotoc_md1", null ],
+      [ "Partie 1", "md_assignement_Rapport.html#autotoc_md2", [
+        [ "Exercices 1 et 2", "md_assignement_Rapport.html#autotoc_md3", [
+          [ "Q1.1", "md_assignement_Rapport.html#autotoc_md4", null ],
+          [ "Q1.2", "md_assignement_Rapport.html#autotoc_md5", null ],
+          [ "Q1.3", "md_assignement_Rapport.html#autotoc_md6", null ],
+          [ "Q1.5", "md_assignement_Rapport.html#autotoc_md7", null ],
+          [ "Q1.7", "md_assignement_Rapport.html#autotoc_md8", null ],
+          [ "Jeu de tests", "md_assignement_Rapport.html#autotoc_md9", null ]
+        ] ],
+        [ "Difficultés rencontrées", "md_assignement_Rapport.html#autotoc_md10", null ]
       ] ],
-      [ "Difficultés rencontrées", "md_assignement_Partie_1.html#autotoc_md8", null ]
+      [ "Partie 2", "md_assignement_Rapport.html#autotoc_md11", [
+        [ "Exercice 3", "md_assignement_Rapport.html#autotoc_md12", [
+          [ "Tests", "md_assignement_Rapport.html#autotoc_md13", null ]
+        ] ],
+        [ "Exercice 4", "md_assignement_Rapport.html#autotoc_md14", null ]
+      ] ],
+      [ "Partie 3", "md_assignement_Rapport.html#autotoc_md15", [
+        [ "Exercices 5 et 6", "md_assignement_Rapport.html#autotoc_md16", [
+          [ "Tests", "md_assignement_Rapport.html#autotoc_md17", null ]
+        ] ]
+      ] ],
+      [ "Résumé", "md_assignement_Rapport.html#autotoc_md18", null ]
     ] ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],

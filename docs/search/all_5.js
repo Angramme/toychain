@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['generate_5fkey_5fvalues_0',['generate_key_values',['../lib_2rsa_8c.html#ae5d8e1427339ac0a86b21ea59666b0c0',1,'generate_key_values(int64 p, int64 q, int64 *n, int64 *s, int64 *u):&#160;rsa.c'],['../rsa_8h.html#ae5d8e1427339ac0a86b21ea59666b0c0',1,'generate_key_values(int64 p, int64 q, int64 *n, int64 *s, int64 *u):&#160;rsa.c']]]
+  ['free_5fprotected_0',['free_protected',['../lib_2sign_8c.html#af803e908bbab3c1eb8e737f653624bb2',1,'sign.c']]],
+  ['free_5fsignature_1',['free_signature',['../lib_2sign_8c.html#a3b63e045fdb0daa5d6cdc7b8dd181910',1,'sign.c']]]
 ];

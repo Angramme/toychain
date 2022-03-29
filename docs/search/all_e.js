@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['str_5fto_5fkey_0',['str_to_key',['../lib_2rsa_8c.html#a25545d66ac5d855f04eb2ae063362b22',1,'str_to_key(char *str):&#160;rsa.c'],['../rsa_8h.html#a25545d66ac5d855f04eb2ae063362b22',1,'str_to_key(char *str):&#160;rsa.c']]],
-  ['subtraction_5foverflow_5fcheck_1',['SUBTRACTION_OVERFLOW_CHECK',['../overflow_8h.html#ac257c9e39a9edc4ad79dfd84a6300c22',1,'overflow.h']]],
-  ['subtraction_5foverflow_5fcheck_5fi32_2',['SUBTRACTION_OVERFLOW_CHECK_i32',['../overflow_8h.html#a1a43d83c8eb85ce485843e16aff2665a',1,'overflow.h']]],
-  ['subtraction_5foverflow_5fcheck_5fi64_3',['SUBTRACTION_OVERFLOW_CHECK_i64',['../overflow_8h.html#a6e805b86ef788aeb392447f554f67000',1,'overflow.h']]]
+  ['rand_5fint64_0',['rand_int64',['../lib_2mmath_8c.html#addbcf1ceb5756486f666e4f4cae85bf4',1,'mmath.c']]],
+  ['random_5fprime_5fnumber_1',['random_prime_number',['../lib_2mmath_8c.html#ab07e29dab9c9c10f0d992caaa1e8a7bc',1,'mmath.c']]],
+  ['rapport_20toychain_2',['Rapport Toychain',['../md_assignement_Rapport.html',1,'']]],
+  ['rsa_2ec_3',['rsa.c',['../lib_2rsa_8c.html',1,'']]],
+  ['rsa_2eh_4',['rsa.h',['../rsa_8h.html',1,'']]]
 ];

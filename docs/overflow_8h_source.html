@@ -111,9 +111,9 @@ $(document).ready(function(){initNavTree('overflow_8h_source.html',''); initResi
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">)</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="overflow_8h.html#a87c892aba341d3f4f6c693d3c91017e6">   61</a></span><span class="preprocessor">#define MULTIPLICATION_OVERFLOW_CHECK(a, x, tmax, tmin) ( \</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">    (x) * (a) &lt; 0 \</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">    (x) != 0 &amp;&amp; ((x) * (a) &lt; 0 \</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">    || ((a) &gt; (tmax) / (x)) </span><span class="comment">/* `a * x` would overflow */</span><span class="preprocessor"> \</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">    || (((a) &lt; (tmin) / (x))) </span><span class="comment">/* `a * x` would underflow */</span><span class="preprocessor"> \</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">    || (((a) &lt; (tmin) / (x)))) </span><span class="comment">/* `a * x` would underflow */</span><span class="preprocessor"> \</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">)</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="overflow_8h.html#af88b3172f4b53f50c12a0c2062b8f683">   76</a></span><span class="preprocessor">#define ADDITION_OVERFLOW_CHECK_i32(a, x) ADDITION_OVERFLOW_CHECK(a, x, INT_MAX, INT_MIN)</span></div>

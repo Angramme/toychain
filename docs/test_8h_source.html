@@ -93,71 +93,72 @@ $(document).ready(function(){initNavTree('test_8h_source.html',''); initResizabl
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keywordtype">int</span> _testcase_count = 0;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keywordtype">int</span> _testcase_failed = 0;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keywordtype">int</span> _section_failed = 0;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keywordtype">int</span> _section_count = 0;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keywordtype">char</span>* _c_section = <span class="stringliteral">&quot;error&quot;</span>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define _OK &quot; OK &quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define _NOK &quot;ERR!&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define _NLF &quot; :: &quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="test_8h.html#a4df1b343ea082178632aa8d37fe2134d">   28</a></span><span class="preprocessor">#define TEST(CALL, RES){\</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">    _testcase_count++; \</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">    _section_count++; \</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">    if((CALL) == (RES)){ \</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">        printf(_OK &quot; test case: %3d passed successfully! \n&quot;</span>, _testcase_count); \</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }else{ \</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        fprintf(stderr, _NOK &quot; test case: %3d failed! [&quot;__FILE__ &quot; | line: %d]\n&quot;, _testcase_count, __LINE__); \</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        fprintf(stderr, _NLF &quot;   inside call \&quot;%s\&quot;\n&quot;, #CALL); \</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        fprintf(stderr, _NLF &quot;   expected result was \&quot;%s\&quot;\n&quot;, #RES); \</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        _testcase_failed++; \</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        _section_failed++; \</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    } \</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="test_8h.html#a39b21f559b03083fef3eca15d899e0c2">   50</a></span><span class="preprocessor">#define TEST_MSG(CALL, RES, ERRMSG){\</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">    _testcase_count++; \</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">    _section_count++; \</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">    if((CALL) == (RES)){ \</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">        printf(_OK &quot; test case: %3d passed successfully! \n&quot;</span>, _testcase_count); \</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }else{ \</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        fprintf(stderr, _NOK &quot; test case: %3d failed! [&quot;__FILE__ &quot; | line: %d]\n&quot;, _testcase_count, __LINE__); \</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        fprintf(stderr, _NLF &quot;   inside call \&quot;%s\&quot;\n&quot;, #CALL); \</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        fprintf(stderr, _NLF &quot;   expected result was \&quot;%s\&quot;\n&quot;, #RES); \</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        fprintf(stderr, _NLF &quot;   error message: %s \n&quot;, ERRMSG); \</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        _testcase_failed++; \</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        _section_failed++; \</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    } \</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="test_8h.html#a66a58a37b34ef08e76b8700dca4fa9ca">   68</a></span><span class="preprocessor">#define TEST_SUMMARY(){ \</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">    printf(&quot;\n==============================================\n&quot;</span>); \</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    if(_testcase_failed == 0){ \</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        printf(_OK &quot; : all &quot;__FILE__&quot; tests passed successfully! \n&quot;); \</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }else{ \</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        printf(_NOK &quot; : %d out of %d &quot; __FILE__ &quot; tests failed! \n&quot;, _testcase_failed, _testcase_count); \</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    } \</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    printf(&quot;==============================================\n\n\n&quot;); \</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="test_8h.html#ae42366e5beca7bc6233d77baa419c43b">   83</a></span><span class="preprocessor">#define TEST_SECTION(NAME){ \</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">    printf(&quot;\n==== &quot;</span> #NAME &quot; : starting tests\n&quot;); \</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    _c_section = #NAME; \</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    _section_count = 0; \</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    _section_failed = 0; \</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="test_8h.html#af0960ff54536595c12a9503ff667c8d9">   93</a></span><span class="preprocessor">#define TEST_SECTION_END(){ \</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">    if(_section_failed == 0){ \</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">        printf(&quot;---- %s &quot;</span> _OK &quot; : all tests passed successfully! \n&quot;, _c_section); \</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    }else{ \</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        printf(&quot;---- %s &quot; _NOK &quot; : %d out of %d tests failed! \n&quot;, _c_section, _section_failed, _section_count); \</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    } \</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keywordtype">int</span> _silent_success = 1;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keywordtype">int</span> _testcase_count = 0;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keywordtype">int</span> _testcase_failed = 0;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keywordtype">int</span> _section_failed = 0;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keywordtype">int</span> _section_count = 0;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keywordtype">char</span>* _c_section = <span class="stringliteral">&quot;error&quot;</span>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define _OK &quot; OK &quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define _NOK &quot;ERR!&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define _NLF &quot; :: &quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="test_8h.html#a4df1b343ea082178632aa8d37fe2134d">   29</a></span><span class="preprocessor">#define TEST(CALL, RES){\</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">    _testcase_count++; \</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">    _section_count++; \</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">    if((CALL) == (RES)){ \</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">        if(!_silent_success) printf(_OK &quot; test case: %3d passed successfully! \n&quot;</span>, _testcase_count); \</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }else{ \</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        fprintf(stderr, _NOK &quot; test case: %3d failed! [&quot;__FILE__ &quot; | line: %d]\n&quot;, _testcase_count, __LINE__); \</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        fprintf(stderr, _NLF &quot;   inside call \&quot;%s\&quot;\n&quot;, #CALL); \</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        fprintf(stderr, _NLF &quot;   expected result was \&quot;%s\&quot;\n&quot;, #RES); \</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        _testcase_failed++; \</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        _section_failed++; \</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    } \</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="test_8h.html#a39b21f559b03083fef3eca15d899e0c2">   51</a></span><span class="preprocessor">#define TEST_MSG(CALL, RES, ERRMSG){\</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">    _testcase_count++; \</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">    _section_count++; \</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">    if((CALL) == (RES)){ \</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">        if(!_silent_success) printf(_OK &quot; test case: %3d passed successfully! \n&quot;</span>, _testcase_count); \</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }else{ \</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        fprintf(stderr, _NOK &quot; test case: %3d failed! [&quot;__FILE__ &quot; | line: %d]\n&quot;, _testcase_count, __LINE__); \</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        fprintf(stderr, _NLF &quot;   inside call \&quot;%s\&quot;\n&quot;, #CALL); \</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        fprintf(stderr, _NLF &quot;   expected result was \&quot;%s\&quot;\n&quot;, #RES); \</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        fprintf(stderr, _NLF &quot;   error message: %s \n&quot;, ERRMSG); \</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        _testcase_failed++; \</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        _section_failed++; \</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    } \</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="test_8h.html#a66a58a37b34ef08e76b8700dca4fa9ca">   69</a></span><span class="preprocessor">#define TEST_SUMMARY(){ \</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">    printf(&quot;\n==============================================\n&quot;</span>); \</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    if(_testcase_failed == 0){ \</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        printf(_OK &quot; : all %d \&quot;%s\&quot; tests passed successfully! \n&quot;, _testcase_count, __FILE__); \</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }else{ \</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        printf(_NOK &quot; : %d out of %d &quot; __FILE__ &quot; tests failed! \n&quot;, _testcase_failed, _testcase_count); \</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    } \</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    printf(&quot;==============================================\n\n\n&quot;); \</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="test_8h.html#ae42366e5beca7bc6233d77baa419c43b">   84</a></span><span class="preprocessor">#define TEST_SECTION(NAME){ \</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">    printf(&quot;\n==== &quot;</span> #NAME &quot; : starting tests\n&quot;); \</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    _c_section = #NAME; \</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    _section_count = 0; \</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    _section_failed = 0; \</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="test_8h.html#af0960ff54536595c12a9503ff667c8d9">   94</a></span><span class="preprocessor">#define TEST_SECTION_END(){ \</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">    if(_section_failed == 0){ \</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">        printf(&quot;---- %s &quot;</span> _OK &quot; : all %d tests passed successfully! \n&quot;, _c_section, _section_count); \</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }else{ \</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        printf(&quot;---- %s &quot; _NOK &quot; : %d out of %d tests failed! \n&quot;, _c_section, _section_failed, _section_count); \</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    } \</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

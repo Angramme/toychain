@@ -331,9 +331,9 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    ( \</div>
-<div class="line">    (x) * (a) &lt; 0 \</div>
+<div class="line">    (x) != 0 &amp;&amp; ((x) * (a) &lt; 0 \</div>
 <div class="line">    || ((a) &gt; (tmax) / (x)) <span class="comment">/* `a * x` would overflow */</span> \</div>
-<div class="line">    || (((a) &lt; (tmin) / (x))) <span class="comment">/* `a * x` would underflow */</span> \</div>
+<div class="line">    || (((a) &lt; (tmin) / (x)))) <span class="comment">/* `a * x` would underflow */</span> \</div>
 <div class="line">)</div>
 </div><!-- fragment -->
 <p>checks for overflows while multiplying two numbers </p>
