@@ -7,6 +7,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/**
+ * @file dataio.c
+ * @brief A file responsible for reading and writing vote related data.
+ * 
+ */
 
 /**
  * @brief generates nv public and private keys and prints them in ./test/keys.txt.

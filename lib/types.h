@@ -26,4 +26,14 @@
  */
 #define uint64 unsigned long long int
 
+/**
+ * @brief alias for unsigned char
+ */
+#define uint8 unsigned char
+
+/**
+ * @brief alias for char
+ */
+#define int8 char
+
 #endif

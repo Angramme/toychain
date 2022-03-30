@@ -232,3 +232,26 @@ int64 extended_gcd(int64 s, int64 t, int64* u, int64* v){
     *v = uPrim;
     return gcd;
 }
+
+/**
+ * @brief Jenkins one at a time hash function 
+ * https://en.m.wikipedia.org/wiki/Jenkins_hash_function
+ * 
+ * @param key 
+ * @param len 
+ * @return uint32 
+ */
+uint32 jenkins_one_at_a_time_hash(const uint8* key, size_t len){
+    size_t i=0;
+    uint32 hash = 0;
+    while(i < len){
+        hash += key[i];
+        hash += hash << 10;
+        hash ^= hash >> 6;
+        i++;
+    }
+    hash += hash << 3;
+    hash ^= hash >> 11;
+    hash += hash << 15;
+    return hash;
+}
