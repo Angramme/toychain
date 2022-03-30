@@ -18,6 +18,7 @@ CellProtected* create_cell_protected(Protected* pr);
 void prepend_protected(CellProtected** list, Protected* pr);
 CellProtected* read_protected(const char* filename);
 void print_protected_list(CellProtected* list);
+CellProtected* copy_protected_list(const CellProtected* o);
 void free_cell_protected(CellProtected* c);
 void free_list_protected(CellProtected* c);
 void remove_fraudulent_blocks(CellProtected** list);

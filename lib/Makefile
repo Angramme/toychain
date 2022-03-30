@@ -5,7 +5,7 @@ CFLAGS=-Wall
 endif
 EXE_OUTPUT=$(D_ROOT)/build/
 
-OBJECTS = mmath rsa sign dataio
+OBJECTS = mmath rsa sign dataio vote
 
 all: $(OBJECTS:=.o)
 

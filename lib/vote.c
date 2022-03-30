@@ -87,11 +87,12 @@ void free_hashtable(HashTable* t){
  * @param sizeV 
  * @return Key* copy of the key of the winning candidate
  */
-Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const CellKey* voters, int sizeC, int sizeV){
+Key* compute_winner(const CellProtected* Decl, const CellKey* cadidates, const CellKey* voters, int sizeC, int sizeV){
     HashTable* Hc = create_hashtable(cadidates, sizeC);
     HashTable* Hv = create_hashtable(voters, sizeV);
 
-    remove_fraudulent_blocks(decl);
+    CellProtected* decl = copy_protected_list(Decl);
+    remove_fraudulent_blocks(&decl);
 
     while(decl){
         // make sure the person hasn't voted already.
@@ -121,6 +122,7 @@ Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const C
 
     free_hashtable(Hc);
     free_hashtable(Hv);
+    free_list_protected(decl);
 
     return copy_key(Hc->tab[imax]->key);
 }

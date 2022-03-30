@@ -239,6 +239,7 @@ CellProtected* create_cell_protected(Protected* pr){
 
 /**
  * @brief Prepend CellProtected to a list
+ * !!! takes ownership of pr
  * 
  * @param list 
  * @param pr 
@@ -295,6 +296,21 @@ void print_protected_list(CellProtected* list){
         free(str);
         list = list->next;
     }
+}
+
+/**
+ * @brief copies the list of protected values. The copies order is inverted.
+ * 
+ * @param o 
+ * @return CellProtected* 
+ */
+CellProtected* copy_protected_list(const CellProtected* o){
+    CellProtected* ret = NULL;
+    while(o){
+        prepend_protected(&ret, copy_protected(o->data));
+        o = o->next;
+    }
+    return ret;
 }
 
 /**

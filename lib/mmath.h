@@ -2,6 +2,7 @@
 #define __MMATH_H
 
 #include <stdbool.h>
+#include <stddef.h>
 #include "lib/types.h"
 
 #define GOLDEN_RATIO 0.61803398875
