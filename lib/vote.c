@@ -122,7 +122,6 @@ Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const C
 
     free_hashtable(Hc);
     free_hashtable(Hv);
-    free_list_protected(decl);
 
     return copy_key(Hc->tab[imax]->key);
 }
