@@ -320,6 +320,7 @@ Protected* str_to_protected_len(const char* str, size_t slen){
         return NULL;
     }
 
+    // we block out the message from the beginning and the end, 
     // thus the contents of message cannot break our program.
     char* msg = strndup(str+msg_s, msg_e-msg_s+1);
 
