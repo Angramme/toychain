@@ -4,6 +4,7 @@
 
 #include "lib/overflow.h"
 #include <stdio.h>
+#include <assert.h>
 
 /**
  * @file mmath.c
@@ -188,6 +189,7 @@ int64 modpow(int64 a, int64 m, int64 n) {
  * @return int : the value of x
  */
 int64 modpow_r(int64 a, int64 m, int64 n) {
+    assert(a >= 0);
     if(n == 0){
         fprintf(stderr, "Warning : modulo of 0 passed as parameter to modpow_r ! \n");
         return 0;
