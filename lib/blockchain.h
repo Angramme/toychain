@@ -12,7 +12,6 @@ typedef struct block {
     int nonce;
 }Block;
 
-void ecrire_block(char* filename, Block* b);
-
-
+void write_block(char* filename, Block* b);
+Block* read_block(char* filename);
 #endif
