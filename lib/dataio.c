@@ -268,7 +268,7 @@ CellProtected* read_protected(const char* filename){
     size_t buff_size = 500;
     char* buffer = malloc(sizeof(char)*buff_size);
     if(!buffer){
-        MALLOC_ERROR("couldn't read prtected");
+        MALLOC_ERROR("couldn't read protected");
         return NULL;
     }
 
@@ -282,6 +282,89 @@ CellProtected* read_protected(const char* filename){
     free(buffer);
     fclose(file);
     return ret;
+}
+
+/**
+ * @brief converts list of protected to a string.
+ * 
+ * @param list 
+ * @return char* 
+ */
+char* list_protected_to_str(const CellProtected* list){
+    size_t size = 64;
+    char* ret = malloc(size*sizeof(char));
+    ret[0] = '\0';
+    char slen[50];
+
+    while(list){
+        char* pstr = protected_to_str(list->data);
+        const size_t len = strlen(pstr);
+        list = list->next;
+        // adding the size is needed for security reasons.
+        // suppose we use a newline spearated list of protected,
+        // if a message of a protected contains a newline, we will
+        // probably risk a segfault. This is high severity security 
+        // risk! Thus we go with this approach which is not disturbed 
+        // by the message contents. 
+        sprintf(slen, "%zx ", len);
+        const size_t slenlen = strlen(slen);
+        const size_t cursize = (strlen(ret) + slenlen + len + 2);
+        if(cursize >= size){ 
+            while(cursize >= size) size *= 2;
+            ret = realloc(ret, size); 
+            if(!ret){ 
+                MALLOC_ERROR("error while reallocating memory in list_protected_to_str"); 
+                return NULL; 
+            } 
+        }
+        strcat(ret, slen);
+        strcat(ret, pstr);
+        strcat(ret, "\n");
+
+        free(pstr);
+    }
+    const size_t len = strlen(ret);
+    ret = realloc(ret, len + 2);
+    ret[len] = ']';
+    ret[len+1] = '\0';
+    return ret;
+}
+
+/**
+ * @brief converts string to a list of protected
+ * 
+ * @param str 
+ * @return CellProtected* 
+ */
+CellProtected* str_to_list_protected(const char* str){
+    CellProtected* list = NULL;
+
+    while(true){
+        while(*str == ' ') str++;
+        size_t prot_size;
+        sscanf(str, " %zx ", &prot_size);
+        while(*str != ' ') str++; // skip the heaxdecimal size
+        while(*str == ' ') str++; // skip spaces
+        Protected* prot = str_to_protected_len(str, prot_size);
+        prepend_protected(&list, prot); // takes ownership of proc
+        str += prot_size;
+        while(*str != '\n') str++; // skip until newline
+        while(*str == '\n') str++; // skip all newlines
+        if(*str == ']') break;
+    }
+
+    { // reverse it 
+        CellProtected* prev = NULL, *cur=list, *tmp;
+        while(cur){
+            tmp = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = tmp;
+        }
+        list = prev;
+    }
+
+    return list;
 }
 
 /**
