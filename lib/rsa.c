@@ -75,7 +75,7 @@ void init_pair_keys(Key* pKey, Key* sKey, int low_size, int up_size){
  * @param Key key to convert
  * @return char* : allocated on the heap
  */
-char* key_to_str(Key* key){
+char* key_to_str(const Key* key){
     assert(key);
     char buff[250];
     sprintf(buff, "(%llx, %llx)", key->v, key->n);
@@ -88,7 +88,7 @@ char* key_to_str(Key* key){
  * @param char string to convert
  * @return Key* : allocated on the heap
  */
-Key* str_to_key(char* str){
+Key* str_to_key(const char* str){
     assert(str);
     int64 v, n;
     if(2 != sscanf(str, " ( %llx , %llx ) ", &v, &n))
@@ -153,7 +153,7 @@ bool generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
  * @param n 
  * @return int64* : encrypted message
  */
-int64* encrypt(char* chaine, int64 s, int64 n) {
+int64* encrypt(const char* chaine, int64 s, int64 n) {
     int N = strlen(chaine);
     int64* ret = malloc(sizeof(int64) * (N + 1));
     if(!ret){
@@ -178,7 +178,7 @@ int64* encrypt(char* chaine, int64 s, int64 n) {
  * @param n 
  * @return char* : original message
  */
-char* decrypt(int64* crypted, int size, int64 u, int64 n) {
+char* decrypt(const int64* crypted, int size, int64 u, int64 n) {
     char* ret = (char*)malloc(sizeof(char)*(size+1));
     if(!ret){
         MALLOC_ERROR("decryption failed!");

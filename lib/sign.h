@@ -20,13 +20,13 @@ typedef struct _Signature{
 } Signature;
 
 Signature* init_signature_raw(int64* content, int size);
-Signature* init_signature(int64* content, int size);
-Signature* copy_signature(Signature* o);
+Signature* init_signature(const int64* content, int size);
+Signature* copy_signature(const Signature* o);
 void free_signature(Signature* sig);
 Signature* sign(char* mess, Key* sKey);
 
-char* signature_to_str(Signature* sgn);
-Signature* str_to_signature(char* str);
+char* signature_to_str(const Signature* sgn);
+Signature* str_to_signature(const char* str);
 
 typedef struct _Protected{
     Key* pKey;
@@ -37,9 +37,10 @@ typedef struct _Protected{
 Protected* init_protected(Key* pKey, char* mess, Signature* sgn);
 Protected* init_protected_raw(Key* pKey, char* mess, Signature* sgn);
 void free_protected(Protected* pr);
-Protected* copy_protected(Protected* o);
-bool verify(Protected* pr);
-char* protected_to_str(Protected* prc);
-Protected* str_to_protected(char* str);
+Protected* copy_protected(const Protected* o);
+bool verify(const Protected* pr);
+char* protected_to_str(const Protected* prc);
+Protected* str_to_protected(const char* str);
+Protected* str_to_protected_len(const char* str, size_t slen);
 
 #endif
