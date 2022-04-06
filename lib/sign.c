@@ -203,21 +203,23 @@ char* signature_to_str(const Signature* sgn){
 */
 Signature* str_to_signature(const char* str){
     int len = strlen(str);
-    int hash_count = 0;
-    {
-        int len2 = 0;
-        while(
-            len2 < len && 
-            (
-                (str[len2] >= 'a' && str[len2] <= 'f') || 
-                (str[len2] >= '0' && str[len2] <= '9') ||
-                (str[len2] == '#')
-            )){
-                if(str[len2] == '#') hash_count++;
-                len2++;
-            }
-        len = len < len2 ? len : len2;
-    }
+    int len2 = 0;
+    while(
+        len2 < len && 
+        (
+            (str[len2] >= 'a' && str[len2] <= 'f') || 
+            (str[len2] >= '0' && str[len2] <= '9') ||
+            (str[len2] == '#')
+        )){
+            len2++;
+        }
+    len = len < len2 ? len : len2;
+    return str_to_signature_len(str, len);
+}
+
+Signature* str_to_signature_len(const char* str, const size_t len){
+    size_t hash_count = 0;
+    for(size_t i=0; i<len; i++) if(str[i] == '#') hash_count++;
     int64* content = (int64*)malloc(sizeof(int64) * hash_count);
     if(!content){
         MALLOC_ERROR("coudln't convert string to signature");
@@ -311,7 +313,8 @@ Protected* str_to_protected_len(const char* str, size_t slen){
         return NULL;
     }
 
-    Signature* sig = str_to_signature(str+msg_e+2);
+    // Signature* sig = str_to_signature(str+msg_e+2);
+    Signature* sig = str_to_signature_len(str+msg_e+2, slen-msg_e-2);
     if(!sig) {
         free(k);
         return NULL;

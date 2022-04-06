@@ -27,6 +27,7 @@ Signature* sign(char* mess, Key* sKey);
 
 char* signature_to_str(const Signature* sgn);
 Signature* str_to_signature(const char* str);
+Signature* str_to_signature_len(const char* str, size_t len);
 
 typedef struct _Protected{
     Key* pKey;
