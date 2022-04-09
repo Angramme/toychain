@@ -2,8 +2,9 @@
 #include "lib/dataio.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "lib/error.h"
+#include <string.h>
+#include <openssl/sha.h>
 
 /**
  * @brief print the content of a Block struct in a file
