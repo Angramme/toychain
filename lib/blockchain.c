@@ -1,7 +1,9 @@
-#include "blockchain.h"
+#include "lib/blockchain.h"
+#include "lib/dataio.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "error.h"
+#include <string.h>
+#include "lib/error.h"
 
 /**
  * @brief print the content of a Block struct in a file
@@ -134,4 +136,31 @@ Block* read_block(char* filename){
 
     free(buffer);
     return newb;
+}
+
+char* block_to_str(const Block* b){
+    const char* kstr = key_to_str(b->author);
+    const char* lstr = list_protected_to_str(b->votes);
+    size_t len = strlen(kstr) + BLOCK_HASH_SIZE*2 + strlen(lstr) + 8 + 1;
+    char* ret = malloc(sizeof(char)*len);
+    ret[0] = '\0';
+    strcat(ret, kstr);
+    size_t clen = strlen(ret);
+    for(size_t i=0; i<BLOCK_HASH_SIZE; i++){
+        char buf[4];
+        sprintf(buf, "%02x", b->previous_hash[i]); 
+        int j=0;
+        while(true){
+            ret[clen++] = buf[j];
+            if(buf[j] == '\0') break;
+            j++;
+        }
+    }
+    strcat(ret, lstr);
+    {
+        char buf[10];
+        sprintf(buf, "%08x", b->nonce);
+        strcat(ret, buf);
+    }
+    return ret;
 }
