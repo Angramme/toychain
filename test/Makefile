@@ -37,5 +37,5 @@ endif
 
 
 $(TEST_FILES): %: $(D_LIB)/%.o %.c test.h
-	$(CC) $(CFLAGS) -o $@ $@.c $(TEST_FILES:%=$(D_LIB)/%.o)
+	$(CC) $(CFLAGS) -o $@ $@.c $(TEST_FILES:%=$(D_LIB)/%.o) $(EXTERNAL_LIBS)
 

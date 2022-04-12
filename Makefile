@@ -4,6 +4,8 @@ VALGRIND=0
 DEBUG=$(VALGRIND)
 export DEBUG
 export VALGRIND
+EXTERNAL_LIBS=-lssl -lcrypto
+export EXTERNAL_LIBS
 
 # find current Makefiles directory i.e project root
 ROOT_MAKEFILE=$(abspath $(lastword $(MAKEFILE_LIST)))
