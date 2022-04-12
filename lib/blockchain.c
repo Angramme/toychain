@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include "lib/error.h"
 #include <string.h>
-#include <openssl/sha.h>
 
 /**
  * @brief print the content of a Block struct in a file
@@ -139,10 +138,16 @@ Block* read_block(char* filename){
     return newb;
 }
 
-char* block_to_str(const Block* b){
+/**
+ * @brief convert block head to string and leave extra space for nonce to be appended
+ * 
+ * @param b 
+ * @return char* 
+ */
+char* block_head_to_str(const Block* b){
     const char* kstr = key_to_str(b->author);
     const char* lstr = list_protected_to_str(b->votes);
-    size_t len = strlen(kstr) + BLOCK_HASH_SIZE*2 + strlen(lstr) + 8 + 1;
+    size_t len = strlen(kstr) + BLOCK_HASH_SIZE*2 + strlen(lstr) + 10 + 1;
     char* ret = malloc(sizeof(char)*len);
     ret[0] = '\0';
     strcat(ret, kstr);
@@ -158,10 +163,84 @@ char* block_to_str(const Block* b){
         }
     }
     strcat(ret, lstr);
-    {
-        char buf[10];
-        sprintf(buf, "%08x", b->nonce);
-        strcat(ret, buf);
-    }
+    
     return ret;
+}
+
+/**
+ * @brief append nonce to the block head string. 
+ * If nonce is already appended, the function will 
+ * delete the old nonce and append the new one.
+ * 
+ * @param headstr 
+ * @param b 
+ */
+void block_nonce_to_str(char* headstr, const Block* b){
+    const size_t l = strlen(headstr);
+    char buf[10];
+    sprintf(buf, "|%08x|", b->nonce);
+    if(headstr[l-1] == '|'){
+        // delete the old nonce first
+        size_t beg = l-2;
+        while(headstr[beg] != '|') beg--;
+        headstr[beg] = '\0';
+    }
+    strcat(headstr, buf);
+}
+
+/**
+ * @brief convert block to string
+ * 
+ * @param b 
+ * @return char* 
+ */
+char* block_to_str(const Block* b){
+    char* ret = block_head_to_str(b);
+    block_nonce_to_str(ret, b);
+    return ret;
+}
+
+uint8* hash_string(const char* s){
+    const uint8* d = SHA256(s, strlen(s), 0) ;
+    return d;
+}
+
+/**
+ * @brief compute proof of work of block B with d zeros in hexadecimal representation
+ * 
+ * @param B 
+ * @param d 
+ */
+void compute_proof_of_work(Block *B, int d){
+    int cnt = 0;
+    char* bstr = block_to_str(B);
+    while(cnt < d*4){
+        B->nonce++;
+        // modify the nonce in the string.
+        // makes the program faster than reconverting 
+        // the whole block each time...
+        block_nonce_to_str(bstr, B); 
+        const uint8* hsh = hash_string(bstr);
+        cnt = 0;
+        while (hsh[cnt] == 0) cnt++;
+    }
+}
+
+/**
+ * @brief print sha256 hash
+ * 
+ * @param hash 
+ */
+void print_sha256_hash(const uint8* hash){
+    for(int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+        printf("%02x", d[i]);
+    putchar('\n');
+}
+
+bool verify_block(const Block*, int d){
+    const char* str = block_to_str(B);
+    const uint8* hsh = hash_string(str);
+    size_t cnt = 0;
+    while (hsh[cnt] == 0) cnt++;
+    return cnt >= d*4;
 }
