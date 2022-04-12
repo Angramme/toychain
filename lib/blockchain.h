@@ -24,7 +24,14 @@ char* block_to_str(const Block* b);
 uint8* hash_string(const char* s);
 void compute_proof_of_work(Block *B, int d);
 void print_sha256_hash(const uint8* hash);
+bool compare_hash(const uint8* A, const uint8* B);
+uint8* copy_hash(const uint8* hash);
+uint8* str_to_hash(const char* str);
+char* hash_to_str(const uint8* hash);
 bool verify_block(const Block*, int d);
+
+Block* init_block_raw(Key* auth, CellProtected* votes, uint8* prev_hash);
+Block* init_block(const Key* auth, const CellProtected* votes, const uint8* prev_hash);
 
 
 #endif

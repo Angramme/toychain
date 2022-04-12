@@ -139,6 +139,44 @@ Block* read_block(char* filename){
 }
 
 /**
+ * @brief convert sha256 hash to string representation
+ * 
+ * @param hash 
+ * @return char* 
+ */
+char* hash_to_str(const uint8* hash){
+    const size_t maxsize = 2*BLOCK_HASH_SIZE +1;
+    char* ret = malloc(sizeof(char)*maxsize);
+    ret[0] = '\0';
+    for(size_t i=0; i<BLOCK_HASH_SIZE; i++){
+        char buf[4];
+        sprintf(buf, "%02x", hash[i]); 
+        ret[i*2] = buf[0];
+        ret[i*2+1] = buf[1];
+    }
+    return ret;
+}
+
+/**
+ * @brief convert string sha256 hash representation to sha256 hash
+ * 
+ * @param str 
+ * @return uint8* 
+ */
+uint8* str_to_hash(const char* str){
+    uint8* ret = malloc(sizeof(uint8)*BLOCK_HASH_SIZE);
+    for(size_t i=0; i<BLOCK_HASH_SIZE; i++){
+        char buff[3];
+        buff[2] = '\0';
+        memcpy(buff, str + i*2, 2);
+        unsigned int V;
+        sscanf(buff, "%02x", &V);
+        ret[i] = (uint8)V;
+    }
+    return ret;
+}
+
+/**
  * @brief convert block head to string and leave extra space for nonce to be appended
  * 
  * @param b 
@@ -151,17 +189,9 @@ char* block_head_to_str(const Block* b){
     char* ret = malloc(sizeof(char)*len);
     ret[0] = '\0';
     strcat(ret, kstr);
-    size_t clen = strlen(ret);
-    for(size_t i=0; i<BLOCK_HASH_SIZE; i++){
-        char buf[4];
-        sprintf(buf, "%02x", b->previous_hash[i]); 
-        int j=0;
-        while(true){
-            ret[clen++] = buf[j];
-            if(buf[j] == '\0') break;
-            j++;
-        }
-    }
+    char* hshs = hash_to_str(b->previous_hash);
+    strcat(ret, hshs);
+    free(hshs);
     strcat(ret, lstr);
     
     return ret;
@@ -177,7 +207,7 @@ char* block_head_to_str(const Block* b){
  */
 void block_nonce_to_str(char* headstr, const Block* b){
     const size_t l = strlen(headstr);
-    char buf[10];
+    char buf[12];
     sprintf(buf, "|%08x|", b->nonce);
     if(headstr[l-1] == '|'){
         // delete the old nonce first
@@ -200,9 +230,14 @@ char* block_to_str(const Block* b){
     return ret;
 }
 
+/**
+ * @brief hashes string s using sha256
+ * 
+ * @param s 
+ * @return uint8* 
+ */
 uint8* hash_string(const char* s){
-    const uint8* d = SHA256(s, strlen(s), 0) ;
-    return d;
+    return SHA256((const unsigned char*)s, strlen(s), 0) ;
 }
 
 /**
@@ -220,7 +255,9 @@ void compute_proof_of_work(Block *B, int d){
         // makes the program faster than reconverting 
         // the whole block each time...
         block_nonce_to_str(bstr, B); 
-        const uint8* hsh = hash_string(bstr);
+        uint8* hsh = hash_string(bstr);
+        if(B->hash) free(B->hash);
+        B->hash = hsh;
         cnt = 0;
         while (hsh[cnt] == 0) cnt++;
     }
@@ -232,15 +269,80 @@ void compute_proof_of_work(Block *B, int d){
  * @param hash 
  */
 void print_sha256_hash(const uint8* hash){
-    for(int i = 0; i < SHA256_DIGEST_LENGTH; i++)
-        printf("%02x", d[i]);
+    for(size_t i = 0; i < BLOCK_HASH_SIZE; i++)
+        printf("%02x", hash[i]);
     putchar('\n');
 }
 
-bool verify_block(const Block*, int d){
+/**
+ * @brief checks if A and B are the same hash
+ * 
+ * @param A 
+ * @param B 
+ * @return true 
+ * @return false 
+ */
+bool compare_hash(const uint8* A, const uint8* B){
+    bool same = true;
+    for(int i = 0; (i < BLOCK_HASH_SIZE) && same; i++)
+        same = same && A[i] == B[i];
+    return same;
+}
+
+/**
+ * @brief copy hash
+ * 
+ * @param hash 
+ * @return uint8* 
+ */
+uint8* copy_hash(const uint8* hash){
+    uint8* ret = malloc(sizeof(uint8)*(BLOCK_HASH_SIZE+1));
+    memcpy(ret, hash, BLOCK_HASH_SIZE);
+    ret[BLOCK_HASH_SIZE] = '\0';
+    return ret;
+}
+
+/**
+ * @brief verifies if the block is valid with d zeros in hexadecimal representation
+ * 
+ * @param d 
+ * @return true 
+ * @return false 
+ */
+bool verify_block(const Block* B, int d){
     const char* str = block_to_str(B);
     const uint8* hsh = hash_string(str);
     size_t cnt = 0;
     while (hsh[cnt] == 0) cnt++;
-    return cnt >= d*4;
+    return cnt >= d*4 && compare_hash(B->hash, hsh);
+}
+
+/**
+ * @brief init a block object. Takes ownership of all auth, votes and prev_hash
+ * 
+ * @param auth 
+ * @param votes 
+ * @param prev_hash 
+ * @return Block* 
+ */
+Block* init_block_raw(Key* auth, CellProtected* votes, uint8* prev_hash){
+    Block* b = malloc(sizeof(Block));
+    b->author = auth;
+    b->votes = votes;
+    b->hash = NULL;
+    b->previous_hash = prev_hash;
+    b->nonce = 0;
+    return b;
+}
+
+/**
+ * @brief init block object, copies all parameters.
+ * 
+ * @param auth 
+ * @param votes 
+ * @param prev_hash 
+ * @return Block* 
+ */
+Block* init_block(const Key* auth, const CellProtected* votes, const uint8* prev_hash){
+    return init_block_raw(copy_key(auth), copy_protected_list(votes), copy_hash(prev_hash));
 }
