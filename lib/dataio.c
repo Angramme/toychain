@@ -468,6 +468,18 @@ void remove_fraudulent_blocks(CellProtected** list){
  * @return CellProtected* 
  */
 CellProtected* rand_list_protected(size_t len){
+    return rand_list_protected_range(len, 0, CHAR_MAX);
+}
+
+/**
+ * @brief generate random list of protected with message characters in range low hi
+ * 
+ * @param len 
+ * @param low 
+ * @param hi 
+ * @return CellProtected* 
+ */
+CellProtected* rand_list_protected_range(size_t len, char low, char hi){
     CellProtected* randlist = NULL;
     char msg[500];
     for(int i=0; i<len; i++){
@@ -476,7 +488,10 @@ CellProtected* rand_list_protected(size_t len){
         size_t msgl = rand()%10 + 5;
         assert(msgl < sizeof(msg)/sizeof(char));
         msg[msgl] = '\0';
-        for(int j=0; j<msgl; j++) msg[j] = rand_int64(0, CHAR_MAX);
+        for(int j=0; j<msgl; j++){
+            do{ msg[j] = rand_int64(low, hi); }
+            while(msg[j] == '\0');
+        } 
         Signature* sig = sign(msg, &sk);
         Protected* proc = init_protected(&pk, msg, sig);
         free_signature(sig);

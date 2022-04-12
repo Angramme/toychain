@@ -147,7 +147,7 @@ Block* read_block(char* filename){
 char* hash_to_str(const uint8* hash){
     const size_t maxsize = 2*BLOCK_HASH_SIZE +1;
     char* ret = malloc(sizeof(char)*maxsize);
-    ret[0] = '\0';
+    ret[maxsize-1] = '\0';
     for(size_t i=0; i<BLOCK_HASH_SIZE; i++){
         char buf[4];
         sprintf(buf, "%02x", hash[i]); 
@@ -183,16 +183,18 @@ uint8* str_to_hash(const char* str){
  * @return char* 
  */
 char* block_head_to_str(const Block* b){
-    const char* kstr = key_to_str(b->author);
-    const char* lstr = list_protected_to_str(b->votes);
+    char* kstr = key_to_str(b->author);
+    char* lstr = list_protected_to_str(b->votes);
     size_t len = strlen(kstr) + BLOCK_HASH_SIZE*2 + strlen(lstr) + 10 + 1;
     char* ret = malloc(sizeof(char)*len);
     ret[0] = '\0';
     strcat(ret, kstr);
+    free(kstr);
     char* hshs = hash_to_str(b->previous_hash);
     strcat(ret, hshs);
     free(hshs);
     strcat(ret, lstr);
+    free(lstr);
     
     return ret;
 }
@@ -231,7 +233,8 @@ char* block_to_str(const Block* b){
 }
 
 /**
- * @brief hashes string s using sha256
+ * @brief hashes string s using sha256. Even tho the result is a pointer, you don't have to free it!
+ * OpenSSL magic
  * 
  * @param s 
  * @return uint8* 
@@ -241,15 +244,32 @@ uint8* hash_string(const char* s){
 }
 
 /**
+ * @brief checks if the number of zeros in hash (as per the hexadecimal representation) is at least d
+ * 
+ * @param hash 
+ * @param d 
+ * @return true 
+ * @return false 
+ */
+bool check_zeros(const uint8* hash, size_t d){
+    if(!hash) return false;
+    size_t n = d/2;
+    n = n < BLOCK_HASH_SIZE ? n : BLOCK_HASH_SIZE;
+    for(size_t i=0; i<n; i++)
+        if(hash[i] != 0) return false;
+    if(d%2 == 1 && hash[n] & 0b11110000) return false;
+    return true;
+}
+
+/**
  * @brief compute proof of work of block B with d zeros in hexadecimal representation
  * 
  * @param B 
  * @param d 
  */
 void compute_proof_of_work(Block *B, int d){
-    int cnt = 0;
     char* bstr = block_to_str(B);
-    while(cnt < d*4){
+    while(!check_zeros(B->hash, d)){
         B->nonce++;
         // modify the nonce in the string.
         // makes the program faster than reconverting 
@@ -257,10 +277,9 @@ void compute_proof_of_work(Block *B, int d){
         block_nonce_to_str(bstr, B); 
         uint8* hsh = hash_string(bstr);
         if(B->hash) free(B->hash);
-        B->hash = hsh;
-        cnt = 0;
-        while (hsh[cnt] == 0) cnt++;
+        B->hash = copy_hash(hsh);
     }
+    free(bstr);
 }
 
 /**
@@ -283,6 +302,8 @@ void print_sha256_hash(const uint8* hash){
  * @return false 
  */
 bool compare_hash(const uint8* A, const uint8* B){
+    if(!A && !B) return true;
+    if(!A || !B) return false;
     bool same = true;
     for(int i = 0; (i < BLOCK_HASH_SIZE) && same; i++)
         same = same && A[i] == B[i];
@@ -310,11 +331,10 @@ uint8* copy_hash(const uint8* hash){
  * @return false 
  */
 bool verify_block(const Block* B, int d){
-    const char* str = block_to_str(B);
-    const uint8* hsh = hash_string(str);
-    size_t cnt = 0;
-    while (hsh[cnt] == 0) cnt++;
-    return cnt >= d*4 && compare_hash(B->hash, hsh);
+    char* str = block_to_str(B);
+    const uint8* hsh = hash_string(str); // <- we don't have to free this
+    free(str);
+    return check_zeros(hsh, d) && compare_hash(B->hash, hsh);
 }
 
 /**
@@ -345,4 +365,17 @@ Block* init_block_raw(Key* auth, CellProtected* votes, uint8* prev_hash){
  */
 Block* init_block(const Key* auth, const CellProtected* votes, const uint8* prev_hash){
     return init_block_raw(copy_key(auth), copy_protected_list(votes), copy_hash(prev_hash));
+}
+
+/**
+ * @brief frees block
+ * 
+ * @param b 
+ */
+void free_block(Block* b){
+    free(b->author);
+    free(b->hash);
+    free(b->previous_hash);
+    free_list_protected(b->votes);
+    free(b);
 }

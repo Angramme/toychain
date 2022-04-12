@@ -34,5 +34,6 @@ void free_cell_keys(CellKey* c); //delete
 void free_list_keys(CellKey* cellkey);
 
 CellProtected* rand_list_protected(size_t len);
+CellProtected* rand_list_protected_range(size_t len, char low, char hi);
 
 #endif

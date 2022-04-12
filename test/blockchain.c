@@ -29,5 +29,27 @@ int main(){
     }
     TEST_SECTION_END()
 
+    TEST_SECTION(compute_proof_of_work verify_block);
+    {
+        const int d = 4;
+        Key pk, sk;
+        init_pair_keys(&pk, &sk, 8, 12);
+        uint8 prev_hash[BLOCK_HASH_SIZE];
+        for(size_t i=0; i<BLOCK_HASH_SIZE; i++) prev_hash[i] = (uint8)rand()%255;
+        CellProtected* decls = rand_list_protected_range(5, 'a', 'z');
+        Block* b = init_block(&pk, decls, prev_hash);
+        free_list_protected(decls);
+        
+        TEST_MSG(verify_block(b, d), false, "we either got very lucky or the verify_block function is incorrrect...");
+        compute_proof_of_work(b, d);
+        TEST_MSG(verify_block(b, d), true, "either verify_block or compute_proof_of_work is incorrect...");
+        
+        printf("hash with %d zeros: ", d);
+        print_sha256_hash(b->hash);
+
+        free_block(b);
+    }
+    TEST_SECTION_END();
+
     TEST_SUMMARY();
 }

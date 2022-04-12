@@ -29,6 +29,7 @@ uint8* copy_hash(const uint8* hash);
 uint8* str_to_hash(const char* str);
 char* hash_to_str(const uint8* hash);
 bool verify_block(const Block*, int d);
+void free_block(Block* b);
 
 Block* init_block_raw(Key* auth, CellProtected* votes, uint8* prev_hash);
 Block* init_block(const Key* auth, const CellProtected* votes, const uint8* prev_hash);

@@ -168,13 +168,14 @@ bool verify(const Protected* pr){
 * @return char* 
 */
 char* signature_to_str(const Signature* sgn){
+    assert(sgn->len > 0);
     const size_t maxsize = 10* sgn->len;
     char* result = malloc(maxsize * sizeof(char));
     if(!result){
         MALLOC_ERROR("coudln't convert signature to string");
         return NULL;
     }
-    result [0]= '#';
+    result[0]= '#';
     int pos = 1;
     char buffer [156];
     for(int i=0; i < sgn->len; i++) {
