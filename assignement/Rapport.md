@@ -145,3 +145,18 @@ le résultat de __print_list_keys()__ on observe que la lecture puis conversion 
 Dans ces trois grandes parties nous avons développé des outils qui nous permettent de chiffrer/dechiffrer des messages. Pour cela nous avons utilisé le protocole `RSA` et
 les algorithmes permettant de générer des clés publiques et privées. Ces dernières sont l'élément clé _(ahah)_ de notre simulation d'élection car nécessaires quand on veut
 créer un message unique et identifiable, de sorte qu'il est impossible d'usurper une autre personne(en considérant que les clés sont gardés bien secrètement).
+
+
+# Partie Blocks et persistance des données
+
+### Q7.8
+nombre des zeros | temps d'executions 1 (en secondes) | temps d'execution 2 (en secondes) 
+-|-|-
+1 | 0.000399 s | 0.000400 s 
+2 | 0.000113 s | 0.000112 s 
+3 | 0.070306 s | 0.071397 s 
+4 | 0.580816 s | 0.607454 s 
+5 | 6.314595 s | 6.447474 s
+6 | - | 356.074466 s
+
+TODO: faire une courbe

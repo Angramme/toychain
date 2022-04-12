@@ -1,5 +1,6 @@
 #include "lib/blockchain.h"
 #include "test/test.h"
+#include "test/clocktime.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -50,6 +51,27 @@ int main(){
         free_block(b);
     }
     TEST_SECTION_END();
+
+    // TEST_SECTION(performance tests);
+    // {
+    //     Key pk, sk;
+    //     init_pair_keys(&pk, &sk, 8, 12);
+    //     uint8 prev_hash[BLOCK_HASH_SIZE];
+    //     for(size_t i=0; i<BLOCK_HASH_SIZE; i++) prev_hash[i] = (uint8)rand()%255;
+    //     CellProtected* decls = rand_list_protected_range(42, 'a', 'z');
+    //     Block* b = init_block(&pk, decls, prev_hash);
+    //     free_list_protected(decls);
+
+    //     for(int d=1; d<BLOCK_HASH_SIZE/2; d++){
+    //         double secs;
+    //         CLOCK_TIME(secs, compute_proof_of_work(b, d));
+    //         printf("%d %f \n", d, secs);
+    //         if(secs > 10) break;
+    //     }
+
+    //     free_block(b);
+    // }
+    // TEST_SECTION_END();
 
     TEST_SUMMARY();
 }
