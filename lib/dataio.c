@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <limits.h>
 
 /**
  * @file dataio.c
@@ -458,4 +459,28 @@ void remove_fraudulent_blocks(CellProtected** list){
         }
         list = &((*list)->next);
     }
+}
+
+/**
+ * @brief generate random list of protected
+ * 
+ * @param len 
+ * @return CellProtected* 
+ */
+CellProtected* rand_list_protected(size_t len){
+    CellProtected* randlist = NULL;
+    char msg[500];
+    for(int i=0; i<len; i++){
+        Key pk, sk;
+        init_pair_keys(&pk, &sk, 8, 12);
+        size_t msgl = rand()%10 + 5;
+        assert(msgl < sizeof(msg)/sizeof(char));
+        msg[msgl] = '\0';
+        for(int j=0; j<msgl; j++) msg[j] = rand_int64(0, CHAR_MAX);
+        Signature* sig = sign(msg, &sk);
+        Protected* proc = init_protected(&pk, msg, sig);
+        free_signature(sig);
+        prepend_protected(&randlist, proc); // takes ownership of proc
+    }
+    return randlist;
 }

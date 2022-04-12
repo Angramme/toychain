@@ -32,4 +32,7 @@ CellKey* read_public_keys(char* file);
 void print_list_keys(CellKey* LCK);
 void free_cell_keys(CellKey* c); //delete
 void free_list_keys(CellKey* cellkey);
+
+CellProtected* rand_list_protected(size_t len);
+
 #endif
