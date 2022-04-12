@@ -23,14 +23,21 @@ void write_block(char* filename, Block* b){
     }
 
     char* keystr = key_to_str(b->author);
+    char* l_str = list_protected_to_str(b->votes);
+
+    char* chash = hash_to_str(b->hash);
+    char* cphash = hash_to_str(b->previous_hash);
 
     fprintf(f,"%s\n", keystr);
-    fprintf(f,"%s\n", b->hash);
-    fprintf(f, "%s\n", b->previous_hash);
+    fprintf(f,"%s\n", chash);
+    fprintf(f, "%s\n", cphash);
     fprintf(f, "%d\n", b->nonce);
-    fprintf(f, "%s\n", list_protected_to_str(b->votes));
+    fprintf(f, "%s\n", l_str);
 
+    free(l_str);
     free(keystr);
+    free(chash);
+    free(cphash);
 
     fclose(f);
 }
@@ -47,17 +54,13 @@ Block* read_block(char* filename){
         fprintf(stderr, "read_block : failed opening\n");
         return NULL;
     }
-
     Block* newb = malloc(sizeof(Block));
     if(!newb){
         MALLOC_ERROR("newb");
         return NULL;
     }
-
     char* buffer;
     long numbytes;
-
-    //to get size of the file
     fseek(f, 0L, SEEK_END);
     numbytes = ftell(f);
     fseek(f, 0L, SEEK_SET);
@@ -67,74 +70,49 @@ Block* read_block(char* filename){
         MALLOC_ERROR("calloc failed");
         return NULL;
     }
-    //read the entire file
     fread(buffer, sizeof(char), numbytes, f);
     fclose(f);
 
-    //look for author key
-    char strkey[256];
-    int i = 0;
-    while(buffer[i] != ')' && i < 254){
-        strkey[i] = buffer[i];
-        i++;
+    int l = 0;
+    int start;
+    int end;
+    for(int t = 0; t<4; t++){
+        while(buffer[l] == '\n')l++;
+        start = l;
+        while(buffer[l] != '\n'){
+            l++;
+        }
+        end = l;
+        char* temp = malloc(sizeof(char)*(end-start+1));
+        int ind = 0;
+        while(ind < end-start){
+            temp[ind] = buffer[start + ind];
+            ind++;
+        }
+        temp[ind+1] = '\0';
+        printf("%s\n", temp);
+
+        if(t == 0){
+            Key* nkey = str_to_key(temp);
+            newb->author = nkey;
+        }
+        if(t == 1){
+            uint8* hash = str_to_hash(temp);
+            newb->hash = hash;
+        }
+        if(t == 2){
+            uint8* p_hash = str_to_hash(temp);
+            newb->previous_hash = p_hash;
+        }
+        if(t==3){
+            int n = atoi(temp);
+            newb->nonce=n;
+        }
+        free(temp);
+        while(buffer[l] == '\n')l++;
     }
-    strkey[i] = buffer[i];
-    strkey[i+1] = '\0';
-    Key* author = str_to_key(strkey);
-    newb->author = author;
-
-    //look for hash, previous_hash and nonce
-
-    //skip remaining ' '
-    while(buffer[i] != '\n')i++;
-
-    //look for hash
-    int deb = i++;
-    while(buffer[i] != ' ' || buffer[i] != '\n')i++;
-    int fin = i;
-
-    char hash[fin - deb + 1];
-    int ind = 0;
-    while(deb < fin)hash[ind++] = buffer[deb++];
-    hash[fin] = '\0';
-    newb->hash = strdup(hash);
-
-    //skip remaining ' '
-    while(buffer[i] != '\n')i++;
-
-    //look for phash
-    deb = i++;
-    while(buffer[i] != ' ')i++;
-    fin = i;
-    char phash[fin - deb + 1];
-    ind = 0;
-    while(deb < fin)phash[ind++] = buffer[deb++];
-    phash[fin] = '\0';
-    newb->previous_hash = strdup(phash);
-
-    //skip remaining ' '
-    while(buffer[i] != '\n')i++;
-
-    //look for nonce
-    deb = i++;
-    while(buffer[i] != ' ')i++;
-    fin = i;
-    char nonce[fin - deb + 1];
-    ind=0;
-    while(deb < fin)nonce[ind++] = buffer[deb++];
-    nonce[fin] = '\0';
-    int n = atoi(nonce);
-    newb->nonce = n;
-
-    //skip remaining ' '
-    while(buffer[i] != '\n')i++;
-    i++;
-    
-    //look for declarations
-    CellProtected* votes = str_to_list_protected(buffer+i);
+    CellProtected* votes = str_to_list_protected(buffer + l);
     newb->votes = votes;
-
-    free(buffer);
     return newb;
 }
 
