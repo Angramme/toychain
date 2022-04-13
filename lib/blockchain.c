@@ -745,7 +745,8 @@ void create_block(CellTree* tree, Key* author, int d){
 }
 
 /**
- * @brief Read the last created Block
+ * @brief Read the last created Block. If it is valid, add it to BLOCKCHAIN_DIR.
+ * In any case, PENDING_BLOCK_FILE is removed.
  * 
  * @param d 
  * @param name 

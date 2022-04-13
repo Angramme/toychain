@@ -135,11 +135,11 @@ void free_hashtable(HashTable* t){
 /**
  * @brief Simulates an election process and returns the winner.
  * Checks if declarations are valid and update vote numbers for each candidate.
- * @param decl 
- * @param cadidates 
- * @param voters 
- * @param sizeC 
- * @param sizeV 
+ * @param decl list of declaration
+ * @param cadidates list of candidates
+ * @param voters list of voters
+ * @param sizeC size of candidates
+ * @param sizeV size of voters
  * @return Key* copy of the key of the winning candidate
  */
 Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const CellKey* voters, int sizeC, int sizeV){

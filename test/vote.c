@@ -2,9 +2,12 @@
 #include "lib/sign.h"
 #include "lib/rsa.h"
 #include "test/test.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 
 int main(){
-
+    srand(time(NULL));
     TEST_SECTION(create_hashcell free_hashcell);
     {
         Key k;
@@ -38,6 +41,28 @@ int main(){
             }
         }
 
+    }
+    TEST_SECTION_END();
+
+    TEST_SECTION(compute_winner);
+    {
+        int i;
+        //incomplete
+        for(i=0; i<1; i++){
+            int sizeC = rand()%10 + 2;
+            int sizeV = rand()%1000 + 100;
+            generate_random_data(sizeV, sizeC, "../temp");
+            CellKey* voters = read_public_keys("../temp/keys.txt");
+            CellKey* candidates = read_public_keys("../temp/candidates.txt");
+            CellProtected* declarations = read_protected("../temp/declarations.txt");
+            Key* winner = compute_winner(declarations, candidates, voters, sizeC, sizeV);
+            printf("winner is (%lld %lld)\n", winner->n, winner->v);
+
+            free_cell_keys(voters);
+            free_cell_keys(candidates);
+            free_list_protected(declarations);
+            free(winner);
+        }
     }
     TEST_SECTION_END();
 
