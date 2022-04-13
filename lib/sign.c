@@ -50,17 +50,24 @@ Signature* init_signature(const int64* content, int size){
     return init_signature_raw(cpy, size);
 }
 
+/**
+ * @brief Copy a Signature object.
+ * 
+ * @param o 
+ * @return Signature* 
+ */
 Signature* copy_signature(const Signature* o){
     return init_signature(o->xs, o->len);
 }
 
 /**
-* @brief free signature
+* @brief free a Signature object.
 *
 * @param sig : signature to delete
 */
 void free_signature(Signature* sig){
-    free(sig->xs);
+    if(!sig)return;
+    if(sig->xs) free(sig->xs);
     free(sig);
 }
 
@@ -75,17 +82,21 @@ void free_signature(Signature* sig){
 Signature* sign(char* mess, Key* sKey){
     assert(mess && sKey);
     int64* con = encrypt(mess, sKey->v, sKey->n);
+    if(!con){
+        fprintf(stderr, "con is NULL\n");
+        return NULL;
+    }
     int len = strlen(mess);
     return init_signature_raw(con, len);
 }
 
 /**
  * @brief create a signed declaration
- * !!! Takes ownership of key, message and signature
+ * !!! Takes ownership of key, message and signature.
  * 
  * @param pKey : public key
  * @param mess : associated message
- * @param sgn : signature
+ * @param sgn : signed message
  * @return Protected* 
  */
 Protected* init_protected_raw(Key* pKey, char* mess, Signature* sgn){
@@ -106,21 +117,36 @@ Protected* init_protected_raw(Key* pKey, char* mess, Signature* sgn){
  * 
  * @param pKey : public key
  * @param mess : associated message
- * @param sgn : signature
+ * @param sgn : signed message
  * @return Protected* 
  */
 Protected* init_protected(Key* pKey, char* mess, Signature* sgn){
     assert(pKey && mess && sgn);
     Key* pkeycpy = copy_key(pKey);
+    if(!pkeycpy){
+        fprintf(stderr, "pkeycpy is NULL\n");
+        return NULL;
+    }
     char* msgcpy = strdup(mess);
+    if(!msgcpy){
+        MALLOC_ERROR("strdup error");
+        free(pkeycpy);
+        return NULL;
+    }
     Signature* sgncpy = copy_signature(sgn);
+    if(!sgncpy){
+        fprintf(stderr, "sgncpy is NULL\n");
+        free(pkeycpy);
+        free(msgcpy);
+        return NULL;
+    }
     return init_protected_raw(pkeycpy, msgcpy, sgncpy);
 }
 
 /**
  * @brief copy protected 
  * 
- * @param o 
+ * @param o Protected to copy
  * @return Protected* 
  */
 Protected* copy_protected(const Protected* o){
@@ -129,10 +155,10 @@ Protected* copy_protected(const Protected* o){
 
 /**
  * @brief free a signed declaration and it's content
- * 
  * @param pr : element to free
  */
 void free_protected(Protected* pr){
+    if(!pr)return;
     free(pr->msg);
     free(pr->pKey);
     free_signature(pr->sig);
@@ -151,8 +177,13 @@ bool verify(const Protected* pr){
     const int N = strlen(pr->msg);
     if(pr->sig->len != N) return false;
     char* truth = decrypt(pr->sig->xs, N, pr->pKey->v, pr->pKey->n);
+    if(!truth){
+        fprintf(stderr, "truth is NULL\n");
+        return false;
+    }
     bool good = true;
-    for(int i=0; i<N+1; i++){
+    int i;
+    for(i=0; i<N+1; i++){
         good = good && truth[i]==pr->msg[i];
         if(!good) break;
     }
@@ -178,11 +209,13 @@ char* signature_to_str(const Signature* sgn){
     result[0]= '#';
     int pos = 1;
     char buffer [156];
-    for(int i=0; i < sgn->len; i++) {
+    int i;
+    for(i=0; i < sgn->len; i++) {
         sprintf(buffer, "%llx" , sgn->xs[i]);
         const size_t bufflen = strlen(buffer);
         assert(bufflen <= 9);
-        for(int j=0; j<bufflen; j++) {
+        int j;
+        for(j=0; j<bufflen; j++) {
             assert(pos < maxsize);
             result[pos] = buffer[j];
             pos = pos +1;
@@ -192,6 +225,10 @@ char* signature_to_str(const Signature* sgn){
     }
     result[pos] = '\0';
     result = realloc(result, (pos +1) * sizeof(char));
+    if(!result){
+        MALLOC_ERROR("coudln't convert signature to string");
+        return NULL;
+    }
     return result;
 }
 
@@ -218,9 +255,17 @@ Signature* str_to_signature(const char* str){
     return str_to_signature_len(str, len);
 }
 
+/**
+ * @brief Converts a string to a signature, knowing it's length.
+ * 
+ * @param str 
+ * @param len 
+ * @return Signature* 
+ */
 Signature* str_to_signature_len(const char* str, const size_t len){
     size_t hash_count = 0;
-    for(size_t i=0; i<len; i++) if(str[i] == '#') hash_count++;
+    size_t j;
+    for(j=0; j<len; j++) if(str[j] == '#') hash_count++;
     int64* content = (int64*)malloc(sizeof(int64) * hash_count);
     if(!content){
         MALLOC_ERROR("coudln't convert string to signature");
@@ -229,7 +274,8 @@ Signature* str_to_signature_len(const char* str, const size_t len){
     int num = 0;
     char buffer [256];
     int pos = 0;
-    for(int i=0; i<len; i++) {
+    int i;
+    for(i=0; i<len; i++) {
         if(str[i] != '#'){
             buffer[pos] = str[i];
             pos = pos +1;
@@ -237,6 +283,7 @@ Signature* str_to_signature_len(const char* str, const size_t len){
             if(pos != 0) {
                 buffer[pos] = '\0';
                 if(1 != sscanf(buffer , "%llx" , &(content[num]))){
+                    fprintf(stderr, "sscanf error\n");
                     free(content);
                     return NULL;
                 }
@@ -248,11 +295,15 @@ Signature* str_to_signature_len(const char* str, const size_t len){
     content[num] = '\0';
     num++;
     content = realloc(content, num * sizeof(int64));
+    if(!content){
+        MALLOC_ERROR("failed conversion string to signature");
+        return NULL;
+    }
     return init_signature_raw(content, num-1);
 }
 
 /**
- * @brief convert a signed declation to string
+ * @brief convert a signed Protected (declaration) to string.
  * 
  * @param prc : declaration to convert
  * @return char* 
@@ -260,11 +311,22 @@ Signature* str_to_signature_len(const char* str, const size_t len){
 char* protected_to_str(const Protected* prc){
     assert(prc);
     char* ks = key_to_str(prc->pKey);
+    if(!ks){
+        fprintf(stderr, "ks is NULL\n");
+        return NULL;
+    }
     char* ss = signature_to_str(prc->sig);
+    if(!ss){
+        fprintf(stderr, "ss is NULL\n");
+        free(ks);
+        return NULL;
+    }
     int N = strlen(ks) + strlen(prc->msg) + strlen(ss) + 2;
     char* ret = malloc(sizeof(char)*(N+1));
     if(!ret){
         MALLOC_ERROR("coudln't convert protected to string");
+        free(ks);
+        free(ss);
         return NULL;
     }
     ret[0] = '\0';
@@ -285,7 +347,12 @@ char* protected_to_str(const Protected* prc){
  * @return Protected* 
  */
 Protected* str_to_protected(const char* str){
-    return str_to_protected_len(str, strlen(str));
+    Protected* pro = str_to_protected_len(str, strlen(str));
+    if(!pro){
+        fprintf(stderr, "pro is NULL\n");
+        return NULL;
+    }
+    return pro;
 }
 
 /**
@@ -297,7 +364,10 @@ Protected* str_to_protected(const char* str){
  */
 Protected* str_to_protected_len(const char* str, size_t slen){
     Key* k = str_to_key(str);
-    if(!k) return NULL;
+    if(!k){
+        fprintf(stderr, "k is NULL\n");
+        return NULL;
+    }
     size_t msg_s = 0;
     // we know ")" exists because key was parsed successfully
     while(str[msg_s] != ')') msg_s++;
@@ -316,6 +386,7 @@ Protected* str_to_protected_len(const char* str, size_t slen){
 
     Signature* sig = str_to_signature_len(str+msg_e+2, slen-msg_e-2);
     if(!sig) {
+        fprintf(stderr, "sig is NULL\n");
         free(k);
         return NULL;
     }
@@ -323,6 +394,12 @@ Protected* str_to_protected_len(const char* str, size_t slen){
     // we cut out the message from the beginning and the end, 
     // thus the contents of message cannot break our program.
     char* msg = strndup(str+msg_s, msg_e-msg_s+1);
+    if(!msg){
+        MALLOC_ERROR("strndup failed");
+        free(k);
+        free_signature(sig);
+        return NULL;
+    }
 
     return init_protected_raw(k, msg, sig);
 }

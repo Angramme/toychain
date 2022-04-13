@@ -6,11 +6,22 @@
 #include "lib/types.h"
 #include <stddef.h>
 
+/**
+ * @file vote.h
+ * @brief header of vote.c
+ */
+
+/**
+ * Structure for storing a single Key.
+ */
 typedef struct hashcell {
     Key* key;
     int val;
 } HashCell;
 
+/**
+ * Structure to store Key objects as an array.
+ */
 typedef struct hashtable {
     HashCell** tab;
     int size;

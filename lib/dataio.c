@@ -26,21 +26,36 @@
  * @param nc number of candidates among the nv couples
  */
 void generate_random_data(int nv, int nc, const char* dir){
-    if(nc > nv) printf("Wrong arguments, too much candidats : nc = %d > nv = %d\n",nc,nv);
+    if(nc > nv) fprintf(stderr, "Wrong arguments, too much candidats : nc = %d > nv = %d\n",nc,nv);
     assert(strlen(dir)+20 < 500);
     char pth[500];
     strcpy(pth, dir);
     strcat(pth, "/keys.txt");
     FILE* keys = fopen(pth, "w+");
-    if(!keys) printf("couldn't open %s !\n", pth);
+    if(!keys){
+        FILE_ERROR("could not generate data");
+        printf("couldn't open %s !\n", pth);
+        return;
+    }
     strcpy(pth, dir);
     strcat(pth, "/candidates.txt");
     FILE* cand = fopen(pth, "w+");
-    if(!cand) printf("couldn't open %s !\n", pth);
+    if(!cand){
+        FILE_ERROR("could not generate data");
+        printf("couldn't open %s !\n", pth);
+        fclose(keys);
+        return;
+    }
     strcpy(pth, dir);
     strcat(pth, "/declarations.txt");
     FILE* decl = fopen(pth, "w+");
-    if(!decl) printf("couldn't open %s !\n", pth);
+    if(!decl){
+        FILE_ERROR("could not generate data");
+        printf("couldn't open %s !\n", pth);
+        fclose(keys);
+        fclose(cand);
+        return;
+    }
     if(!keys || !cand || !decl) return;
 
     Key* tab_pkey = malloc(sizeof(Key) * nv);
@@ -49,38 +64,96 @@ void generate_random_data(int nv, int nc, const char* dir){
     Key* skey_cand = malloc(sizeof(Key) * nc);
     if(!tab_pkey || !tab_skey || !pkey_cand || !skey_cand){
         MALLOC_ERROR("coudln't malloc!!!");
+        if(tab_pkey) free(tab_pkey);
+        if(tab_skey) free(tab_skey);
+        if(pkey_cand) free(pkey_cand);
+        if(skey_cand) free(skey_cand);
+        fclose(keys);
+        fclose(cand);
+        fclose(decl);
         return;
     }
 
     //generation des nv citoyens
-    for(int i = 0; i < nv; i++){
+    int i;
+    for(i = 0; i < nv; i++){
         init_pair_keys(&tab_pkey[i], &tab_skey[i], 8, 12);
         char* pstr = key_to_str(&tab_pkey[i]);
         char* sstr = key_to_str(&tab_skey[i]);
+        if(!pstr || !sstr){
+            fprintf(stderr, "pstr or sstr is NULL\n");
+            if(pstr) free(pstr);
+            if(sstr) free(sstr);
+            free(tab_pkey);
+            free(tab_skey);
+            free(pkey_cand);
+            free(skey_cand);
+            fclose(keys);
+            fclose(cand);
+            fclose(decl);
+            return;
+        }
         fprintf(keys, "%s %s\n", pstr, sstr);
         free(pstr);
         free(sstr);
     }
 
     int *is_cand = malloc(nv * sizeof(int)); // pour eviter de retomber sur le meme canditat. 1 si deja candidat, 0 sinon.
-    for(int i=0; i<nv; i++) is_cand[i] = 0;
+    if(!is_cand){
+        MALLOC_ERROR("is_cand allocation failed");
+        free(tab_pkey);
+        free(tab_skey);
+        free(pkey_cand);
+        free(skey_cand);
+        fclose(keys);
+        fclose(cand);
+        fclose(decl);
+        return;
+    }
+
+    int j;
+    for(j=0; j<nv; j++) is_cand[j] = 0;
     //generation des nc candidats
-    for(int i = 0; i < nc; i++){
+
+    for(i = 0; i < nc; i++){
         int l = rand()%nv;
         while(is_cand[l] == 1) l = rand()%nv;
         is_cand[l] = 1;
         init_key(&pkey_cand[i], tab_pkey[l].v, tab_pkey[l].n);
         init_key(&skey_cand[i], tab_skey[l].v, tab_skey[l].n);
         char* pstr = key_to_str(&tab_pkey[l]);
+        if(!pstr){
+            fprintf(stderr, "pstr is NULL\n");
+            free(tab_pkey);
+            free(tab_skey);
+            free(pkey_cand);
+            free(skey_cand);
+            fclose(keys);
+            fclose(cand);
+            fclose(decl);
+            free(is_cand);
+            return;
+        }
         fprintf(cand, "%s\n", pstr);
         free(pstr);
     }
     free(is_cand);
 
     //generation des nv declarations
-    for(int i = 0; i < nv; i++){
+    for(i = 0; i < nv; i++){
         Key* rcand = &pkey_cand[rand()%nc];
         char* msg = key_to_str(rcand);
+        if(!msg){
+            fprintf(stderr, "msg is NULL\n");
+            free(tab_pkey);
+            free(tab_skey);
+            free(pkey_cand);
+            free(skey_cand);
+            fclose(keys);
+            fclose(cand);
+            fclose(decl);
+            return;
+        }
 
         Signature* s = sign(msg, &tab_pkey[i]);
         Protected* p = init_protected_raw(&tab_pkey[i], msg, s);
@@ -160,12 +233,14 @@ CellKey* insert_cell_key(CellKey* cellkey, Key* key){
 CellKey* read_public_keys(char* file){
     FILE *f = fopen(file, "r");
     if(!f) {
+        FILE_ERROR("could not read");
         fprintf(stderr, "read_public_keys : file opening error");
         return NULL;
     }
     CellKey* res = malloc(sizeof(CellKey));
     if(!res){
-        MALLOC_ERROR("couldn't read public keys");   
+        MALLOC_ERROR("couldn't read public keys");
+        fclose(f);
         return NULL;
     }
     res->data = NULL;
@@ -182,10 +257,24 @@ CellKey* read_public_keys(char* file){
         tmp[i+1] = '\0';
 
         if(!res->data) {
-            res->data = str_to_key(tmp);
+            Key* newkey = str_to_key(tmp);
+            if(!newkey){
+                fprintf(stderr, "newkey is NULL\n");
+                fclose(f);
+                free_cell_keys(res);
+                return NULL;
+            }
+            res->data = newkey;
             res->next =  NULL;
         } else {
-            res = insert_cell_key(res, str_to_key(tmp));
+            Key* tempkey = str_to_key(tmp);
+            if(!tempkey){
+                fprintf(stderr, "tempkey is NULL\n");
+                fclose(f);
+                free_cell_keys(res);
+                return NULL;
+            }
+            res = insert_cell_key(res, tempkey);
         }
     }
     fclose(f);
@@ -199,12 +288,16 @@ CellKey* read_public_keys(char* file){
  */
 void print_list_keys(CellKey* LCK){
     if(!LCK){
-        printf("print_list_keys() : Argument NULL\n");
+        fprintf(stderr, "print_list_keys() : Argument NULL\n");
         return;
     }
     CellKey* temp = LCK;
     while(temp != NULL && temp->data != NULL){
         char* keystr = key_to_str(temp->data);
+        if(!keystr){
+            fprintf(stderr, "keystr is NULL\n");
+            return;
+        }
         printf("%s\n", keystr);
         free(keystr);
         temp = temp->next;
@@ -264,13 +357,15 @@ void prepend_protected(CellProtected** list, Protected* pr){
 CellProtected* read_protected(const char* filename){
     FILE* file = fopen(filename, "r");
     if(!file){
-        printf("couldn't open %s !\n", filename);
+        FILE_ERROR("could not read");
+        fprintf(stderr, "couldn't open %s !\n", filename);
         return NULL;
     }
     size_t buff_size = 500;
     char* buffer = malloc(sizeof(char)*buff_size);
     if(!buffer){
         MALLOC_ERROR("couldn't read protected");
+        fclose(file);
         return NULL;
     }
 
@@ -278,6 +373,12 @@ CellProtected* read_protected(const char* filename){
 
     while(getline(&buffer, &buff_size, file) > 1){
         Protected* proc = str_to_protected(buffer);
+        if(!proc){
+            fprintf(stderr, "proc is NULL\n");
+            free(buffer);
+            fclose(file);
+            return NULL;
+        }
         prepend_protected(&ret, proc);
     }
 
@@ -295,11 +396,20 @@ CellProtected* read_protected(const char* filename){
 char* list_protected_to_str(const CellProtected* list){
     size_t size = 64;
     char* ret = malloc(size*sizeof(char));
+    if(!ret){
+        MALLOC_ERROR("ret failed allocation");
+        return NULL;
+    }
     ret[0] = '\0';
     char slen[50];
 
     while(list){
         char* pstr = protected_to_str(list->data);
+        if(!pstr){
+            fprintf(stderr, "pstr is NULL\n");
+            free(ret);
+            return NULL;
+        }
         const size_t len = strlen(pstr);
         list = list->next;
         // adding the size is needed for security reasons.
@@ -315,7 +425,7 @@ char* list_protected_to_str(const CellProtected* list){
             while(cursize >= size) size *= 2;
             ret = realloc(ret, size); 
             if(!ret){ 
-                MALLOC_ERROR("error while reallocating memory in list_protected_to_str"); 
+                MALLOC_ERROR("error while reallocating memory"); 
                 return NULL; 
             } 
         }
@@ -327,6 +437,10 @@ char* list_protected_to_str(const CellProtected* list){
     }
     const size_t len = strlen(ret);
     ret = realloc(ret, len + 2);
+    if(!ret){
+        MALLOC_ERROR("error while reallocating memory"); 
+        return NULL;
+    }
     ret[len] = ']';
     ret[len+1] = '\0';
     return ret;
@@ -351,6 +465,7 @@ CellProtected* str_to_list_protected(const char* str){
         }
         size_t prot_size;
         if(1 != sscanf(str, " %zx ", &prot_size)){
+            fprintf(stderr, "sscanf error\n");
             free_list_protected(list);
             return NULL;
         }
@@ -398,6 +513,10 @@ CellProtected* str_to_list_protected(const char* str){
 void print_protected_list(CellProtected* list){
     while(list){
         char* str = protected_to_str(list->data);
+        if(!str){
+            fprintf(stderr, "str is NULL\n");
+            return;
+        }
         printf("%s \n", str);
         free(str);
         list = list->next;
@@ -406,27 +525,30 @@ void print_protected_list(CellProtected* list){
 
 /**
  * @brief copies the list of protected values. The copies order is inverted.
- * 
  * @param o 
  * @return CellProtected* 
  */
 CellProtected* copy_protected_list(const CellProtected* o){
     CellProtected* ret = NULL;
     while(o){
-        prepend_protected(&ret, copy_protected(o->data));
+        Protected* procpy = copy_protected(o->data);
+        if(!procpy){
+            fprintf(stderr, "procpy failed\n");
+            return NULL;
+        }
+        prepend_protected(&ret, procpy);
         o = o->next;
     }
     return ret;
 }
 
 /**
- * @brief free a CellKey
- * 
- * @param c 
+ * @brief free a CellKey object(correspond to delete_cell_key in the subject).
+ * @param c Cellkey object to delete
  */
 void free_cell_keys(CellKey* c){
     if(!c)return;
-    free(c->data);
+    if(c->data) free(c->data);
     free(c);
 }
 
@@ -447,9 +569,10 @@ void free_list_keys(CellKey* cellkey){
 /**
  * @brief correspond au delete_cell_protected dans le sujet
  * 
- * @param c 
+ * @param c
  */
 void free_cell_protected(CellProtected* c){
+    if(!c)return;
     free_protected(c->data);
     free(c);
 }
@@ -494,7 +617,7 @@ CellProtected* rand_list_protected(size_t len){
 }
 
 /**
- * @brief generate random list of protected with message characters in range low hi
+ * @brief generate random list of protected with message characters in range [low, hi].
  * 
  * @param len 
  * @param low 
@@ -504,18 +627,29 @@ CellProtected* rand_list_protected(size_t len){
 CellProtected* rand_list_protected_range(size_t len, char low, char hi){
     CellProtected* randlist = NULL;
     char msg[500];
-    for(int i=0; i<len; i++){
+    int i;
+    for(i=0; i<len; i++){
         Key pk, sk;
         init_pair_keys(&pk, &sk, 8, 12);
         size_t msgl = rand()%10 + 5;
         assert(msgl < sizeof(msg)/sizeof(char));
         msg[msgl] = '\0';
-        for(int j=0; j<msgl; j++){
+        int j;
+        for(j=0; j<msgl; j++){
             do{ msg[j] = rand_int64(low, hi); }
             while(msg[j] == '\0');
         } 
         Signature* sig = sign(msg, &sk);
+        if(!sig){
+            free_list_protected(randlist);
+            return NULL;
+        }
         Protected* proc = init_protected(&pk, msg, sig);
+        if(!proc){
+            free_list_protected(randlist);
+            free_signature(sig);
+            return NULL;
+        }
         free_signature(sig);
         prepend_protected(&randlist, proc); // takes ownership of proc
     }

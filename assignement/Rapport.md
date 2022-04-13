@@ -1,5 +1,6 @@
 # Rapport Toychain
-Le but de ce projet est de créer des outils qui serviront à simuler une élections.
+Le but de ce projet est de créer des outils qui serviront à simuler une élection.
+
 
 # Choix de structure
 - Afin d'avoir une meilleure arborescence nous avons choisit, d'une part de séparer les différents fichiers. Les fichiers définnissant les structures

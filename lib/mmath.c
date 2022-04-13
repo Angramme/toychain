@@ -1,8 +1,7 @@
 #include "lib/mmath.h"
+#include "lib/overflow.h"
 #include <stdlib.h>
 #include <stdbool.h>
-
-#include "lib/overflow.h"
 #include <stdio.h>
 #include <assert.h>
 
@@ -20,20 +19,30 @@
   * @return true : p is prime
   * @return false : p is not prime
   */
-bool is_prime_naive(int64 p) {
-    for (int64 i = 3; i < p; i++) {
+bool is_prime_naive(int64 p){
+    int64 i;
+    for (i = 3; i < p; i++){
         if (p % i == 0) return false;
     }
     return true;
 }
 
-
+/**
+ * @brief Checks if a is a Miller witness for p
+ * 
+ * @param a integer inferior to p
+ * @param b 
+ * @param d 
+ * @param p an odd number that checks p=(2^b)*d+1
+ * @return bool
+ */
 bool witness(int64 a, int64 b, int64 d, int64 p) {
     int64 x = modpow(a, d, p);
     if (x == 1) {
         return false;
     }
-    for (int64 i = 0; i < b; i++) {
+    int64 i;
+    for (i = 0; i < b; i++) {
         if (x == p - 1) {
             return false;
         }
@@ -116,7 +125,8 @@ int64 random_prime_number(int low_size, int up_size, int k) {
     // (dans ce cas le bit up_size+1 depasserait la taille du entier)
     const int64 up_bound = ((1 << up_size) - 1) | (1 << up_size);
     const int64 lo_bound = (1 << low_size);
-    for (int I = 0; I < (1 << 12); I++) {
+    int I;
+    for (I = 0; I < (1 << 12); I++) {
         int64 x = rand_int64(lo_bound, up_bound);
         if (x <= 2) continue;
         if (is_prime_miller(x, k)) return x;
@@ -136,10 +146,9 @@ int64 random_prime_number(int low_size, int up_size, int k) {
  */
 int64 modpow_naive(int64 a, int64 m, int64 n) {
     int64 A = 1;
-
     if (m == 0) return 1 % n;
-
-    for (int i = 0; i < m; i++) {
+    int i;
+    for (i = 0; i < m; i++) {
         A *= a;
         A %= n;
     }

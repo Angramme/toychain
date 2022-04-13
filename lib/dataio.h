@@ -2,18 +2,29 @@
 #define _DATA_IO_H
 
 #include "lib/rsa.h"
+#include "lib/sign.h"
+
+/**
+ * @file dataio.h
+ * @brief header for dataio.c
+ */
 
 #define BLOCK_STORAGE_DIR "./data/"
 #define BLOCKCHAIN_DIR BLOCK_STORAGE_DIR "blockchain/"
 #define PENDING_BLOCK_FILE BLOCK_STORAGE_DIR "pending_block"
 #define PENDING_VOTES_FILE BLOCK_STORAGE_DIR "pending_votes.txt"
 
+/**
+ * Structure for Key storing.
+ */
 typedef struct cellKey{
     Key* data;
     struct cellKey* next;
 }CellKey;
-#include "lib/sign.h"
 
+/**
+ * Strucutre for Protected (declarations) storing.
+ */
 typedef struct cellProtected {
     Protected* data;
     struct cellProtected* next;
@@ -35,7 +46,7 @@ CellKey* create_cell_key(Key* key);
 CellKey* insert_cell_key(CellKey* cellkey, Key* key);
 CellKey* read_public_keys(char* file);
 void print_list_keys(CellKey* LCK);
-void free_cell_keys(CellKey* c); //delete
+void free_cell_keys(CellKey* c);
 void free_list_keys(CellKey* cellkey);
 
 CellProtected* rand_list_protected(size_t len);

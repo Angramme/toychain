@@ -6,8 +6,18 @@
 #include "lib/rsa.h"
 #include "lib/dataio.h"
 
+/**
+ * @file blockchain.h
+ * @brief header for blockchain.c
+ */
+
 #define BLOCK_HASH_SIZE SHA256_DIGEST_LENGTH
 
+
+/**
+ * @brief Block structure to store declarations.
+ * 
+ */
 typedef struct block {
     Key* author;
     CellProtected* votes;
@@ -32,8 +42,8 @@ bool str_to_hash(const char* str, uint8** ret);
 char* hash_to_str(const uint8* hash);
 
 void compute_proof_of_work(Block *B, int d);
-bool verify_block(const Block*, int d);
 
+bool verify_block(const Block* B, int d);
 void free_block(Block* b);
 void delete_block(Block* b);
 

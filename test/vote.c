@@ -10,7 +10,7 @@ int main(){
         Key k;
         init_key(&k, rand_int64(0, 42424269), rand_int64(0, 42424269));
         HashCell* hc = create_hashcell(&k);
-        free_hashcell(hc);
+        if(hc) free_hashcell(hc);
     }
     TEST_SECTION_END();
 
@@ -21,13 +21,15 @@ int main(){
     TEST_SECTION_END();
 
     TEST_SECTION(hash_function);
-    {
-        for(int I=0; I<5; I++){
+    {   
+        int I;
+        for(I=0; I<5; I++){
             size_t size = rand_int64(10, 1000);
             
             Key k;
             init_key(&k, 0, 0);
-            for(int i=0; i<100; i++){
+            int i;
+            for(i=0; i<100; i++){
                 k.n = rand_int64(0, 42424269);
                 k.v = rand_int64(0, 42424269);
 

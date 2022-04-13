@@ -1,11 +1,10 @@
 #include "lib/rsa.h"
 #include "lib/error.h"
+#include "lib/overflow.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-
-#include "lib/overflow.h"
 
 /**
  * @file rsa.c
@@ -21,7 +20,10 @@
  * @return void
  */
 void init_key(Key* key, int64 val, int64 n){
-    assert(key);
+    if(!key){
+        fprintf(stderr, "argument key is NULL\n");
+        return;
+    }
     key->v = val;
     key->n = n;
 }
@@ -33,6 +35,7 @@ void init_key(Key* key, int64 val, int64 n){
  * @return Key* 
  */
 Key* copy_key(const Key* o){
+    assert(o);
     Key* ret = malloc(sizeof(Key));
     if(!ret){
         MALLOC_ERROR("key copy failed");
@@ -59,8 +62,8 @@ void init_pair_keys(Key* pKey, Key* sKey, int low_size, int up_size){
         q = random_prime_number(low_size, up_size, 5000);
         if(p == q || p == -1 || q == -1) continue;
         if(++try > 1000){
-            // possible si low_size est trop grand
-            printf("ERROR: couldn't generate public-private key pair!");
+            // can happen if low_size is too big
+            fprintf(stderr, "ERROR: couldn't generate public-private key pair!\n");
             return;
         }
     }
@@ -91,11 +94,13 @@ char* key_to_str(const Key* key){
 Key* str_to_key(const char* str){
     assert(str);
     int64 v, n;
-    if(2 != sscanf(str, " ( %llx , %llx ) ", &v, &n))
+    if(2 != sscanf(str, " ( %llx , %llx ) ", &v, &n)){
+        fprintf(stderr, "sscanf error\n");
         return NULL;
+    }
     Key* ret = malloc(sizeof(Key));
     if(!ret){
-        MALLOC_ERROR("stro to key failed");
+        MALLOC_ERROR("str to key conversion failed");
         return NULL;
     }
     init_key(ret, v, n);
@@ -129,7 +134,8 @@ bool generate_key_values(int64 p, int64 q, int64* n, int64* s, int64* u) {
 
     int64 T = (p - 1) * (q - 1);
     // avoid infinite loop
-    for (int I = 0; I < (1 << 16); I++) {
+    int I;
+    for (I = 0; I < (1 << 16); I++) {
         // rand() should probably be replaced with 
         // a truly random, random function
         int64 S = rand_int64(3, T-1);
@@ -161,7 +167,8 @@ int64* encrypt(const char* chaine, int64 s, int64 n) {
         return NULL;
     }
     ret[N] = '\0';
-    for (int i = 0; i < N; i++) {
+    int i;
+    for (i = 0; i < N; i++) {
         int m = chaine[i];
         ret[i] = modpow(m, s, n);
     }
@@ -185,7 +192,8 @@ char* decrypt(const int64* crypted, int size, int64 u, int64 n) {
         return NULL;
     }
     ret[size] = '\0';
-    for(int i=0; i<size; i++){        
+    int i;
+    for(i=0; i<size; i++){        
         int64 c = crypted[i];
         ret[i] = modpow(c,u,n);
     }

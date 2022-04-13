@@ -7,8 +7,8 @@
 
 
 /**
- * @file rsa.h
- * @brief header of rsa.c
+ * @file sign.h
+ * @brief header of sign.c
  */
 
 /**
@@ -19,6 +19,15 @@ typedef struct _Signature{
     int len; /**< int the size of the contents ("\n" at the end is not included in the size) */
 } Signature;
 
+/**
+ * Structure for storing a Protected (declaration).
+ */
+typedef struct _Protected{
+    Key* pKey; /**< Author of the declaration*/
+    char* msg; /**< Content of the declaration */
+    Signature* sig; /**< Signed message*/
+} Protected;
+
 Signature* init_signature_raw(int64* content, int size);
 Signature* init_signature(const int64* content, int size);
 Signature* copy_signature(const Signature* o);
@@ -28,12 +37,6 @@ Signature* sign(char* mess, Key* sKey);
 char* signature_to_str(const Signature* sgn);
 Signature* str_to_signature(const char* str);
 Signature* str_to_signature_len(const char* str, size_t len);
-
-typedef struct _Protected{
-    Key* pKey;
-    char* msg;
-    Signature* sig;
-} Protected;
 
 Protected* init_protected(Key* pKey, char* mess, Signature* sgn);
 Protected* init_protected_raw(Key* pKey, char* mess, Signature* sgn);

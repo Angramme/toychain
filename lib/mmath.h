@@ -5,6 +5,11 @@
 #include <stddef.h>
 #include "lib/types.h"
 
+/**
+ * @file mmath.h
+ * @brief Header for mmath.c
+ */
+
 #define GOLDEN_RATIO 0.61803398875
 
 int64 rand_int64(int64 low, int64 up);

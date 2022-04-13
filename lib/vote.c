@@ -2,6 +2,7 @@
 #include "lib/types.h"
 #include "lib/mmath.h"
 #include "lib/dataio.h"
+#include "lib/error.h"
 #include <stdlib.h>
 #include <assert.h>
 
@@ -11,22 +12,47 @@
  * 
  */
 
+/**
+ * @brief Create a hashcell raw object. Takes ownership of key.
+ * @param key 
+ * @return HashCell* 
+ */
 HashCell* create_hashcell_raw(Key* key){
     HashCell* ret = malloc(sizeof(HashCell));
+    if(!ret){
+        MALLOC_ERROR("HashCell allocation failed");
+        return NULL;
+    }
     ret->key = key;
     ret->val = 0;
     return ret;
 }
 
+/**
+ * @brief Create a hashcell object. Copies key.
+ * @param key 
+ * @return HashCell* 
+ */
 HashCell* create_hashcell(const Key* key){
     return create_hashcell_raw(copy_key(key));
 }
 
+/**
+ * @brief Free a HasCell object.
+ * @param hc Object to free.
+ */
 void free_hashcell(HashCell* hc){
     free(hc->key);
     free(hc);
 }
 
+/**
+ * @brief Hash function for Key arrays (HashTable).
+ * 
+ * @param key 
+ * @param size length of the array
+ * @return uint32 : position in the array
+ */
 uint32 hash_function(const Key* key, int size){
     const int64 tab[] = {key->n, key->v};
     const uint32 hs = jenkins_one_at_a_time_hash((uint8*)&tab, sizeof(tab)/sizeof(uint8));
@@ -34,6 +60,14 @@ uint32 hash_function(const Key* key, int size){
     return (uint32)(size * (X - (double)(uint32)(X)));
 }
 
+/**
+ * @brief Find the position to place k at in the HasTable t.
+ * If the position in the array is taken, find a new one using linear probing.
+ * If no position was found, returns the originally found position of hash_function().
+ * @param t Table to store in
+ * @param k Key to store
+ * @return uint32 : found position.
+ */
 uint32 find_position(const HashTable* t, const Key* k){
     const uint32 Io = hash_function(k, t->size);
     uint32 i = Io;
@@ -48,10 +82,28 @@ uint32 find_position(const HashTable* t, const Key* k){
     }
 }
 
+/**
+ * @brief Create a HashTable object containing keys elements.
+ * Keys position are found with find_position()..
+ * 
+ * @param keys keys to store
+ * @param size size of the table
+ * @return HashTable* 
+ */
 HashTable* create_hashtable(const CellKey* keys, size_t size){
     HashTable* T = malloc(sizeof(HashTable));
+    if(!T){
+        MALLOC_ERROR("T failed allocation");
+        return NULL;
+    }
+
     T->size = size;
     T->tab = malloc(sizeof(HashCell*)*size);
+    if(!T->tab){
+        MALLOC_ERROR("T->tab failed allocation");
+        free_hashtable(T);
+        return NULL;
+    }
     
     size_t counter = 0;
     while(keys){
@@ -65,21 +117,24 @@ HashTable* create_hashtable(const CellKey* keys, size_t size){
 }
 
 /**
- * @brief correspond a delete_hashtable
+ * @brief Free a HashTable object and all the elements of the table.
+ * (Correspond to delete_hashtable in the project subject).
  * 
- * @param t 
+ * @param t object to free
  */
 void free_hashtable(HashTable* t){
-    for(size_t i=0; i<t->size; i++){
-        free_hashcell(t->tab[i]);
+    if(!t)return;
+    size_t i;
+    for(i=0; i<t->size; i++){
+        if(t->tab[i]) free_hashcell(t->tab[i]);
     }
     free(t->tab);
     free(t);
 }
 
 /**
- * @brief 
- * 
+ * @brief Simulates an election process and returns the winner.
+ * Checks if declarations are valid and update vote numbers for each candidate.
  * @param decl 
  * @param cadidates 
  * @param voters 
@@ -90,6 +145,7 @@ void free_hashtable(HashTable* t){
 Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const CellKey* voters, int sizeC, int sizeV){
     HashTable* Hc = create_hashtable(cadidates, sizeC);
     HashTable* Hv = create_hashtable(voters, sizeV);
+    if(!Hc || !Hv)return NULL;
 
     while(decl){
         // make sure the vote is legitimate
@@ -101,6 +157,12 @@ Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const C
 
         // make sure the target is a candidate.
         Key* cand_key = str_to_key(decl->data->msg);
+        if(!cand_key){
+            fprintf(stderr, "cand_key is NULL\n");
+            free_hashtable(Hc);
+            free_hashtable(Hv);
+            return NULL;
+        }
         uint32 iC = find_position(Hc, cand_key);
         if(Hc->tab[iC] == NULL || Hc->tab[iC]->key->n != cand_key->n || Hc->tab[iC]->key->v != cand_key->v){
             free(cand_key);
@@ -116,7 +178,8 @@ Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const C
     }
 
     size_t imax = 0;
-    for(size_t i = 0; i < Hc->size; i++){
+    size_t i;
+    for(i = 0; i < Hc->size; i++){
         if(Hc->tab[imax]->val < Hc->tab[i]->val) imax = i;
     }
 

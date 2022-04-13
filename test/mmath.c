@@ -60,7 +60,8 @@ int main(){
         TEST(extended_gcd(6417, 6424, &u, &v), 1);
         TEST(6417*u + 6424*v, 1);
         TEST(extended_gcd(42, 42, &u, &v), 42);
-        for(int i=0; i<5; i++){
+        int i;
+        for(i=0; i<5; i++){
             int64 p = random_prime_number(15, 16, 500);
             int64 q = random_prime_number(15, 16, 500);
 
@@ -78,7 +79,8 @@ int main(){
     double dur_naiv;
     double dur;
     FILE *f = fopen("plotfastexp1.txt", "w");
-    for(int m = 1; m <=200000000; m*=2){
+    int m;
+    for(m = 1; m <=200000000; m*=2){
         CLOCK_TIME(dur_naiv, modpow_naive(9435000329,m,1093));
         CLOCK_TIME(dur, modpow(3,m,10));
         fprintf(f, "%d %f %f\n", m, dur_naiv, dur);

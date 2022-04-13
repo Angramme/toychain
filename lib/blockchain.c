@@ -9,6 +9,11 @@
 #include <string.h>
 
 /**
+ * @file blockchain.c
+ * @brief File to create and handle blockchain structures.
+ */
+
+/**
  * @brief print the content of a Block struct in a file
  * 
  * @param filename name of the file
@@ -22,14 +27,23 @@ bool write_block(const char* filename, const Block* b){
     }
     if(!b){
         fprintf(stderr, "write_block : null argument\n");
+        fclose(f);
         return false;
     }
 
     char* keystr = key_to_str(b->author);
     char* l_str = list_protected_to_str(b->votes);
-
     char* chash = hash_to_str(b->hash);
     char* cphash = hash_to_str(b->previous_hash);
+    if(!keystr || !l_str || !cphash || !chash){
+        fprintf(stderr, "str conversion failed\n");
+        if(keystr) free(keystr);
+        if(l_str) free(l_str);
+        if(chash) free(chash);
+        if(cphash) free(cphash);
+        fclose(f);
+        return false;
+    }
 
     fprintf(f,"%s\n", keystr); // author
     fprintf(f,"%s\n", chash); // hash
@@ -61,7 +75,7 @@ Block* read_block(const char* filename){
     }
     Block* BLOCK = malloc(sizeof(Block));
     if(!BLOCK){
-        MALLOC_ERROR("couldn't malloc memory");
+        MALLOC_ERROR("could not read");
         fclose(F);
         return NULL;
     }
@@ -178,14 +192,24 @@ Block* read_block(const char* filename){
  */
 char* hash_to_str(const uint8* hash){
     if(hash == NULL){
+        
         char* ret = malloc(sizeof(char) * 8);
+        if(!ret){
+            MALLOC_ERROR("hash to str failed");
+            return NULL;
+        }
         memcpy(ret, "NULLHSH\0", 8);
         return ret;
     }
     const size_t maxsize = 2*BLOCK_HASH_SIZE +1;
-    char* ret = malloc(sizeof(char)*maxsize);
+    char* ret = malloc(sizeof(char)*maxsize);    
+    if(!ret){
+        MALLOC_ERROR("hash to str failed");
+        return NULL;
+    }    
     ret[maxsize-1] = '\0';
-    for(size_t i=0; i<BLOCK_HASH_SIZE; i++){
+    size_t i;
+    for(i=0; i<BLOCK_HASH_SIZE; i++){
         char buf[4];
         sprintf(buf, "%02x", hash[i]); 
         ret[i*2] = buf[0];
@@ -208,7 +232,12 @@ bool str_to_hash(const char* str, uint8** RET){
         return true;
     }
     uint8* ret = malloc(sizeof(uint8)*BLOCK_HASH_SIZE);
-    for(size_t i=0; i<BLOCK_HASH_SIZE; i++){
+    if(!ret){
+        MALLOC_ERROR("str to hash failed");
+        return false;
+    }
+    size_t i;
+    for(i=0; i<BLOCK_HASH_SIZE; i++){
         char buff[3];
         buff[2] = '\0';
         if(!str[i*2] || !str[i*2 +1]){
@@ -218,6 +247,7 @@ bool str_to_hash(const char* str, uint8** RET){
         memcpy(buff, str + i*2, 2);
         unsigned int V;
         if(1 != sscanf(buff, "%02x", &V)){
+            fprintf(stderr, "sscanf failed\n");
             free(ret);
             return false;
         }
@@ -236,8 +266,19 @@ bool str_to_hash(const char* str, uint8** RET){
 char* block_head_to_str(const Block* b){
     char* kstr = key_to_str(b->author);
     char* lstr = list_protected_to_str(b->votes);
+    if(!kstr || !lstr){
+        if(kstr) free(kstr);
+        if(lstr) free(lstr);
+        return NULL;
+    }
     size_t len = strlen(kstr) + BLOCK_HASH_SIZE*2 + strlen(lstr) + 10 + 1;
     char* ret = malloc(sizeof(char)*len);
+    if(!ret){
+        MALLOC_ERROR("could not convert");
+        free(kstr);
+        free(lstr);
+        return NULL;
+    }
     ret[0] = '\0';
     strcat(ret, kstr);
     free(kstr);
@@ -341,7 +382,8 @@ void compute_proof_of_work(Block *B, int d){
  * @param hash 
  */
 void print_sha256_hash(const uint8* hash){
-    for(size_t i = 0; i < BLOCK_HASH_SIZE; i++)
+    size_t i;
+    for(i = 0; i < BLOCK_HASH_SIZE; i++)
         printf("%02x", hash[i]);
     putchar('\n');
 }
@@ -371,6 +413,10 @@ bool compare_hash(const uint8* A, const uint8* B){
  */
 uint8* copy_hash(const uint8* hash){
     uint8* ret = malloc(sizeof(uint8)*(BLOCK_HASH_SIZE+1));
+    if(!ret){
+        MALLOC_ERROR("failed ret allocation");
+        return NULL;
+    }
     memcpy(ret, hash, BLOCK_HASH_SIZE);
     ret[BLOCK_HASH_SIZE] = '\0';
     return ret;
@@ -402,6 +448,10 @@ bool verify_block(const Block* B, int d){
  */
 Block* init_block_raw(Key* auth, CellProtected* votes, uint8* prev_hash){
     Block* b = malloc(sizeof(Block));
+    if(!b){
+        MALLOC_ERROR("failed b allocation");
+        return NULL;
+    }
     b->author = auth;
     b->votes = votes;
     b->hash = NULL;
@@ -428,6 +478,7 @@ Block* init_block(const Key* auth, const CellProtected* votes, const uint8* prev
  * @param b 
  */
 void free_block(Block* b){
+    if(!b)return;
     free(b->author);
     free(b->hash);
     free(b->previous_hash);
