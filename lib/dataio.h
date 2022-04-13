@@ -4,9 +4,9 @@
 #include "lib/rsa.h"
 
 #define BLOCK_STORAGE_DIR "./data/"
-#define BLOCKCHAIN_DIR (BLOCK_STORAGE_DIR "blockchain/")
-#define PENDING_BLOCK_FILE (BLOCK_STORAGE_DIR "pending_block")
-#define PENDING_VOTES_FILE (BLOCK_STORAGE_DIR "pending_votes.txt")
+#define BLOCKCHAIN_DIR BLOCK_STORAGE_DIR "blockchain/"
+#define PENDING_BLOCK_FILE BLOCK_STORAGE_DIR "pending_block"
+#define PENDING_VOTES_FILE BLOCK_STORAGE_DIR "pending_votes.txt"
 
 typedef struct cellKey{
     Key* data;

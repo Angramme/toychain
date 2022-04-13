@@ -48,14 +48,14 @@ typedef struct block_tree_cell {
     size_t height;
 } CellTree;
 
-CellTree* create_node(const Block* b);
+CellTree* create_node(Block* b);
 bool update_height(CellTree* father, CellTree* child);
 void add_child(CellTree* father, CellTree* child);
 void delete_node(CellTree* node);
 void delete_tree(CellTree* node);
 
 CellTree* highest_child(const CellTree* cell);
-CellTree* last_node(const CellTree* tree);
+CellTree* last_node(CellTree* tree);
 
 CellProtected* get_trusted_declarations(const CellTree* tree);
 

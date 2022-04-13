@@ -2,6 +2,7 @@
 #include "lib/dataio.h"
 #include "lib/error.h"
 
+#include <errno.h>
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -444,7 +445,7 @@ void delete_block(Block* b){
     free(b->previous_hash);
     while(b->votes){
         CellProtected* temp = b->votes;
-        b->votes = b->votes->next
+        b->votes = b->votes->next;
         // temp->data // on ne free pas le contenu comme l'enonce le demande
         free(temp);
     }
@@ -457,7 +458,7 @@ void delete_block(Block* b){
  * @param b 
  * @return CellTree* 
  */
-CellTree* create_node(const Block* b){
+CellTree* create_node(Block* b){
     CellTree* t = malloc(sizeof(CellTree));
     t->block = b;
     t->height = 0;
@@ -499,7 +500,7 @@ void print_tree_r(CellTree* tr, int indent){
         printf(" |  ");
     if(indent > 0) printf(" |- ");
     
-    printf("%d ", tr->height);
+    printf("%zd ", tr->height);
     char* bstr = block_to_str(tr->block);
     uint8* bhash = hash_string(bstr);
     free(bstr);
@@ -560,7 +561,7 @@ CellTree* highest_child(const CellTree* cell){
  * @param tree 
  * @return CellTree* 
  */
-CellTree* last_node(const CellTree* tree){
+CellTree* last_node(CellTree* tree){
     if(!tree) return NULL;
 
     while(tree->firstChild){
@@ -652,6 +653,17 @@ CellTree* read_tree(){
     if(!D){
         FILE_ERROR("cannot open blockchain directory!");
         fprintf(stderr, " message : %s \n", strerror(errno));
+        return NULL;
+    }
+
+    size_t STAB = 32;
+    CellTree** TAB;
+
+    struct dirent* dir;
+    while((dir = readdir(D))){
+        if(dir->d_type == DT_DIR || strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0)
+            continue;
+        
         
     }
 }
