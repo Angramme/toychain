@@ -507,11 +507,19 @@ void delete_block(Block* b){
 /**
  * @brief Create a node object. Takes ownership of Block b!
  * 
- * @param b 
+ * @param b Block to initialize the node with
  * @return CellTree* 
  */
 CellTree* create_node(Block* b){
+    if(!b){
+        fprintf(stderr, "NULL argument\n");
+        return NULL;
+    }
     CellTree* t = malloc(sizeof(CellTree));
+    if(!t){
+        MALLOC_ERROR("could not malloc the node");
+        return NULL;
+    }
     t->block = b;
     t->height = 0;
     t->father = NULL;
@@ -520,6 +528,13 @@ CellTree* create_node(Block* b){
     return t;
 }
 
+/**
+ * @brief Update height of a node
+ * 
+ * @param father 
+ * @param child 
+ * @return bool
+ */
 bool update_height(CellTree* father, CellTree* child){
     size_t newh = 1 + child->height;
     if(newh > father->height){
@@ -545,6 +560,12 @@ void add_child(CellTree* father, CellTree* child){
     }
 }
 
+/**
+ * @brief print a tree recursively.
+ * 
+ * @param tr 
+ * @param indent 
+ */
 void print_tree_r(CellTree* tr, int indent){
     if(!tr) return;
 
@@ -554,7 +575,12 @@ void print_tree_r(CellTree* tr, int indent){
     
     printf("%zd ", tr->height);
     char* bstr = block_to_str(tr->block);
+    if(!bstr) return;
     uint8* bhash = hash_string(bstr);
+    if(!bhash){
+        free(bstr);
+        return;
+    }
     free(bstr);
     print_sha256_hash(bhash);
     free(bhash);
@@ -562,16 +588,23 @@ void print_tree_r(CellTree* tr, int indent){
     print_tree_r(tr->firstChild, indent +1);
     print_tree_r(tr->nextBro, indent);
 }
+
+/**
+ * @brief print a tree.
+ * 
+ * @param tr 
+ */
 void print_tree(CellTree* tr){
     print_tree_r(tr, 0);
 }
 
 /**
- * @brief fonction de l'enonce
+ * @brief Delete a node. See question 8.5 for more information.
  * 
  * @param node 
  */
 void delete_node(CellTree* node){
+    if(!node) return;
     delete_block(node->block);
     free(node);
 }
@@ -582,6 +615,7 @@ void delete_node(CellTree* node){
  * @param node 
  */
 void free_node(CellTree* node){
+    if(!node) return;
     free_block(node->block);
     free(node);
 }
@@ -592,6 +626,7 @@ void free_node(CellTree* node){
  * @param node 
  */
 void delete_tree(CellTree* node){
+    if(!node) return;
     CellTree* nextb = node->nextBro;
     CellTree* child = node->firstChild;
     delete_node(node);
@@ -606,6 +641,7 @@ void delete_tree(CellTree* node){
  * @return CellTree* 
  */
 CellTree* highest_child(const CellTree* cell){
+    if(!cell) return NULL;
     CellTree* cur = cell->firstChild;
     CellTree* mx = cur;
 
@@ -618,7 +654,7 @@ CellTree* highest_child(const CellTree* cell){
 }
 
 /**
- * @brief 
+ * @brief Question 8.7 descpription is false. ~Returns the last node of a tree.
  * 
  * @param tree 
  * @return CellTree* 
@@ -653,6 +689,11 @@ CellProtected* get_trusted_declarations(const CellTree* tree){
     return ret;
 }
 
+/**
+ * @brief print a Protected object (declaration) to the Pending_vote file.
+ * 
+ * @param p delcaration to print
+ */
 void submit_vote(Protected* p){
     FILE* F = fopen(PENDING_VOTES_FILE, "a");
     if(!F){
@@ -670,10 +711,23 @@ void submit_vote(Protected* p){
     fclose(F);
 }
 
+/**
+ * @brief Create a Block object using PENDING_VOTES_FILE declarations.
+ * Write the block in PENDING_BLOCK_FILE only if it is valid.
+ * The read declarations are removed from PENDING_VOTES_FILE.
+ * @param tree 
+ * @param author
+ * @param d number of zeros for proof of work
+ */
 void create_block(CellTree* tree, Key* author, int d){
     CellProtected* plist = read_protected(PENDING_VOTES_FILE);
-
+    if(!plist) return;
     CellTree* last = last_node(tree);
+    if(!last){
+        fprintf(stderr, "could not create block\n");
+        if(plist) free_list_protected(plist);
+        return;
+    }
 
     Block* B = init_block_raw(
         author, 
@@ -690,15 +744,25 @@ void create_block(CellTree* tree, Key* author, int d){
     remove(PENDING_VOTES_FILE);
 }
 
+/**
+ * @brief Read the last created Block
+ * 
+ * @param d 
+ * @param name 
+ */
 void add_block(int d, const char* name){
     Block* b = read_block(PENDING_BLOCK_FILE);
-    verify_block(b, d);
+    if(!verify_block(b, d)){
+        free_block(b);
+        return;
+    }
     remove(PENDING_BLOCK_FILE);
 
     const size_t len = strlen(BLOCKCHAIN_DIR) + strlen(name);
     char* fullname = malloc(sizeof(char)*(len+1));
     if(!fullname){
         MALLOC_ERROR("couldn't add block!");
+        free_block(b);
         return;
     }
     fullname[0] = '\0';

@@ -50,6 +50,10 @@ void delete_block(Block* b);
 Block* init_block_raw(Key* auth, CellProtected* votes, uint8* prev_hash);
 Block* init_block(const Key* auth, const CellProtected* votes, const uint8* prev_hash);
 
+/**
+ * @brief Tree structure for Block objects
+ * 
+ */
 typedef struct block_tree_cell {
     Block* block;
     struct block_tree_cell* father;
