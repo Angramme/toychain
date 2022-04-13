@@ -57,47 +57,78 @@ Block* read_block(const char* filename){
         return NULL;
     }
     Block* BLOCK = malloc(sizeof(Block));
+    if(!BLOCK){
+        MALLOC_ERROR("couldn't malloc memory");
+        fclose(F);
+        return NULL;
+    }
     
     { // basic line by line part
         const size_t buff_size = 250;
         char buff[buff_size];
 
         // author
-        if(!fgets(buff, buff_size, F)) 
+        if(!fgets(buff, buff_size, F)){
             FILE_ERROR("couldn't read next line of file (author)");
+            free(BLOCK);
+            fclose(F);
+            return NULL;
+        }
         BLOCK->author = str_to_key(buff);
         if(!BLOCK->author){
             free(BLOCK);
+            fclose(F);
             return NULL;
         }
 
         // hash
-        if(!fgets(buff, buff_size, F)) 
+        if(!fgets(buff, buff_size, F)){
             FILE_ERROR("couldn't read next line of file (hash)");
+            free(BLOCK->author);
+            free(BLOCK);
+            fclose(F);
+            return NULL;
+        }
         if(!str_to_hash(buff, &BLOCK->hash)){
             free(BLOCK->author);
             free(BLOCK);
+            fclose(F);
             return NULL;
         }
 
         // previous_hash
-        if(!fgets(buff, buff_size, F)) 
+        if(!fgets(buff, buff_size, F)){
             FILE_ERROR("couldn't read next line of file (previous_hash)");
+            free(BLOCK->author);
+            if(BLOCK->hash) free(BLOCK->hash);
+            free(BLOCK);
+            fclose(F);
+            return NULL;
+        }
         if(!str_to_hash(buff, &BLOCK->previous_hash)){
             free(BLOCK->author);
             if(BLOCK->hash) free(BLOCK->hash);
             free(BLOCK);
+            fclose(F);
             return NULL;
         }
 
         // nonce
-        if(!fgets(buff, buff_size, F)) 
+        if(!fgets(buff, buff_size, F)){
             FILE_ERROR("couldn't read next line of file (nonce)");
+            free(BLOCK->author);
+            if(BLOCK->hash) free(BLOCK->hash);
+            if(BLOCK->previous_hash) free(BLOCK->previous_hash);
+            free(BLOCK);
+            fclose(F);
+            return NULL;
+        }
         if(1 != sscanf(buff, "%d", &BLOCK->nonce)){
             free(BLOCK->author);
             if(BLOCK->hash) free(BLOCK->hash);
             if(BLOCK->previous_hash) free(BLOCK->previous_hash);
             free(BLOCK);
+            fclose(F);
             return NULL;
         }
     }
@@ -114,6 +145,7 @@ Block* read_block(const char* filename){
             if(BLOCK->hash) free(BLOCK->hash);
             if(BLOCK->previous_hash) free(BLOCK->previous_hash);
             free(BLOCK);
+            fclose(F);
             MALLOC_ERROR("couldn't allocate sufficient amount of memory!")
             return NULL;
         }
