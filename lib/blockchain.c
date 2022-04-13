@@ -1,8 +1,10 @@
 #include "lib/blockchain.h"
 #include "lib/dataio.h"
+#include "lib/error.h"
+
+#include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "lib/error.h"
 #include <string.h>
 
 /**
@@ -420,7 +422,7 @@ Block* init_block(const Key* auth, const CellProtected* votes, const uint8* prev
 }
 
 /**
- * @brief frees block
+ * @brief frees block (ce n'est pas delete_block)
  * 
  * @param b 
  */
@@ -430,4 +432,226 @@ void free_block(Block* b){
     free(b->previous_hash);
     free_list_protected(b->votes);
     free(b);
+}
+
+/**
+ * @brief cette fonction ne free pas le champ author ni le contenu des votes
+ * 
+ * @param b block to be deleted
+ */
+void delete_block(Block* b){
+    free(b->hash);
+    free(b->previous_hash);
+    while(b->votes){
+        CellProtected* temp = b->votes;
+        b->votes = b->votes->next
+        // temp->data // on ne free pas le contenu comme l'enonce le demande
+        free(temp);
+    }
+    free(b);
+}
+
+/**
+ * @brief Create a node object. Takes ownership of Block b!
+ * 
+ * @param b 
+ * @return CellTree* 
+ */
+CellTree* create_node(const Block* b){
+    CellTree* t = malloc(sizeof(CellTree));
+    t->block = b;
+    t->height = 0;
+    t->father = NULL;
+    t->firstChild = NULL;
+    t->nextBro = NULL;
+    return t;
+}
+
+bool update_height(CellTree* father, CellTree* child){
+    size_t newh = 1 + child->height;
+    if(newh > father->height){
+        father->height = newh;
+        return true;
+    }else{
+        return false;
+    }
+}
+
+void add_child(CellTree* father, CellTree* child){
+    if(child->nextBro != NULL){
+        fprintf(stderr, "invalid child passed as parameter!");
+        return;
+    }
+    child->nextBro = father->firstChild;
+    father->firstChild = child;
+    child->father = father;
+    // udpate all ascendants
+    while(father && update_height(father, child)){
+        child = father;
+        father = father->father;
+    }
+}
+
+void print_tree_r(CellTree* tr, int indent){
+    if(!tr) return;
+
+    for(int i=0; i<indent-1; i++)
+        printf(" |  ");
+    if(indent > 0) printf(" |- ");
+    
+    printf("%d ", tr->height);
+    char* bstr = block_to_str(tr->block);
+    uint8* bhash = hash_string(bstr);
+    free(bstr);
+    print_sha256_hash(bhash);
+    free(bhash);
+    
+    print_tree_r(tr->firstChild, indent +1);
+    print_tree_r(tr->nextBro, indent);
+}
+void print_tree(CellTree* tr){
+    print_tree_r(tr, 0);
+}
+
+/**
+ * @brief fonction de l'enonce
+ * 
+ * @param node 
+ */
+void delete_node(CellTree* node){
+    delete_block(node->block);
+    free(node);
+}
+
+/**
+ * @brief fonction de l'enonce
+ * 
+ * @param node 
+ */
+void delete_tree(CellTree* node){
+    CellTree* nextb = node->nextBro;
+    CellTree* child = node->firstChild;
+    delete_node(node);
+    delete_tree(nextb);
+    delete_tree(child);
+}
+
+/**
+ * @brief returns the child with max height of cell
+ * 
+ * @param cell 
+ * @return CellTree* 
+ */
+CellTree* highest_child(const CellTree* cell){
+    CellTree* cur = cell->firstChild;
+    CellTree* mx = cur;
+
+    while(cur){
+        if(cur->height > mx->height) mx = cur;
+        cur = cur->nextBro;
+    }
+
+    return mx;
+}
+
+/**
+ * @brief 
+ * 
+ * @param tree 
+ * @return CellTree* 
+ */
+CellTree* last_node(const CellTree* tree){
+    if(!tree) return NULL;
+
+    while(tree->firstChild){
+        tree = highest_child(tree);
+    }
+
+    return tree;
+}
+
+/**
+ * @brief Get all the trusted declarations from the longest
+ * chain.
+ * 
+ * @param tree 
+ * @return CellProtected* 
+ */
+CellProtected* get_trusted_declarations(const CellTree* tree){
+    CellTree* hc = highest_child(tree);
+
+    CellProtected* ret = NULL;
+
+    while(hc){
+        ret = fuse_protected_lists(copy_protected_list(hc->block->votes), ret);
+        hc = hc->father;
+    }
+
+    return ret;
+}
+
+void submit_vote(Protected* p){
+    FILE* F = fopen(PENDING_VOTES_FILE, "a");
+    if(!F){
+        FILE_ERROR("cannot open " PENDING_VOTES_FILE " !");
+        return;
+    }
+    char* str = protected_to_str(p);
+    if(!str){
+        fprintf(stderr, "cannot convert protected to string!");
+        fclose(F);
+        return;
+    }
+    fprintf(F, "%s\n", str);
+    free(str);
+    fclose(F);
+}
+
+void create_block(CellTree* tree, Key* author, int d){
+    CellProtected* plist = read_protected(PENDING_VOTES_FILE);
+
+    CellTree* last = last_node(tree);
+
+    Block* B = init_block_raw(
+        author, 
+        plist, 
+        copy_hash(last->block->hash));
+
+    compute_proof_of_work(B, d);
+    write_block(PENDING_BLOCK_FILE, B);
+    while(plist){
+        free(plist->data);
+        plist = plist->next;
+    }
+    delete_block(B);
+    remove(PENDING_VOTES_FILE);
+}
+
+void add_block(int d, const char* name){
+    Block* b = read_block(PENDING_BLOCK_FILE);
+    verify_block(b, d);
+    remove(PENDING_BLOCK_FILE);
+
+    const size_t len = strlen(BLOCKCHAIN_DIR) + strlen(name);
+    char* fullname = malloc(sizeof(char)*(len+1));
+    if(!fullname){
+        MALLOC_ERROR("couldn't add block!");
+        return;
+    }
+    fullname[0] = '\0';
+    strcat(fullname, BLOCKCHAIN_DIR);
+    strcat(fullname, name);
+
+    write_block(fullname, b);
+    free(fullname);
+}
+
+
+CellTree* read_tree(){
+    DIR* D = opendir(BLOCKCHAIN_DIR);
+    if(!D){
+        FILE_ERROR("cannot open blockchain directory!");
+        fprintf(stderr, " message : %s \n", strerror(errno));
+        
+    }
 }

@@ -147,7 +147,11 @@ les algorithmes permettant de générer des clés publiques et privées. Ces der
 créer un message unique et identifiable, de sorte qu'il est impossible d'usurper une autre personne(en considérant que les clés sont gardés bien secrètement).
 
 
-# Partie Blocks et persistance des données
+# Partie 4 et 5 : Blocks et persistance des données
+
+## Choix par rapport a la separation de block_to_str
+
+En effet on a choisi de séparer `char* block_to_str(const Block* b)` en deux appels aux fonctions `void block_nonce_to_str(char* headstr, const Block* b)` et `char* block_head_to_str(const Block* b)`. Ce choix a était fait uniquement pour nous permettre de optimizer la fonction `void compute_proof_of_work(Block *B, int d)`, notamment cela nous permet de regenerer uniquement la partie du string de Block qui change quand nonce change et par consequent accelere considerablement l'execution d'une iteration de la boucle.
 
 ### Q7.8
 nombre des zeros | temps d'executions 1 (en secondes) | temps d'execution 2 (en secondes) 
@@ -160,3 +164,8 @@ nombre des zeros | temps d'executions 1 (en secondes) | temps d'execution 2 (en 
 6 | - | 356.074466 s
 
 TODO: faire une courbe
+
+
+### Q 8.8
+La fonction `CellProtected* fuse_protected_lists(CellProtected* A, CellProtected* B)` est en O(N) où N taille de A
+On pourrait avoir une fonction en O(1) si notre liste etait doublement chainee

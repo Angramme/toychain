@@ -10,3 +10,6 @@ build/*
 .DS_Store
 **/.DS_Store
 temp/
+data/blockchain/*
+data/pending_block
+data/pending_votes.txt

@@ -2,6 +2,7 @@
 #include "lib/rsa.h"
 #include "lib/sign.h"
 #include "lib/error.h"
+
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
@@ -520,3 +521,20 @@ CellProtected* rand_list_protected_range(size_t len, char low, char hi){
     }
     return randlist;
 }
+
+/**
+ * @brief fusionner les liste A et B. Modifies A!
+ * 
+ * @param A 
+ * @param B 
+ */
+CellProtected* fuse_protected_lists(CellProtected* A, CellProtected* B){
+    // la fonction est en O(N) où N taille de A
+    // on pourrait avoir une fonction en O(1) si notre liste etait doublement chainee
+    if(!A) return B;
+    CellProtected* ret = A;
+    while(A->next) A = A->next;
+    A->next = B;
+    return ret;
+}
+

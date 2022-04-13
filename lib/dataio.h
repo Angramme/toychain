@@ -3,6 +3,11 @@
 
 #include "lib/rsa.h"
 
+#define BLOCK_STORAGE_DIR "./data/"
+#define BLOCKCHAIN_DIR (BLOCK_STORAGE_DIR "blockchain/")
+#define PENDING_BLOCK_FILE (BLOCK_STORAGE_DIR "pending_block")
+#define PENDING_VOTES_FILE (BLOCK_STORAGE_DIR "pending_votes.txt")
+
 typedef struct cellKey{
     Key* data;
     struct cellKey* next;
@@ -35,5 +40,7 @@ void free_list_keys(CellKey* cellkey);
 
 CellProtected* rand_list_protected(size_t len);
 CellProtected* rand_list_protected_range(size_t len, char low, char hi);
+
+CellProtected* fuse_protected_lists(CellProtected* A, CellProtected* B);
 
 #endif
