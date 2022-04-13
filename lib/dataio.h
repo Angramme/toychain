@@ -39,7 +39,7 @@ char* list_protected_to_str(const CellProtected* list);
 CellProtected* str_to_list_protected(const char* str);
 void free_cell_protected(CellProtected* c);
 void free_list_protected(CellProtected* c);
-void remove_fraudulent_blocks(CellProtected** list);
+void remove_fraudulent_declarations(CellProtected** list);
 
 void generate_random_data(int nv, int nc, const char* dir);
 CellKey* create_cell_key(Key* key);

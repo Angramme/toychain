@@ -595,7 +595,7 @@ void free_list_protected(CellProtected* c){
  * 
  * @param list 
  */
-void remove_fraudulent_blocks(CellProtected** list){
+void remove_fraudulent_declarations(CellProtected** list){
     while(*list){
         if(!verify((*list)->data)){
             CellProtected* tmp = *list;

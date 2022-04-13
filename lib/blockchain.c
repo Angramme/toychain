@@ -1,6 +1,7 @@
 #include "lib/blockchain.h"
 #include "lib/dataio.h"
 #include "lib/error.h"
+#include "lib/vote.h"
 
 #include <errno.h>
 #include <dirent.h>
@@ -576,6 +577,16 @@ void delete_node(CellTree* node){
 }
 
 /**
+ * @brief free everything the node contains
+ * 
+ * @param node 
+ */
+void free_node(CellTree* node){
+    free_block(node->block);
+    free(node);
+}
+
+/**
  * @brief fonction de l'enonce
  * 
  * @param node 
@@ -700,6 +711,9 @@ void add_block(int d, const char* name){
 
 
 CellTree* read_tree(){
+
+    //////////////////// ETAPE 1 : lire tout les blocs
+
     DIR* D = opendir(BLOCKCHAIN_DIR);
     if(!D){
         FILE_ERROR("cannot open blockchain directory!");
@@ -707,14 +721,81 @@ CellTree* read_tree(){
         return NULL;
     }
 
-    size_t STAB = 32;
+    size_t i=0, j=0;
+    size_t STAB = 0;
     CellTree** TAB;
 
     struct dirent* dir;
     while((dir = readdir(D))){
         if(dir->d_type == DT_DIR || strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0)
             continue;
-        
-        
+        STAB++;
     }
+
+    closedir(D);
+    D = opendir(BLOCKCHAIN_DIR);
+    if(!D){
+        FILE_ERROR("cannot open blockchain directory!");
+        fprintf(stderr, " message : %s \n", strerror(errno));
+        return NULL;
+    }
+
+    TAB = malloc(sizeof(CellTree*)*STAB);
+    for(i=0; i<STAB; i++) TAB[i] = NULL;
+
+    char fpath[500];
+    i=0;
+    while((dir = readdir(D))){
+        if(dir->d_type == DT_DIR || strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0)
+            continue;
+        strcpy(fpath, BLOCKCHAIN_DIR);
+        strcat(fpath, dir->d_name);
+
+        Block* B = read_block(fpath);
+        TAB[i] = create_node(B);
+        if(!TAB[i]){
+            closedir(D);
+            fprintf(stderr, "couldnt' read block %s \n", fpath);
+            i = 0;
+            while(TAB[i]) free_node(TAB[i++]);
+            free(TAB);
+            return NULL;
+        }
+    }
+
+    closedir(D);
+
+    ////////////// ETAPE 2 : constituer l'arbre
+
+    for(i = 0; i<STAB; i++){
+        for(j = 0; j<STAB; j++){
+            if(i==j || !compare_hash(TAB[j]->block->previous_hash, TAB[i]->block->hash))
+                continue; // not a child, skip...
+            add_child(TAB[i], TAB[j]);
+        }
+    }
+
+    CellTree* root;
+    for(i=0; i<STAB; i++)
+        if(TAB[i]->father == NULL){
+            root = TAB[i];
+            break;
+        }
+    free(TAB);
+    return root;
 }
+
+Key* compute_winner_BT(CellTree* tree, CellKey* candidates, CellKey* voters, size_t sizeC, size_t sizeV){
+    CellProtected* decl = get_trusted_declarations(tree);
+    remove_fraudulent_declarations(&decl);
+    Key* winner = compute_winner(decl, candidates, voters, sizeC, sizeV);
+    free_list_protected(decl);
+    return winner;
+}
+
+
+
+
+
+
+

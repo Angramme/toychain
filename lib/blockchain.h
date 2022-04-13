@@ -74,6 +74,7 @@ void create_block(CellTree* tree, Key* author, int d);
 void add_block(int d, const char* name);
 
 CellTree* read_tree();
+Key* compute_winner_BT(CellTree* tree, CellKey* candidates, CellKey* voters, size_t sizeC, size_t sizeV);
 
 
 #endif
