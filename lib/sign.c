@@ -314,14 +314,13 @@ Protected* str_to_protected_len(const char* str, size_t slen){
         return NULL;
     }
 
-    // Signature* sig = str_to_signature(str+msg_e+2);
     Signature* sig = str_to_signature_len(str+msg_e+2, slen-msg_e-2);
     if(!sig) {
         free(k);
         return NULL;
     }
 
-    // we block out the message from the beginning and the end, 
+    // we cut out the message from the beginning and the end, 
     // thus the contents of message cannot break our program.
     char* msg = strndup(str+msg_s, msg_e-msg_s+1);
 

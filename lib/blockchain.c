@@ -11,15 +11,15 @@
  * @param filename name of the file
  * @param b object to print
  */
-void write_block(char* filename, Block* b){
+bool write_block(const char* filename, const Block* b){
     FILE* f = fopen(filename, "w");
     if(!f){
-        fprintf(stderr, "ecrire_block : failed opening\n");
-        return;
+        fprintf(stderr, "write_block : failed opening\n");
+        return false;
     }
     if(!b){
-        fprintf(stderr, "ecrire_block : null argument\n");
-        return;
+        fprintf(stderr, "write_block : null argument\n");
+        return false;
     }
 
     char* keystr = key_to_str(b->author);
@@ -28,11 +28,11 @@ void write_block(char* filename, Block* b){
     char* chash = hash_to_str(b->hash);
     char* cphash = hash_to_str(b->previous_hash);
 
-    fprintf(f,"%s\n", keystr);
-    fprintf(f,"%s\n", chash);
-    fprintf(f, "%s\n", cphash);
-    fprintf(f, "%d\n", b->nonce);
-    fprintf(f, "%s\n", l_str);
+    fprintf(f,"%s\n", keystr); // author
+    fprintf(f,"%s\n", chash); // hash
+    fprintf(f, "%s\n", cphash); // previous_hash
+    fprintf(f, "%d\n", b->nonce); // nonce
+    fprintf(f, "%s\n", l_str); // votes
 
     free(l_str);
     free(keystr);
@@ -40,6 +40,8 @@ void write_block(char* filename, Block* b){
     free(cphash);
 
     fclose(f);
+
+    return true;
 }
 
 /**
@@ -48,72 +50,89 @@ void write_block(char* filename, Block* b){
  * @param filename 
  * @return Block* 
  */
-Block* read_block(char* filename){
-    FILE* f = fopen(filename, "r");
-    if(!f){
+Block* read_block(const char* filename){
+    FILE* F = fopen(filename, "r");
+    if(!F){
         fprintf(stderr, "read_block : failed opening\n");
         return NULL;
     }
-    Block* newb = malloc(sizeof(Block));
-    if(!newb){
-        MALLOC_ERROR("newb");
-        return NULL;
-    }
-    char* buffer;
-    long numbytes;
-    fseek(f, 0L, SEEK_END);
-    numbytes = ftell(f);
-    fseek(f, 0L, SEEK_SET);
+    Block* BLOCK = malloc(sizeof(Block));
+    
+    { // basic line by line part
+        const size_t buff_size = 250;
+        char buff[buff_size];
 
-    buffer = (char*)calloc(numbytes, sizeof(char));
-    if(buffer == NULL){
-        MALLOC_ERROR("calloc failed");
-        return NULL;
-    }
-    fread(buffer, sizeof(char), numbytes, f);
-    fclose(f);
+        // author
+        if(!fgets(buff, buff_size, F)) 
+            FILE_ERROR("couldn't read next line of file (author)");
+        BLOCK->author = str_to_key(buff);
+        if(!BLOCK->author){
+            free(BLOCK);
+            return NULL;
+        }
 
-    int l = 0;
-    int start;
-    int end;
-    for(int t = 0; t<4; t++){
-        while(buffer[l] == '\n')l++;
-        start = l;
-        while(buffer[l] != '\n'){
-            l++;
+        // hash
+        if(!fgets(buff, buff_size, F)) 
+            FILE_ERROR("couldn't read next line of file (hash)");
+        if(!str_to_hash(buff, &BLOCK->hash)){
+            free(BLOCK->author);
+            free(BLOCK);
+            return NULL;
         }
-        end = l;
-        char* temp = malloc(sizeof(char)*(end-start+1));
-        int ind = 0;
-        while(ind < end-start){
-            temp[ind] = buffer[start + ind];
-            ind++;
-        }
-        temp[ind+1] = '\0';
-        printf("%s\n", temp);
 
-        if(t == 0){
-            Key* nkey = str_to_key(temp);
-            newb->author = nkey;
+        // previous_hash
+        if(!fgets(buff, buff_size, F)) 
+            FILE_ERROR("couldn't read next line of file (previous_hash)");
+        if(!str_to_hash(buff, &BLOCK->previous_hash)){
+            free(BLOCK->author);
+            if(BLOCK->hash) free(BLOCK->hash);
+            free(BLOCK);
+            return NULL;
         }
-        if(t == 1){
-            uint8* hash = str_to_hash(temp);
-            newb->hash = hash;
+
+        // nonce
+        if(!fgets(buff, buff_size, F)) 
+            FILE_ERROR("couldn't read next line of file (nonce)");
+        if(1 != sscanf(buff, "%d", &BLOCK->nonce)){
+            free(BLOCK->author);
+            if(BLOCK->hash) free(BLOCK->hash);
+            if(BLOCK->previous_hash) free(BLOCK->previous_hash);
+            free(BLOCK);
+            return NULL;
         }
-        if(t == 2){
-            uint8* p_hash = str_to_hash(temp);
-            newb->previous_hash = p_hash;
-        }
-        if(t==3){
-            int n = atoi(temp);
-            newb->nonce=n;
-        }
-        free(temp);
-        while(buffer[l] == '\n')l++;
     }
-    CellProtected* votes = str_to_list_protected(buffer + l);
-    newb->votes = votes;
-    return newb;
+
+    { // reading votes
+        const size_t start = ftell (F);
+        fseek (F, 0, SEEK_END);
+        const size_t end = ftell (F);
+        fseek (F, start, SEEK_SET);
+        const size_t length = end - start;
+        char* buffer = malloc(sizeof(char)*(length+1));
+        if(!buffer){
+            free(BLOCK->author);
+            if(BLOCK->hash) free(BLOCK->hash);
+            if(BLOCK->previous_hash) free(BLOCK->previous_hash);
+            free(BLOCK);
+            MALLOC_ERROR("couldn't allocate sufficient amount of memory!")
+            return NULL;
+        }
+        fread(buffer, 1, length, F);
+        buffer[length] = '\0';
+        fclose (F);
+
+        BLOCK->votes = str_to_list_protected(buffer);
+        free(buffer);
+        if(!BLOCK->votes){
+            free(BLOCK->author);
+            if(BLOCK->hash) free(BLOCK->hash);
+            if(BLOCK->previous_hash) free(BLOCK->previous_hash);
+            free(BLOCK);
+            return NULL;
+        }
+    }
+
+    return BLOCK;
 }
 
 /**
@@ -123,6 +142,11 @@ Block* read_block(char* filename){
  * @return char* 
  */
 char* hash_to_str(const uint8* hash){
+    if(hash == NULL){
+        char* ret = malloc(sizeof(char) * 8);
+        memcpy(ret, "NULLHSH\0", 8);
+        return ret;
+    }
     const size_t maxsize = 2*BLOCK_HASH_SIZE +1;
     char* ret = malloc(sizeof(char)*maxsize);
     ret[maxsize-1] = '\0';
@@ -139,19 +163,33 @@ char* hash_to_str(const uint8* hash){
  * @brief convert string sha256 hash representation to sha256 hash
  * 
  * @param str 
- * @return uint8* 
+ * @param uint8* return value (can be NULL)
+ * @return true : data read correctly
+ * @return false : reading error 
  */
-uint8* str_to_hash(const char* str){
+bool str_to_hash(const char* str, uint8** RET){
+    if(strncmp(str, "NULLHSH", 7) == 0){
+        *RET = NULL;
+        return true;
+    }
     uint8* ret = malloc(sizeof(uint8)*BLOCK_HASH_SIZE);
     for(size_t i=0; i<BLOCK_HASH_SIZE; i++){
         char buff[3];
         buff[2] = '\0';
+        if(!str[i*2] || !str[i*2 +1]){
+            free(ret);
+            return false;
+        }
         memcpy(buff, str + i*2, 2);
         unsigned int V;
-        sscanf(buff, "%02x", &V);
+        if(1 != sscanf(buff, "%02x", &V)){
+            free(ret);
+            return false;
+        }
         ret[i] = (uint8)V;
     }
-    return ret;
+    *RET = ret;
+    return true;
 }
 
 /**
@@ -211,14 +249,16 @@ char* block_to_str(const Block* b){
 }
 
 /**
- * @brief hashes string s using sha256. Even tho the result is a pointer, you don't have to free it!
- * OpenSSL magic
+ * @brief hashes string s using sha256
  * 
  * @param s 
  * @return uint8* 
  */
 uint8* hash_string(const char* s){
-    return SHA256((const unsigned char*)s, strlen(s), 0) ;
+    // copy_hash is needed here because SHA256 is not mallocd
+    // this can cause problems down the line when we free or 
+    // when we realloc the memory
+    return copy_hash(SHA256((const unsigned char*)s, strlen(s), 0));
 }
 
 /**
@@ -255,7 +295,7 @@ void compute_proof_of_work(Block *B, int d){
         block_nonce_to_str(bstr, B); 
         uint8* hsh = hash_string(bstr);
         if(B->hash) free(B->hash);
-        B->hash = copy_hash(hsh);
+        B->hash = hsh;
     }
     free(bstr);
 }
@@ -310,9 +350,11 @@ uint8* copy_hash(const uint8* hash){
  */
 bool verify_block(const Block* B, int d){
     char* str = block_to_str(B);
-    const uint8* hsh = hash_string(str); // <- we don't have to free this
+    uint8* hsh = hash_string(str);
     free(str);
-    return check_zeros(hsh, d) && compare_hash(B->hash, hsh);
+    const bool ret = check_zeros(hsh, d) && compare_hash(B->hash, hsh);
+    free(hsh);
+    return ret;
 }
 
 /**

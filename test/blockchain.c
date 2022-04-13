@@ -13,8 +13,8 @@
 void test_write_read_block(){
     Key* nkey = malloc(sizeof(Key));
     init_key(nkey, rand()%1000+1, rand()%1000+1);
-    uint8* hash = str_to_hash("pipipopo");
-    uint8* previous_hash = str_to_hash("rirififiloulou");
+    uint8* hash = hash_string("pipipopo");
+    uint8* previous_hash = hash_string("rirififiloulou");
     int nonce = rand()%200;
     CellProtected* list_p1 = rand_list_protected(6);
 
@@ -68,7 +68,8 @@ int main(){
         const char* str = "Hahah drole";
         uint8* hash = hash_string(str);
         char* hashstr = hash_to_str(hash);
-        uint8* hash2 = str_to_hash(hashstr);
+        uint8* hash2;
+        TEST(str_to_hash(hashstr, &hash2), true);
         bool good = true;
         for(size_t i=0; (i<BLOCK_HASH_SIZE) && good; i++)
             good = good && (hash[i] == hash2[i]);
@@ -83,9 +84,10 @@ int main(){
         uint8* hash3 = copy_hash(hash);
         TEST(compare_hash(hash, hash3), true);
 
+        free(hash);
+        free(hash2);
         free(hash3);
         free(hashstr);
-        free(hash2);
     }
     TEST_SECTION_END()
 

@@ -16,8 +16,8 @@ typedef struct block {
     int nonce;
 }Block;
 
-void write_block(char* filename, Block* b);
-Block* read_block(char* filename);
+bool write_block(const char* filename, const Block* b);
+Block* read_block(const char* filename);
 char* block_head_to_str(const Block* b);
 void block_nonce_to_str(char* headstr, const Block* b);
 char* block_to_str(const Block* b);
@@ -26,7 +26,7 @@ void compute_proof_of_work(Block *B, int d);
 void print_sha256_hash(const uint8* hash);
 bool compare_hash(const uint8* A, const uint8* B);
 uint8* copy_hash(const uint8* hash);
-uint8* str_to_hash(const char* str);
+bool str_to_hash(const char* str, uint8** ret);
 char* hash_to_str(const uint8* hash);
 bool verify_block(const Block*, int d);
 void free_block(Block* b);

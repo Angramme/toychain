@@ -339,18 +339,39 @@ char* list_protected_to_str(const CellProtected* list){
  */
 CellProtected* str_to_list_protected(const char* str){
     CellProtected* list = NULL;
+    const size_t len = strlen(str);
+    const char* end = str+len;
 
     while(true){
-        while(*str == ' ') str++;
+        while(str < end && *str == ' ') str++;
+        if(str >= end){
+            free_list_protected(list);
+            return NULL;
+        }
         size_t prot_size;
-        sscanf(str, " %zx ", &prot_size);
-        while(*str != ' ') str++; // skip the heaxdecimal size
-        while(*str == ' ') str++; // skip spaces
+        if(1 != sscanf(str, " %zx ", &prot_size)){
+            free_list_protected(list);
+            return NULL;
+        }
+        while(str < end && *str != ' ') str++; // skip the heaxdecimal size
+        while(str < end && *str == ' ') str++; // skip spaces
+        if(str >= end){
+            free_list_protected(list);
+            return NULL;
+        }
         Protected* prot = str_to_protected_len(str, prot_size);
+        if(!prot){
+            free_list_protected(list);
+            return NULL;
+        }
         prepend_protected(&list, prot); // takes ownership of proc
         str += prot_size;
-        while(*str != '\n') str++; // skip until newline
-        while(*str == '\n') str++; // skip all newlines
+        while(str < end && *str != '\n') str++; // skip until newline
+        while(str < end && *str == '\n') str++; // skip all newlines
+        if(str >= end){
+            free_list_protected(list);
+            return NULL;
+        }
         if(*str == ']') break;
     }
 
