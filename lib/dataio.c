@@ -3,6 +3,8 @@
 #include "lib/sign.h"
 #include "lib/error.h"
 
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <errno.h>
 #include <dirent.h>
 #include <assert.h>
@@ -665,4 +667,19 @@ void delete_dir_files(const char* path){
         remove(fpath);
     }
     closedir(D);
+}
+
+void create_dir_structure(){
+    if(mkdir(BLOCK_STORAGE_DIR, S_IRWXU | S_IRWXG | S_IRWXO) == -1 && errno != EEXIST){
+        FILE_ERROR("cannot create file structure!");
+        fprintf(stderr, "%s", strerror(errno)); 
+    }
+    if(mkdir(BLOCKCHAIN_DIR, S_IRWXU | S_IRWXG | S_IRWXO) == -1 && errno != EEXIST){
+        FILE_ERROR("cannot create file structure!");
+        fprintf(stderr, "%s", strerror(errno)); 
+    }
+    if(mkdir(BLOCK_STORAGE_DIR "temp/", S_IRWXU | S_IRWXG | S_IRWXO) == -1 && errno != EEXIST){
+        FILE_ERROR("cannot create file structure!");
+        fprintf(stderr, "%s", strerror(errno)); 
+    }
 }

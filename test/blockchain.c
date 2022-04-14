@@ -12,6 +12,8 @@
 #include <limits.h>
 
 void test_write_read_block(){
+    create_dir_structure();
+    
     Key* nkey = malloc(sizeof(Key));
     if(!nkey){
         MALLOC_ERROR("failed nkey allocation");

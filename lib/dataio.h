@@ -55,5 +55,6 @@ CellProtected* rand_list_protected_range(size_t len, char low, char hi);
 CellProtected* fuse_protected_lists(CellProtected* A, CellProtected* B);
 
 void delete_dir_files(const char* path);
+void create_dir_structure();
 
 #endif

@@ -5,7 +5,7 @@
 
 
 int main(){
-    
+    create_dir_structure();
 
     // 1
     const size_t nV = 1000, nC = 5;
