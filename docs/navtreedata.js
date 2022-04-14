@@ -25,42 +25,49 @@
 var NAVTREE =
 [
   [ "Toychain!", "index.html", [
-    [ "Full Documentation", "index.html#autotoc_md25", null ],
-    [ "Installation", "index.html#autotoc_md26", null ],
-    [ "Building", "index.html#autotoc_md27", null ],
-    [ "Testing", "index.html#autotoc_md28", null ],
+    [ "Full Documentation", "index.html#autotoc_md32", null ],
+    [ "Installation", "index.html#autotoc_md33", null ],
+    [ "Building", "index.html#autotoc_md34", null ],
+    [ "Testing", "index.html#autotoc_md35", null ],
     [ "Rapport Toychain", "md_assignement_Rapport.html", [
-      [ "Choix de structure", "md_assignement_Rapport.html#autotoc_md1", null ],
-      [ "Partie 1", "md_assignement_Rapport.html#autotoc_md2", [
-        [ "Exercices 1 et 2", "md_assignement_Rapport.html#autotoc_md3", [
-          [ "Q1.1", "md_assignement_Rapport.html#autotoc_md4", null ],
-          [ "Q1.2", "md_assignement_Rapport.html#autotoc_md5", null ],
-          [ "Q1.3", "md_assignement_Rapport.html#autotoc_md6", null ],
-          [ "Q1.5", "md_assignement_Rapport.html#autotoc_md7", null ],
-          [ "Q1.7", "md_assignement_Rapport.html#autotoc_md8", null ],
-          [ "Jeu de tests", "md_assignement_Rapport.html#autotoc_md9", null ]
+      [ "Full Documentation", "md_assignement_Rapport.html#autotoc_md1", null ],
+      [ "Installation", "md_assignement_Rapport.html#autotoc_md2", null ],
+      [ "Building", "md_assignement_Rapport.html#autotoc_md3", null ],
+      [ "Testing", "md_assignement_Rapport.html#autotoc_md4", null ],
+      [ "Choix de structure", "md_assignement_Rapport.html#autotoc_md5", null ],
+      [ "Partie 1", "md_assignement_Rapport.html#autotoc_md6", [
+        [ "Exercices 1 et 2", "md_assignement_Rapport.html#autotoc_md7", [
+          [ "Q1.1", "md_assignement_Rapport.html#autotoc_md8", null ],
+          [ "Q1.2", "md_assignement_Rapport.html#autotoc_md9", null ],
+          [ "Q1.3", "md_assignement_Rapport.html#autotoc_md10", null ],
+          [ "Q1.5", "md_assignement_Rapport.html#autotoc_md11", null ],
+          [ "Q1.7", "md_assignement_Rapport.html#autotoc_md12", null ],
+          [ "Jeu de tests", "md_assignement_Rapport.html#autotoc_md13", null ]
         ] ],
-        [ "Difficultés rencontrées", "md_assignement_Rapport.html#autotoc_md10", null ]
+        [ "Difficultés rencontrées", "md_assignement_Rapport.html#autotoc_md14", null ]
       ] ],
-      [ "Partie 2", "md_assignement_Rapport.html#autotoc_md11", [
-        [ "Exercice 3", "md_assignement_Rapport.html#autotoc_md12", [
-          [ "Tests", "md_assignement_Rapport.html#autotoc_md13", null ]
+      [ "Partie 2", "md_assignement_Rapport.html#autotoc_md15", [
+        [ "Exercice 3", "md_assignement_Rapport.html#autotoc_md16", [
+          [ "Tests", "md_assignement_Rapport.html#autotoc_md17", null ]
         ] ],
-        [ "Exercice 4", "md_assignement_Rapport.html#autotoc_md14", null ]
+        [ "Exercice 4", "md_assignement_Rapport.html#autotoc_md18", null ]
       ] ],
-      [ "Partie 3", "md_assignement_Rapport.html#autotoc_md15", [
-        [ "Exercices 5 et 6", "md_assignement_Rapport.html#autotoc_md16", [
-          [ "Q6.7 compute_winner", "md_assignement_Rapport.html#autotoc_md17", null ],
-          [ "Tests", "md_assignement_Rapport.html#autotoc_md18", null ]
+      [ "Partie 3", "md_assignement_Rapport.html#autotoc_md19", [
+        [ "Exercices 5 et 6", "md_assignement_Rapport.html#autotoc_md20", [
+          [ "Q6.7 compute_winner", "md_assignement_Rapport.html#autotoc_md21", null ],
+          [ "Tests", "md_assignement_Rapport.html#autotoc_md22", null ]
         ] ]
       ] ],
-      [ "Résumé", "md_assignement_Rapport.html#autotoc_md19", null ],
-      [ "Partie 4 et 5 : Blocks et persistance des données", "md_assignement_Rapport.html#autotoc_md20", [
-        [ "Choix par rapport a la separation de block_to_str", "md_assignement_Rapport.html#autotoc_md21", [
-          [ "Q7.8", "md_assignement_Rapport.html#autotoc_md22", null ],
-          [ "Q 8.8", "md_assignement_Rapport.html#autotoc_md23", null ]
+      [ "Résumé", "md_assignement_Rapport.html#autotoc_md23", null ],
+      [ "Partie 4 et 5 : Blocks et persistance des données", "md_assignement_Rapport.html#autotoc_md24", [
+        [ "Choix par rapport a la separation de block_to_str", "md_assignement_Rapport.html#autotoc_md25", [
+          [ "Q7.8", "md_assignement_Rapport.html#autotoc_md26", null ],
+          [ "Q 8.8", "md_assignement_Rapport.html#autotoc_md27", null ],
+          [ "Q 9.6", "md_assignement_Rapport.html#autotoc_md28", null ],
+          [ "Q9.7", "md_assignement_Rapport.html#autotoc_md29", null ]
         ] ]
-      ] ]
+      ] ],
+      [ "Conclusion", "md_assignement_Rapport.html#autotoc_md30", null ]
     ] ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
@@ -85,7 +92,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08"
+"overflow_8h.html#ac257c9e39a9edc4ad79dfd84a6300c22"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

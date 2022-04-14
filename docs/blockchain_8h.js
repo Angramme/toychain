@@ -28,7 +28,6 @@ var blockchain_8h =
     [ "last_node", "blockchain_8h.html#ae1ef8d2d1d0ec0651ec7de03d38b45c7", null ],
     [ "print_sha256_hash", "blockchain_8h.html#adb2cf5f0e1efe70b63c036334f0f29c3", null ],
     [ "print_tree", "blockchain_8h.html#aacbddd3f6ae1a4df77bd271cc3637829", null ],
-    [ "print_tree_r", "blockchain_8h.html#a12d2d471fa3688c780c7b4ff6622bf8e", null ],
     [ "read_block", "blockchain_8h.html#a4feac614634c90e85762a7fcec029118", null ],
     [ "str_to_hash", "blockchain_8h.html#ae47ac8c74dc232b84be20fceffe44e08", null ],
     [ "submit_vote", "blockchain_8h.html#a8fd6c71fd578813c1cb3c69f4b002cb5", null ],

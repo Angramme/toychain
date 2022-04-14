@@ -97,7 +97,10 @@ $(document).ready(function(){initNavTree('lib_2dataio_8c.html',''); initResizabl
 <code>#include &quot;<a class="el" href="rsa_8h_source.html">lib/rsa.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sign_8h_source.html">lib/sign.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="error_8h_source.html">lib/error.h</a>&quot;</code><br />
+<code>#include &lt;sys/types.h&gt;</code><br />
+<code>#include &lt;sys/stat.h&gt;</code><br />
 <code>#include &lt;errno.h&gt;</code><br />
+<code>#include &lt;dirent.h&gt;</code><br />
 <code>#include &lt;assert.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
@@ -108,21 +111,24 @@ Include dependency graph for dataio.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="lib_2dataio_8c__incl.png" border="0" usemap="#alib_2dataio_8c" alt=""/></div>
 <map name="alib_2dataio_8c" id="alib_2dataio_8c">
-<area shape="rect" title="A file responsible for reading and writing vote related data." alt="" coords="363,5,448,32"/>
-<area shape="rect" href="dataio_8h.html" title="header for dataio.c" alt="" coords="111,80,196,107"/>
-<area shape="rect" href="rsa_8h.html" title="header of rsa.c" alt="" coords="105,229,173,256"/>
-<area shape="rect" href="sign_8h.html" title="header of sign.c" alt="" coords="176,155,251,181"/>
-<area shape="rect" href="error_8h.html" title="Functions to handle errors message." alt="" coords="321,80,396,107"/>
-<area shape="rect" title=" " alt="" coords="301,155,363,181"/>
-<area shape="rect" title=" " alt="" coords="421,80,483,107"/>
-<area shape="rect" title=" " alt="" coords="508,80,577,107"/>
-<area shape="rect" title=" " alt="" coords="602,80,667,107"/>
-<area shape="rect" title=" " alt="" coords="692,80,756,107"/>
-<area shape="rect" title=" " alt="" coords="780,80,844,107"/>
-<area shape="rect" href="mmath_8h.html" title="Header for mmath.c." alt="" coords="93,304,184,331"/>
-<area shape="rect" title=" " alt="" coords="5,379,80,405"/>
-<area shape="rect" href="types_8h.html" title="a file with comfy aliases for long type signatures" alt="" coords="197,379,280,405"/>
-<area shape="rect" title=" " alt="" coords="104,379,173,405"/>
+<area shape="rect" title="A file responsible for reading and writing vote related data." alt="" coords="660,5,745,32"/>
+<area shape="rect" href="dataio_8h.html" title="header for dataio.c" alt="" coords="239,80,324,107"/>
+<area shape="rect" href="rsa_8h.html" title="header of rsa.c" alt="" coords="262,229,330,256"/>
+<area shape="rect" href="sign_8h.html" title="header of sign.c" alt="" coords="184,155,259,181"/>
+<area shape="rect" href="error_8h.html" title="Functions to handle errors message." alt="" coords="449,80,524,107"/>
+<area shape="rect" title=" " alt="" coords="427,155,488,181"/>
+<area shape="rect" title=" " alt="" coords="548,80,639,107"/>
+<area shape="rect" title=" " alt="" coords="663,80,743,107"/>
+<area shape="rect" title=" " alt="" coords="767,80,830,107"/>
+<area shape="rect" title=" " alt="" coords="854,80,919,107"/>
+<area shape="rect" title=" " alt="" coords="944,80,1013,107"/>
+<area shape="rect" title=" " alt="" coords="1038,80,1103,107"/>
+<area shape="rect" title=" " alt="" coords="1128,80,1192,107"/>
+<area shape="rect" title=" " alt="" coords="1216,80,1280,107"/>
+<area shape="rect" href="mmath_8h.html" title="Header for mmath.c." alt="" coords="101,304,192,331"/>
+<area shape="rect" title=" " alt="" coords="205,379,280,405"/>
+<area shape="rect" href="types_8h.html" title="a file with comfy aliases for long type signatures" alt="" coords="5,379,88,405"/>
+<area shape="rect" title=" " alt="" coords="112,379,181,405"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -194,6 +200,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a7a267e781f77ea0829241168e02f6278"><td class="memItemLeft" align="right" valign="top"><a class="el" href="dataio_8h.html#a43b85bc3b6514e3fcf91c91acef2a7a8">CellProtected</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2dataio_8c.html#a7a267e781f77ea0829241168e02f6278">fuse_protected_lists</a> (<a class="el" href="dataio_8h.html#a43b85bc3b6514e3fcf91c91acef2a7a8">CellProtected</a> *A, <a class="el" href="dataio_8h.html#a43b85bc3b6514e3fcf91c91acef2a7a8">CellProtected</a> *B)</td></tr>
 <tr class="memdesc:a7a267e781f77ea0829241168e02f6278"><td class="mdescLeft">&#160;</td><td class="mdescRight">fusionner les liste A et B. Modifies A!  <a href="lib_2dataio_8c.html#a7a267e781f77ea0829241168e02f6278">More...</a><br /></td></tr>
 <tr class="separator:a7a267e781f77ea0829241168e02f6278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08adfac4541b7c3bf95ad9831ee5e5a8"><td class="memItemLeft" align="right" valign="top"><a id="a08adfac4541b7c3bf95ad9831ee5e5a8" name="a08adfac4541b7c3bf95ad9831ee5e5a8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>delete_dir_files</b> (const char *path)</td></tr>
+<tr class="separator:a08adfac4541b7c3bf95ad9831ee5e5a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2582b2d8b7106538299f99d7ae6c4c70"><td class="memItemLeft" align="right" valign="top"><a id="a2582b2d8b7106538299f99d7ae6c4c70" name="a2582b2d8b7106538299f99d7ae6c4c70"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>create_dir_structure</b> ()</td></tr>
+<tr class="separator:a2582b2d8b7106538299f99d7ae6c4c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >A file responsible for reading and writing vote related data. </p>
