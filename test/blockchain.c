@@ -125,12 +125,12 @@ void performance_tests(){
 void question96(){
     // 1
     const size_t nV = 1000, nC = 5;
-    // generate_random_data(nV, nC, BLOCK_STORAGE_DIR);
+    generate_random_data(nV, nC, BLOCK_STORAGE_DIR);
     
     {
         // 2
-        CellProtected* decl = read_protected(BLOCK_STORAGE_DIR "temp/declarations.txt");
-        CellKey* citoyens = read_public_keys(BLOCK_STORAGE_DIR "temp/keys.txt");
+        CellProtected* decl = read_protected(BLOCK_STORAGE_DIR "declarations.txt");
+        CellKey* citoyens = read_public_keys(BLOCK_STORAGE_DIR "keys.txt");
         size_t i;
         CellProtected* cur = decl;
         
@@ -174,8 +174,8 @@ void question96(){
         printf("\n\n arbre chargé: \n");
         print_tree(tr);
 
-        CellKey* candidates = read_public_keys(BLOCK_STORAGE_DIR "temp/candidates.txt");
-        CellKey* voters = read_public_keys(BLOCK_STORAGE_DIR "temp/keys.txt");
+        CellKey* candidates = read_public_keys(BLOCK_STORAGE_DIR "candidates.txt");
+        CellKey* voters = read_public_keys(BLOCK_STORAGE_DIR "keys.txt");
 
         Key* winner = compute_winner_BT(tr, candidates, voters, nC, nV);
         char* kstr = key_to_str(winner);

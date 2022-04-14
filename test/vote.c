@@ -57,7 +57,6 @@ int main(){
             CellProtected* declarations = read_protected("../data/temp/declarations.txt");
             Key* winner = compute_winner(declarations, candidates, voters, sizeC, sizeV);
             char* strwin = key_to_str(winner);
-            //printf("winner is %s\n\n", strwin);
 
             free_list_keys(voters);
             free_list_keys(candidates);

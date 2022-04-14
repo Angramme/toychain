@@ -197,15 +197,6 @@ Key* compute_winner(const CellProtected* decl, const CellKey* candidates, const 
 
     Key* ret = copy_key(Hc->tab[imax]->key);
     
-    /*
-    int j;
-    for(j=0; j<sizeC; j++){
-        if(!Hc->tab[j]) continue;
-        char* temp = key_to_str(Hc->tab[j]->key);
-        printf("candidate %s, number of votes : %d\n", temp, Hc->tab[j]->val);
-        free(temp;)
-    }*/
-    
     free_hashtable(Hc);
     free_hashtable(Hv);
 
