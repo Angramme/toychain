@@ -6,6 +6,7 @@ endif
 EXE_OUTPUT=$(D_ROOT)/build/tests
 
 TEST_FILES = mmath rsa sign vote dataio blockchain
+OBJ_FILES = mmath rsa sign vote dataio blockchain
 
 
 all:
@@ -36,6 +37,6 @@ alltests: $(TEST_FILES)
 endif
 
 
-$(TEST_FILES): %: %.c test.h $(TEST_FILES:%=$(D_LIB)/%.o)
-	$(CC) $(CFLAGS) -o $@ $@.c $(TEST_FILES:%=$(D_LIB)/%.o) $(EXTERNAL_LIBS)
+$(TEST_FILES): %: %.c test.h $(OBJ_FILES:%=$(D_LIB)/%.o)
+	$(CC) $(CFLAGS) -o $@ $@.c $(OBJ_FILES:%=$(D_LIB)/%.o) $(EXTERNAL_LIBS)
 
