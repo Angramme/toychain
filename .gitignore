@@ -9,7 +9,8 @@ build/*
 !third-party/*
 .DS_Store
 **/.DS_Store
-temp/
 data/*
 !data/blockchain
 data/blockchain/*
+!data/temp
+data/temp/*

@@ -51,10 +51,10 @@ int main(){
             int sizeV = rand()%100 + 10;
             int sizeC = rand()%10 + 2;
             sizeC = sizeC < sizeV ? sizeC : sizeV-1;
-            generate_random_data(sizeV, sizeC, "../temp/");
-            CellKey* voters = read_public_keys("../temp/keys.txt");
-            CellKey* candidates = read_public_keys("../temp/candidates.txt");
-            CellProtected* declarations = read_protected("../temp/declarations.txt");
+            generate_random_data(sizeV, sizeC, "../data/temp/");
+            CellKey* voters = read_public_keys("../data/temp/keys.txt");
+            CellKey* candidates = read_public_keys("../data/temp/candidates.txt");
+            CellProtected* declarations = read_protected("../data/temp/declarations.txt");
             Key* winner = compute_winner(declarations, candidates, voters, sizeC, sizeV);
             printf("winner is (%lld %lld)\n", winner->n, winner->v);
 

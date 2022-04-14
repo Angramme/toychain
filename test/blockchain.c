@@ -56,8 +56,8 @@ void test_write_read_block(){
     nblock->nonce = nonce;
     nblock->votes = list_p1;
     
-    write_block("../temp/blocktest.txt", nblock);
-    Block* rblock = read_block("../temp/blocktest.txt");
+    write_block("../data/temp/blocktest.txt", nblock);
+    Block* rblock = read_block("../data/temp/blocktest.txt");
     if(!rblock){
         fprintf(stderr, "rblock is NULL\n");
         free_block(nblock);

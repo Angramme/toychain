@@ -10,7 +10,7 @@
 
 void test_read_write_protected(){
     srand(time(NULL));
-    char* dir = "../temp/";
+    char* dir = "../data/temp/";
     char path[500];
     generate_random_data(30,10,dir);
 
