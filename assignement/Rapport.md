@@ -160,14 +160,15 @@ créer un message unique et identifiable, de sorte qu'il est impossible d'usurpe
 En effet on a choisi de séparer `char* block_to_str(const Block* b)` en deux appels aux fonctions `void block_nonce_to_str(char* headstr, const Block* b)` et `char* block_head_to_str(const Block* b)`. Ce choix a était fait uniquement pour nous permettre de optimizer la fonction `void compute_proof_of_work(Block *B, int d)`, notamment cela nous permet de regenerer uniquement la partie du string de Block qui change quand nonce change et par consequent accelere considerablement l'execution d'une iteration de la boucle.
 
 ### Q7.8
-nombre des zeros | temps d'executions 1 (en secondes) | temps d'execution 2 (en secondes) 
+
+nombre des zeros | temps d'executions machine 1 (en secondes) | temps d'execution machine 2 (en secondes) 
 -|-|-
-1 | 0.000399 s | 0.000400 s 
-2 | 0.000113 s | 0.000112 s 
-3 | 0.070306 s | 0.071397 s 
-4 | 0.580816 s | 0.607454 s 
-5 | 6.314595 s | 6.447474 s
-6 | - | 356.074466 s
+1 | 0.000199 s |
+2 | 0.000636 s |
+3 | 0.057216 s |
+4 | 0.692197 s |
+5 | 19.679282 s |
+6 | 356.074466 s |
 
 TODO: faire une courbe
 
@@ -179,3 +180,7 @@ On pourrait avoir une fonction en O(1) si notre liste etait doublement chainee
 ### Q 9.6
 
 Le code de cette question se trouve dans le ficher `test/question96.c`
+
+Le probleme avec la blockchain et notamment le systeme de consensus que nous avons utilisé, le proof of work, est que il est difficile de choisir un bon nombre des zeros.
+- si ce nombre est trop elevée, nous nous limitons a un nombre des votes par seconde tres petit. Cela pourrait causer des problemes notamment pour un systeme de vote. Par exemple, si on prend le nombre des transactions par seconde de bitcoin qui est de 4.6, nous pouvons estimer que il prendrait 156 jours pour la totalite de france de voter.
+- au contraire si on diminue de trop le nombre des zeros il sera trop facile de commettre des fraudes pour des groupes malveillantes possedant suffisament de puissance de calcul.
