@@ -69,12 +69,13 @@ uint32 hash_function(const Key* key, int size){
  * @return uint32 : found position.
  */
 uint32 find_position(const HashTable* t, const Key* k){
+    assert(t && t->tab);
     const uint32 Io = hash_function(k, t->size);
-    uint32 i = Io;
+    uint32 i = Io % t->size;
     while(true){
+        if(t->tab[i] == NULL) return i;
         const Key* k2 = t->tab[i]->key;
         if(k2->n == k->n && k2->v == k->v) return i;
-        if(t->tab[i] == NULL) return i;
 
         i++;
         i %= t->size;
@@ -101,16 +102,19 @@ HashTable* create_hashtable(const CellKey* keys, size_t size){
     T->tab = malloc(sizeof(HashCell*)*size);
     if(!T->tab){
         MALLOC_ERROR("T->tab failed allocation");
-        free_hashtable(T);
+        free(T);
         return NULL;
     }
+    size_t i;
+    for(i=0; i<size; i++) T->tab[i] = NULL;
     
     size_t counter = 0;
     while(keys){
+        assert(counter <= size);
+        counter++;
         uint32 i = find_position(T, keys->data);
         T->tab[i] = create_hashcell(keys->data);
         keys = keys->next;
-        assert(counter++ <= size);
     }
 
     return T;
@@ -143,17 +147,23 @@ void free_hashtable(HashTable* t){
  * @return Key* copy of the key of the winning candidate
  */
 Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const CellKey* voters, int sizeC, int sizeV){
-    HashTable* Hc = create_hashtable(cadidates, sizeC);
-    HashTable* Hv = create_hashtable(voters, sizeV);
+    HashTable* Hc = create_hashtable(cadidates, sizeC+1);
+    HashTable* Hv = create_hashtable(voters, sizeV+1);
     if(!Hc || !Hv)return NULL;
 
     while(decl){
         // make sure the vote is legitimate
-        if(!verify(decl->data)) continue;
+        if(!verify(decl->data)){
+            decl = decl->next;    
+            continue;
+        }
 
         // make sure the person hasn't voted already.
         uint32 iV = find_position(Hv, decl->data->pKey);
-        if(Hv->tab[iV]->val != 0) continue;
+        if(Hv->tab[iV]->val != 0){
+            decl = decl->next;
+            continue;
+        }
 
         // make sure the target is a candidate.
         Key* cand_key = str_to_key(decl->data->msg);
@@ -166,6 +176,7 @@ Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const C
         uint32 iC = find_position(Hc, cand_key);
         if(Hc->tab[iC] == NULL || Hc->tab[iC]->key->n != cand_key->n || Hc->tab[iC]->key->v != cand_key->v){
             free(cand_key);
+            decl = decl->next;
             continue;
         }
         free(cand_key);
@@ -178,13 +189,16 @@ Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const C
     }
 
     size_t imax = 0;
+    while(!Hc->tab[imax] && imax < Hc->size) imax++;
     size_t i;
     for(i = 0; i < Hc->size; i++){
-        if(Hc->tab[imax]->val < Hc->tab[i]->val) imax = i;
+        if(Hc->tab[i] && Hc->tab[imax]->val < Hc->tab[i]->val) imax = i;
     }
+
+    Key* ret = copy_key(Hc->tab[imax]->key);
 
     free_hashtable(Hc);
     free_hashtable(Hv);
 
-    return copy_key(Hc->tab[imax]->key);
+    return ret;
 }

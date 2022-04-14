@@ -8,6 +8,25 @@
 #include <stdbool.h>
 #include <assert.h>
 
+void test_read_write_protected(){
+    srand(time(NULL));
+    char* dir = "../temp/";
+    char path[500];
+    generate_random_data(30,10,dir);
+
+    strcpy(path, dir);
+    strcat(path, "declarations.txt");
+    CellProtected* plist = read_protected(path);
+    print_protected_list(plist);
+    free_list_protected(plist);
+
+    strcpy(path, dir);
+    strcat(path, "keys.txt");
+    CellKey* cellkey = read_public_keys(path);
+    print_list_keys(cellkey);
+    free_list_keys(cellkey);
+}
+
 int main(){
 
     TEST_SECTION(list_protected_to_str and str_to_list_protected);
@@ -54,22 +73,7 @@ int main(){
     TEST(good, true);
     TEST_SECTION_END();
 
-    // srand(time(NULL));
-    // char* dir = "../temp";
-    // char path[500];
-    // generate_random_data(30,10,dir);
-
-    // strcpy(path, dir);
-    // strcat(path, "/declarations.txt");
-    // CellProtected* plist = read_protected(path);
-    // print_protected_list(plist);
-    // free_list_protected(plist);
-
-    // strcpy(path, dir);
-    // strcat(path, "/keys.txt");
-    // CellKey* cellkey = read_public_keys(path);
-    // print_list_keys(cellkey);
-    // free_list_keys(cellkey);
+    // test_read_write_protected();
     
     TEST_SUMMARY();
 }

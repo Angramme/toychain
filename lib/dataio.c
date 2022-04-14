@@ -3,6 +3,7 @@
 #include "lib/sign.h"
 #include "lib/error.h"
 
+#include <errno.h>
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
@@ -16,30 +17,30 @@
  */
 
 /**
- * @brief generates nv public and private keys and prints them in ./test/keys.txt.
- * Chooses nc couple of keys among them and print them in ./test/candidates.txt.
+ * @brief generates nv public and private keys and prints them in ./{dir}/keys.txt.
+ * Chooses nc couple of keys among them and print them in ./{dir}/candidates.txt.
  * Then for all nv public keys, assign a random public key from the previous nc 
  * couples converted using key_to_str(), and its signed version using sign().
- * Prints the results in ./test/declarations.txt.
+ * Prints the results in ./{dir}/declarations.txt.
  * 
  * @param nv number of couple of keys(citizen) to be generated
  * @param nc number of candidates among the nv couples
  */
 void generate_random_data(int nv, int nc, const char* dir){
-    if(nc > nv) fprintf(stderr, "Wrong arguments, too much candidats : nc = %d > nv = %d\n",nc,nv);
+    if(nc > nv) fprintf(stderr, "Wrong arguments, too many candidates : nc = %d > nv = %d\n",nc,nv);
     assert(strlen(dir)+20 < 500);
     char pth[500];
     strcpy(pth, dir);
-    strcat(pth, "/keys.txt");
-    FILE* keys = fopen(pth, "w+");
+    strcat(pth, "keys.txt");
+    FILE* keys = fopen(pth, "w");
     if(!keys){
         FILE_ERROR("could not generate data");
-        printf("couldn't open %s !\n", pth);
+        printf("couldn't open %s reason : \"%s\"!\n", pth, strerror(errno));
         return;
     }
     strcpy(pth, dir);
-    strcat(pth, "/candidates.txt");
-    FILE* cand = fopen(pth, "w+");
+    strcat(pth, "candidates.txt");
+    FILE* cand = fopen(pth, "w");
     if(!cand){
         FILE_ERROR("could not generate data");
         printf("couldn't open %s !\n", pth);
@@ -47,7 +48,7 @@ void generate_random_data(int nv, int nc, const char* dir){
         return;
     }
     strcpy(pth, dir);
-    strcat(pth, "/declarations.txt");
+    strcat(pth, "declarations.txt");
     FILE* decl = fopen(pth, "w+");
     if(!decl){
         FILE_ERROR("could not generate data");
@@ -237,45 +238,18 @@ CellKey* read_public_keys(char* file){
         fprintf(stderr, "read_public_keys : file opening error");
         return NULL;
     }
-    CellKey* res = malloc(sizeof(CellKey));
-    if(!res){
-        MALLOC_ERROR("couldn't read public keys");
-        fclose(f);
-        return NULL;
-    }
-    res->data = NULL;
+    CellKey* res = NULL;
 
     char buf[256];
     while(fgets(buf, 256, f)){
-        char tmp[100];
-        int i = 0;
-        while(buf[i] != ')' && i < 99){
-            tmp[i] = buf[i];
-            i++;
+        Key* tempkey = str_to_key(buf);
+        if(!tempkey){
+            fprintf(stderr, "tempkey is NULL\n");
+            fclose(f);
+            free_cell_keys(res);
+            return NULL;
         }
-        tmp[i] = buf[i];
-        tmp[i+1] = '\0';
-
-        if(!res->data) {
-            Key* newkey = str_to_key(tmp);
-            if(!newkey){
-                fprintf(stderr, "newkey is NULL\n");
-                fclose(f);
-                free_cell_keys(res);
-                return NULL;
-            }
-            res->data = newkey;
-            res->next =  NULL;
-        } else {
-            Key* tempkey = str_to_key(tmp);
-            if(!tempkey){
-                fprintf(stderr, "tempkey is NULL\n");
-                fclose(f);
-                free_cell_keys(res);
-                return NULL;
-            }
-            res = insert_cell_key(res, tempkey);
-        }
+        res = insert_cell_key(res, tempkey);
     }
     fclose(f);
     return res;
@@ -600,7 +574,7 @@ void remove_fraudulent_declarations(CellProtected** list){
         if(!verify((*list)->data)){
             CellProtected* tmp = *list;
             *list = (*list)->next;
-            free(tmp);
+            free_cell_protected(tmp);
         }
         list = &((*list)->next);
     }
@@ -666,6 +640,7 @@ CellProtected* fuse_protected_lists(CellProtected* A, CellProtected* B){
     // la fonction est en O(N) où N taille de A
     // on pourrait avoir une fonction en O(1) si notre liste etait doublement chainee
     if(!A) return B;
+    if(!B) return A;
     CellProtected* ret = A;
     while(A->next) A = A->next;
     A->next = B;

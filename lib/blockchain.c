@@ -3,6 +3,7 @@
 #include "lib/error.h"
 #include "lib/vote.h"
 
+#include <assert.h>
 #include <errno.h>
 #include <dirent.h>
 #include <stdio.h>
@@ -23,7 +24,7 @@
 bool write_block(const char* filename, const Block* b){
     FILE* f = fopen(filename, "w");
     if(!f){
-        fprintf(stderr, "write_block : failed opening\n");
+        fprintf(stderr, "write_block : failed opening \"%s\" ! reason : \"%s\" \n", filename, strerror(errno));
         return false;
     }
     if(!b){
@@ -71,7 +72,8 @@ bool write_block(const char* filename, const Block* b){
 Block* read_block(const char* filename){
     FILE* F = fopen(filename, "r");
     if(!F){
-        fprintf(stderr, "read_block : failed opening\n");
+        FILE_ERROR("couldn't read block");
+        fprintf(stderr, "read_block : failed opening \"%s\" reason: \"%s\"\n", filename, strerror(errno));
         return NULL;
     }
     Block* BLOCK = malloc(sizeof(Block));
@@ -546,6 +548,7 @@ bool update_height(CellTree* father, CellTree* child){
 }
 
 void add_child(CellTree* father, CellTree* child){
+    assert(father && child);
     if(child->nextBro != NULL){
         fprintf(stderr, "invalid child passed as parameter!");
         return;
@@ -635,6 +638,20 @@ void delete_tree(CellTree* node){
 }
 
 /**
+ * @brief fonction qui free la totalite de memoire dans l'arbre
+ * 
+ * @param node 
+ */
+void free_tree(CellTree* node){
+    if(!node) return;
+    CellTree* nextb = node->nextBro;
+    CellTree* child = node->firstChild;
+    free_node(node);
+    free_tree(nextb);
+    free_tree(child);
+}
+
+/**
  * @brief returns the child with max height of cell
  * 
  * @param cell 
@@ -719,29 +736,22 @@ void submit_vote(Protected* p){
  * @param author
  * @param d number of zeros for proof of work
  */
-void create_block(CellTree* tree, Key* author, int d){
+void create_block(CellTree** tree, Key* author, int d){
     CellProtected* plist = read_protected(PENDING_VOTES_FILE);
     if(!plist) return;
-    CellTree* last = last_node(tree);
-    if(!last){
-        fprintf(stderr, "could not create block\n");
-        if(plist) free_list_protected(plist);
-        return;
-    }
+    CellTree* last = last_node(*tree); // <- can be NULL
 
     Block* B = init_block_raw(
-        author, 
+        copy_key(author), 
         plist, 
-        copy_hash(last->block->hash));
+        last ? copy_hash(last->block->hash) : NULL);
 
     compute_proof_of_work(B, d);
     write_block(PENDING_BLOCK_FILE, B);
-    while(plist){
-        free(plist->data);
-        plist = plist->next;
-    }
-    delete_block(B);
     remove(PENDING_VOTES_FILE);
+
+    if(last) add_child(last, create_node(B));
+    else *tree = create_node(B);
 }
 
 /**
@@ -772,6 +782,7 @@ void add_block(int d, const char* name){
 
     write_block(fullname, b);
     free(fullname);
+    free_block(b);
 }
 
 
@@ -826,6 +837,7 @@ CellTree* read_tree(){
             free(TAB);
             return NULL;
         }
+        i++;
     }
 
     closedir(D);
@@ -834,6 +846,7 @@ CellTree* read_tree(){
 
     for(i = 0; i<STAB; i++){
         for(j = 0; j<STAB; j++){
+            assert(TAB[i] && TAB[j]);
             if(i==j || !compare_hash(TAB[j]->block->previous_hash, TAB[i]->block->hash))
                 continue; // not a child, skip...
             add_child(TAB[i], TAB[j]);
