@@ -27,6 +27,11 @@ C'est le cas avec le file directory qu'on exporte et qui est accessible par les 
 - Vérification de la présence d'overflow. Dans `overflow.h` on définit des fonctions qui vérifient si une opération(addition, multiplication ...) va causer un dépassement.
  La raison de cette implémentation vient du fait que des entiers trops grands peuvent amener à des mauvaises clés. Ce problème est détaillé dans la partie 1.
 
+- choix de utiliser nos propres typedef au lieu de types standard. Ce choix est venu du fait que nous avons vooulou augmenter la taille des entiers pour permettre l'utilisation des plus grandes cles pour le chiffrement. Nous avons renommé les types pour raisons suivantes:
+    - (plus court) reduire la taille des types. Le type equivalent `uint64` est beaucoup plus lisible que `unsigned long long long ... long int`.
+    - (nombre des bits plus clair) le nombre des bits representant des types est beaucoup plus clair et transparent. En effet ce nombre fait partie du nom du type ce qui par consequent nous evite de verifier la taille d'un `unsigned long int` ou `short int` sur internet et par consequent reduit les erreurs.
+
+
 # Partie 1
 Dans cette première partie nous nous intéressons au chiffrement et dechiffrement d'un message à l'aide du protocole `RSA`.
 Dans le premier exercice on implémente des fonctions permettant de calculer des nombres premiers dont le test 
