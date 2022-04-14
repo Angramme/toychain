@@ -1,11 +1,18 @@
-ifneq ($(DEBUG),0)
-CFLAGS=-Wall -g
+ifdef PERFTESTS
+ADD_CFLAGS=-DPERFTESTS=1
 else
-CFLAGS=-Wall
+ADD_CFLAGS=
+endif
+
+ifneq ($(DEBUG),0)
+CFLAGS=-Wall -g $(ADD_CFLAGS)
+else
+CFLAGS=-Wall $(ADD_CFLAGS)
 endif
 EXE_OUTPUT=$(D_ROOT)/build/tests
 
-TEST_FILES = mmath rsa sign vote dataio blockchain
+TEST_FILES = mmath rsa sign vote dataio blockchain question96 perf
+OBJ_FILES = mmath rsa sign vote dataio blockchain
 
 
 all:
@@ -36,6 +43,6 @@ alltests: $(TEST_FILES)
 endif
 
 
-$(TEST_FILES): %: %.c test.h $(TEST_FILES:%=$(D_LIB)/%.o)
-	$(CC) $(CFLAGS) -o $@ $@.c $(TEST_FILES:%=$(D_LIB)/%.o) $(EXTERNAL_LIBS)
+$(TEST_FILES): %: %.c test.h $(OBJ_FILES:%=$(D_LIB)/%.o)
+	$(CC) $(CFLAGS) -o $@ $@.c $(OBJ_FILES:%=$(D_LIB)/%.o) $(EXTERNAL_LIBS)
 

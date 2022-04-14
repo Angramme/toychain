@@ -103,93 +103,6 @@ void test_write_read_block(){
     free_block(rblock);
 }
 
-void performance_tests(){
-    Key pk, sk;
-    init_pair_keys(&pk, &sk, 8, 12);
-    uint8 prev_hash[BLOCK_HASH_SIZE];
-    for(size_t i=0; i<BLOCK_HASH_SIZE; i++) prev_hash[i] = (uint8)rand()%255;
-    CellProtected* decls = rand_list_protected_range(42, 'a', 'z');
-    Block* b = init_block(&pk, decls, prev_hash);
-    free_list_protected(decls);
-
-    for(int d=1; d<BLOCK_HASH_SIZE/2; d++){
-        double secs;
-        CLOCK_TIME(secs, compute_proof_of_work(b, d));
-        printf("%d %f \n", d, secs);
-        if(secs > 10) break;
-    }
-
-    free_block(b);
-}
-
-void question96(){
-    // 1
-    const size_t nV = 1000, nC = 5;
-    generate_random_data(nV, nC, BLOCK_STORAGE_DIR);
-    
-    {
-        // 2
-        CellProtected* decl = read_protected(BLOCK_STORAGE_DIR "declarations.txt");
-        CellKey* citoyens = read_public_keys(BLOCK_STORAGE_DIR "keys.txt");
-        size_t i;
-        CellProtected* cur = decl;
-        
-        // 3
-        CellTree* blocktree = NULL; 
-        const int d = 1;
-        const size_t interval = 50;
-        i=0;
-        while(cur){
-            submit_vote(cur->data);
-            i++;
-            if(i!=0 && i%interval==0){
-                create_block(&blocktree, cur->data->pKey, d);
-                Block* B = read_block(PENDING_BLOCK_FILE);
-                if(!B){
-                    printf("error reading block! \n");
-                    free_tree(blocktree);
-                    free_list_protected(decl);
-                    free_list_keys(citoyens);
-                    return;
-                }
-                char* name = hash_to_str(B->hash);
-                add_block(d, name);
-                free(name);
-                free_block(B);
-            }
-            cur = cur->next;
-        }
-
-        // 3.5
-        printf("arbre original: \n");
-        print_tree(blocktree);
-
-        free_tree(blocktree);
-        free_list_protected(decl);
-        free_list_keys(citoyens);
-    }
-    {
-        // 4 
-        CellTree* tr = read_tree();
-        printf("\n\n arbre chargé: \n");
-        print_tree(tr);
-
-        CellKey* candidates = read_public_keys(BLOCK_STORAGE_DIR "candidates.txt");
-        CellKey* voters = read_public_keys(BLOCK_STORAGE_DIR "keys.txt");
-
-        Key* winner = compute_winner_BT(tr, candidates, voters, nC, nV);
-        char* kstr = key_to_str(winner);
-        printf("WINNER: %s \n", kstr);
-        free(kstr);
-        free(winner);
-
-        free_list_keys(candidates);
-        free_list_keys(voters);
-
-        free_tree(tr);
-    }
-}
-
 
 int main(){
     TEST_SECTION(write_block and read_block);
@@ -283,14 +196,6 @@ int main(){
         free_block(b);
     }
     TEST_SECTION_END();
-
-    TEST_SECTION(question 9.6);
-    question96();
-    TEST_SECTION_END();
-
-    // TEST_SECTION(performance tests);
-    // performance_tests();
-    // TEST_SECTION_END();
 
     TEST_SUMMARY();
 }

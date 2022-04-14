@@ -33,6 +33,3 @@ make test VALGRIND=1
 ```
 > you might want to run make clean before if you were compiling for release. this is necessary to rebuild all binaries with appropriate debug information 
 
-## Usage 
-
-TODO

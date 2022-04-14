@@ -153,7 +153,7 @@ Key* compute_winner(const CellProtected* decl, const CellKey* candidates, const 
     while(decl){
         // make sure the vote is legitimate
         if(!verify(decl->data)){
-            printf("%s, failed verification\n", decl->data->msg);
+            printf("vote for %s, is not legitimate\n", decl->data->msg);
             decl = decl->next;    
             continue;
         }
