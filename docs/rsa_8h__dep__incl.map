@@ -1,7 +1,12 @@
 <map id="lib/rsa.h" name="lib/rsa.h">
-<area shape="rect" id="node1" title="header of rsa.c" alt="" coords="71,5,139,32"/>
-<area shape="rect" id="node2" href="$dataio_8h_source.html" title=" " alt="" coords="11,155,97,181"/>
-<area shape="rect" id="node3" href="$lib_2rsa_8c.html" title="a collection of RSA related functions" alt="" coords="23,80,91,107"/>
-<area shape="rect" id="node4" href="$lib_2sign_8c.html" title="a collection of functions related to signing messages and the voting system" alt="" coords="153,155,227,181"/>
-<area shape="rect" id="node5" href="$sign_8h_source.html" title=" " alt="" coords="115,80,190,107"/>
+<area shape="rect" id="node1" title="header of rsa.c" alt="" coords="334,5,402,32"/>
+<area shape="rect" id="node2" href="$blockchain_8h.html" title="header for blockchain.c" alt="" coords="5,229,117,256"/>
+<area shape="rect" id="node4" href="$lib_2dataio_8c.html" title="A file responsible for reading and writing vote related data." alt="" coords="341,229,427,256"/>
+<area shape="rect" id="node5" href="$dataio_8h.html" title="header for dataio.c" alt="" coords="157,155,243,181"/>
+<area shape="rect" id="node8" href="$lib_2rsa_8c.html" title="a collection of RSA related functions" alt="" coords="518,80,586,107"/>
+<area shape="rect" id="node9" href="$lib_2sign_8c.html" title="a collection of functions related to signing messages and the voting system" alt="" coords="368,155,443,181"/>
+<area shape="rect" id="node10" href="$sign_8h.html" title="header of sign.c" alt="" coords="293,80,368,107"/>
+<area shape="rect" id="node3" href="$lib_2blockchain_8c.html" title="File to create and handle blockchain structures." alt="" coords="99,304,211,331"/>
+<area shape="rect" id="node6" href="$lib_2vote_8c.html" title="A set of functions for the voting system." alt="" coords="239,304,313,331"/>
+<area shape="rect" id="node7" href="$vote_8h.html" title="header of vote.c" alt="" coords="243,229,317,256"/>
 </map>

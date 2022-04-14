@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['free_5fprotected_0',['free_protected',['../lib_2sign_8c.html#af803e908bbab3c1eb8e737f653624bb2',1,'sign.c']]],
-  ['free_5fsignature_1',['free_signature',['../lib_2sign_8c.html#a3b63e045fdb0daa5d6cdc7b8dd181910',1,'sign.c']]]
+  ['decrypt_0',['decrypt',['../lib_2rsa_8c.html#ab84364642165846c222ef0e57890fd09',1,'decrypt(const int64 *crypted, int size, int64 u, int64 n):&#160;rsa.c'],['../rsa_8h.html#ab84364642165846c222ef0e57890fd09',1,'decrypt(const int64 *crypted, int size, int64 u, int64 n):&#160;rsa.c']]],
+  ['delete_5fblock_1',['delete_block',['../lib_2blockchain_8c.html#abbb8d1978e5f68ed511a48d7b5ce02db',1,'delete_block(Block *b):&#160;blockchain.c'],['../blockchain_8h.html#abbb8d1978e5f68ed511a48d7b5ce02db',1,'delete_block(Block *b):&#160;blockchain.c']]],
+  ['delete_5fnode_2',['delete_node',['../lib_2blockchain_8c.html#aff6bed05eec493e4fc86a265ae959d19',1,'delete_node(CellTree *node):&#160;blockchain.c'],['../blockchain_8h.html#aff6bed05eec493e4fc86a265ae959d19',1,'delete_node(CellTree *node):&#160;blockchain.c']]],
+  ['delete_5ftree_3',['delete_tree',['../lib_2blockchain_8c.html#a226cb3326a6201035b4953fc64b08737',1,'delete_tree(CellTree *node):&#160;blockchain.c'],['../blockchain_8h.html#a226cb3326a6201035b4953fc64b08737',1,'delete_tree(CellTree *node):&#160;blockchain.c']]]
 ];

@@ -1,11 +1,16 @@
 var searchData=
 [
-  ['init_5fkey_0',['init_key',['../lib_2rsa_8c.html#a932c9289f908135f6666cb4377cf65f8',1,'init_key(Key *key, int64 val, int64 n):&#160;rsa.c'],['../rsa_8h.html#a932c9289f908135f6666cb4377cf65f8',1,'init_key(Key *key, int64 val, int64 n):&#160;rsa.c']]],
-  ['init_5fpair_5fkeys_1',['init_pair_keys',['../lib_2rsa_8c.html#af6646cccff47a390bd59eb5926512f66',1,'init_pair_keys(Key *pKey, Key *sKey, int low_size, int up_size):&#160;rsa.c'],['../rsa_8h.html#af6646cccff47a390bd59eb5926512f66',1,'init_pair_keys(Key *pKey, Key *sKey, int low_size, int up_size):&#160;rsa.c']]],
-  ['init_5fprotected_2',['init_protected',['../lib_2sign_8c.html#ae77ebb9e779cef8d5cf311e5452750be',1,'sign.c']]],
-  ['init_5fprotected_5fraw_3',['init_protected_raw',['../lib_2sign_8c.html#aba238f275e03edd9ab8af2f1fea27856',1,'sign.c']]],
-  ['init_5fsignature_4',['init_signature',['../lib_2sign_8c.html#a37fb2849117ea975235a3dfb5fbe7a4d',1,'sign.c']]],
-  ['init_5fsignature_5fraw_5',['init_signature_raw',['../lib_2sign_8c.html#a57a0e7941b329cfb1d75879f6f8c2c75',1,'sign.c']]],
-  ['is_5fprime_5fmiller_6',['is_prime_miller',['../lib_2mmath_8c.html#a293b3fe59b3fce1288c6cbc21c9e9e9e',1,'mmath.c']]],
-  ['is_5fprime_5fnaive_7',['is_prime_naive',['../lib_2mmath_8c.html#ac29b950d8b2403509f5d59e249dfc131',1,'mmath.c']]]
+  ['find_5fposition_0',['find_position',['../lib_2vote_8c.html#af1ad8561e49fcaf35cc927c90c50c653',1,'find_position(const HashTable *t, const Key *k):&#160;vote.c'],['../vote_8h.html#af1ad8561e49fcaf35cc927c90c50c653',1,'find_position(const HashTable *t, const Key *k):&#160;vote.c']]],
+  ['free_5fblock_1',['free_block',['../lib_2blockchain_8c.html#acc44eb190ea47d253ef4b0bdd4c07e14',1,'free_block(Block *b):&#160;blockchain.c'],['../blockchain_8h.html#acc44eb190ea47d253ef4b0bdd4c07e14',1,'free_block(Block *b):&#160;blockchain.c']]],
+  ['free_5fcell_5fkeys_2',['free_cell_keys',['../lib_2dataio_8c.html#a6bee86b95e76d9f6a2c2c4e1287bde4b',1,'free_cell_keys(CellKey *c):&#160;dataio.c'],['../dataio_8h.html#a6bee86b95e76d9f6a2c2c4e1287bde4b',1,'free_cell_keys(CellKey *c):&#160;dataio.c']]],
+  ['free_5fcell_5fprotected_3',['free_cell_protected',['../lib_2dataio_8c.html#aa7fd9221309687942a604efd62617b37',1,'free_cell_protected(CellProtected *c):&#160;dataio.c'],['../dataio_8h.html#aa7fd9221309687942a604efd62617b37',1,'free_cell_protected(CellProtected *c):&#160;dataio.c']]],
+  ['free_5fhashcell_4',['free_hashcell',['../lib_2vote_8c.html#a2dca1846182876dfa0d4ba633ed3e2ec',1,'free_hashcell(HashCell *hc):&#160;vote.c'],['../vote_8h.html#a2dca1846182876dfa0d4ba633ed3e2ec',1,'free_hashcell(HashCell *hc):&#160;vote.c']]],
+  ['free_5fhashtable_5',['free_hashtable',['../lib_2vote_8c.html#aae91a95f84bff57b38ef677ef58d3930',1,'free_hashtable(HashTable *t):&#160;vote.c'],['../vote_8h.html#aae91a95f84bff57b38ef677ef58d3930',1,'free_hashtable(HashTable *t):&#160;vote.c']]],
+  ['free_5flist_5fkeys_6',['free_list_keys',['../lib_2dataio_8c.html#a4e0704e77674350dcc457621b7728a88',1,'free_list_keys(CellKey *cellkey):&#160;dataio.c'],['../dataio_8h.html#a4e0704e77674350dcc457621b7728a88',1,'free_list_keys(CellKey *cellkey):&#160;dataio.c']]],
+  ['free_5flist_5fprotected_7',['free_list_protected',['../lib_2dataio_8c.html#a21aab038c033123f4c41737743abfb5d',1,'free_list_protected(CellProtected *c):&#160;dataio.c'],['../dataio_8h.html#a21aab038c033123f4c41737743abfb5d',1,'free_list_protected(CellProtected *c):&#160;dataio.c']]],
+  ['free_5fnode_8',['free_node',['../lib_2blockchain_8c.html#a5fa6c497d8e06d1d2370863cb2105129',1,'free_node(CellTree *node):&#160;blockchain.c'],['../blockchain_8h.html#a5fa6c497d8e06d1d2370863cb2105129',1,'free_node(CellTree *node):&#160;blockchain.c']]],
+  ['free_5fprotected_9',['free_protected',['../lib_2sign_8c.html#af803e908bbab3c1eb8e737f653624bb2',1,'free_protected(Protected *pr):&#160;sign.c'],['../sign_8h.html#af803e908bbab3c1eb8e737f653624bb2',1,'free_protected(Protected *pr):&#160;sign.c']]],
+  ['free_5fsignature_10',['free_signature',['../lib_2sign_8c.html#a3b63e045fdb0daa5d6cdc7b8dd181910',1,'free_signature(Signature *sig):&#160;sign.c'],['../sign_8h.html#a3b63e045fdb0daa5d6cdc7b8dd181910',1,'free_signature(Signature *sig):&#160;sign.c']]],
+  ['free_5ftree_11',['free_tree',['../lib_2blockchain_8c.html#abaa1d84a2ba1b53f3f8bb497724c5cf5',1,'free_tree(CellTree *node):&#160;blockchain.c'],['../blockchain_8h.html#abaa1d84a2ba1b53f3f8bb497724c5cf5',1,'free_tree(CellTree *node):&#160;blockchain.c']]],
+  ['fuse_5fprotected_5flists_12',['fuse_protected_lists',['../lib_2dataio_8c.html#a7a267e781f77ea0829241168e02f6278',1,'fuse_protected_lists(CellProtected *A, CellProtected *B):&#160;dataio.c'],['../dataio_8h.html#a7a267e781f77ea0829241168e02f6278',1,'fuse_protected_lists(CellProtected *A, CellProtected *B):&#160;dataio.c']]]
 ];

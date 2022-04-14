@@ -25,11 +25,10 @@
 var NAVTREE =
 [
   [ "Toychain!", "index.html", [
-    [ "Full Documentation", "index.html#autotoc_md20", null ],
-    [ "Installation", "index.html#autotoc_md21", null ],
-    [ "Building", "index.html#autotoc_md22", null ],
-    [ "Testing", "index.html#autotoc_md23", null ],
-    [ "Usage", "index.html#autotoc_md24", null ],
+    [ "Full Documentation", "index.html#autotoc_md25", null ],
+    [ "Installation", "index.html#autotoc_md26", null ],
+    [ "Building", "index.html#autotoc_md27", null ],
+    [ "Testing", "index.html#autotoc_md28", null ],
     [ "Rapport Toychain", "md_assignement_Rapport.html", [
       [ "Choix de structure", "md_assignement_Rapport.html#autotoc_md1", null ],
       [ "Partie 1", "md_assignement_Rapport.html#autotoc_md2", [
@@ -51,10 +50,17 @@ var NAVTREE =
       ] ],
       [ "Partie 3", "md_assignement_Rapport.html#autotoc_md15", [
         [ "Exercices 5 et 6", "md_assignement_Rapport.html#autotoc_md16", [
-          [ "Tests", "md_assignement_Rapport.html#autotoc_md17", null ]
+          [ "Q6.7 compute_winner", "md_assignement_Rapport.html#autotoc_md17", null ],
+          [ "Tests", "md_assignement_Rapport.html#autotoc_md18", null ]
         ] ]
       ] ],
-      [ "Résumé", "md_assignement_Rapport.html#autotoc_md18", null ]
+      [ "Résumé", "md_assignement_Rapport.html#autotoc_md19", null ],
+      [ "Partie 4 et 5 : Blocks et persistance des données", "md_assignement_Rapport.html#autotoc_md20", [
+        [ "Choix par rapport a la separation de block_to_str", "md_assignement_Rapport.html#autotoc_md21", [
+          [ "Q7.8", "md_assignement_Rapport.html#autotoc_md22", null ],
+          [ "Q 8.8", "md_assignement_Rapport.html#autotoc_md23", null ]
+        ] ]
+      ] ]
     ] ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
@@ -67,7 +73,7 @@ var NAVTREE =
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "Globals", "globals.html", [
-        [ "All", "globals.html", null ],
+        [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Macros", "globals_defs.html", null ]
@@ -78,7 +84,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"annotated.html",
+"rsa_8h.html#a117c4cb9222ec3b9f183ee4f3aca8d08"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

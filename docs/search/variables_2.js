@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xs_0',['xs',['../struct__Signature.html#a340f2d9014270b259ae3a216d754a048',1,'_Signature']]]
+  ['n_0',['n',['../struct__Key.html#a0c0fcfa7e31d5a207198dee5d671d45a',1,'_Key']]]
 ];

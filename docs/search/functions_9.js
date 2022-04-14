@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rand_5fint64_0',['rand_int64',['../lib_2mmath_8c.html#addbcf1ceb5756486f666e4f4cae85bf4',1,'mmath.c']]],
-  ['random_5fprime_5fnumber_1',['random_prime_number',['../lib_2mmath_8c.html#ab07e29dab9c9c10f0d992caaa1e8a7bc',1,'mmath.c']]]
+  ['jenkins_5fone_5fat_5fa_5ftime_5fhash_0',['jenkins_one_at_a_time_hash',['../lib_2mmath_8c.html#aa50c5cfc565a9e901d36c70ed86a2e05',1,'jenkins_one_at_a_time_hash(const uint8 *key, size_t len):&#160;mmath.c'],['../mmath_8h.html#aa50c5cfc565a9e901d36c70ed86a2e05',1,'jenkins_one_at_a_time_hash(const uint8 *key, size_t len):&#160;mmath.c']]]
 ];

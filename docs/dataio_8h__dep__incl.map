@@ -1,0 +1,8 @@
+<map id="lib/dataio.h" name="lib/dataio.h">
+<area shape="rect" id="node1" title="header for dataio.c" alt="" coords="159,5,244,32"/>
+<area shape="rect" id="node2" href="$lib_2blockchain_8c.html" title="File to create and handle blockchain structures." alt="" coords="23,155,135,181"/>
+<area shape="rect" id="node3" href="$blockchain_8h.html" title="header for blockchain.c" alt="" coords="23,80,135,107"/>
+<area shape="rect" id="node4" href="$lib_2dataio_8c.html" title="A file responsible for reading and writing vote related data." alt="" coords="159,80,244,107"/>
+<area shape="rect" id="node5" href="$lib_2vote_8c.html" title="A set of functions for the voting system." alt="" coords="306,155,380,181"/>
+<area shape="rect" id="node6" href="$vote_8h.html" title="header of vote.c" alt="" coords="268,80,343,107"/>
+</map>

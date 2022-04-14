@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['n_0',['n',['../struct__Key.html#a0c0fcfa7e31d5a207198dee5d671d45a',1,'_Key']]]
+  ['msg_0',['msg',['../struct__Protected.html#aa950edf6e2ed23422413a459ad4446e9',1,'_Protected']]]
 ];

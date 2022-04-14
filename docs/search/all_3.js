@@ -1,4 +1,28 @@
 var searchData=
 [
-  ['decrypt_0',['decrypt',['../lib_2rsa_8c.html#a58260ba78c3befa4053dc047ce31f04a',1,'decrypt(int64 *crypted, int size, int64 u, int64 n):&#160;rsa.c'],['../rsa_8h.html#a58260ba78c3befa4053dc047ce31f04a',1,'decrypt(int64 *crypted, int size, int64 u, int64 n):&#160;rsa.c']]]
+  ['cellkey_0',['cellKey',['../structcellKey.html',1,'']]],
+  ['cellkey_1',['CellKey',['../dataio_8h.html#a83d50e2b6af08909c0fdd47aed24c1a5',1,'dataio.h']]],
+  ['cellprotected_2',['cellProtected',['../structcellProtected.html',1,'']]],
+  ['cellprotected_3',['CellProtected',['../dataio_8h.html#a43b85bc3b6514e3fcf91c91acef2a7a8',1,'dataio.h']]],
+  ['celltree_4',['CellTree',['../blockchain_8h.html#ab0a51a4fd7bfca0fb0c76a82b6fc6d7e',1,'blockchain.h']]],
+  ['check_5fzeros_5',['check_zeros',['../lib_2blockchain_8c.html#a4dc150a7aef939c794d0af0842dae717',1,'blockchain.c']]],
+  ['clock_5ftime_6',['CLOCK_TIME',['../clocktime_8h.html#a8f3839d2a652e6a42ab94d1afb388053',1,'clocktime.h']]],
+  ['clocktime_2eh_7',['clocktime.h',['../clocktime_8h.html',1,'']]],
+  ['compare_5fhash_8',['compare_hash',['../lib_2blockchain_8c.html#a3fe9a3ff341796b5ba103169afca380d',1,'compare_hash(const uint8 *A, const uint8 *B):&#160;blockchain.c'],['../blockchain_8h.html#a3fe9a3ff341796b5ba103169afca380d',1,'compare_hash(const uint8 *A, const uint8 *B):&#160;blockchain.c']]],
+  ['compute_5fproof_5fof_5fwork_9',['compute_proof_of_work',['../lib_2blockchain_8c.html#a2a8f2ee0ed8a46826e2103b4757984d0',1,'compute_proof_of_work(Block *B, int d):&#160;blockchain.c'],['../blockchain_8h.html#a2a8f2ee0ed8a46826e2103b4757984d0',1,'compute_proof_of_work(Block *B, int d):&#160;blockchain.c']]],
+  ['compute_5fwinner_10',['compute_winner',['../lib_2vote_8c.html#aa4d90f613a4f002a9ec16c6e1f219bdc',1,'compute_winner(const CellProtected *decl, const CellKey *candidates, const CellKey *voters, int sizeC, int sizeV):&#160;vote.c'],['../vote_8h.html#ac97bc022f90659aa5ff28ef596967760',1,'compute_winner(const CellProtected *decl, const CellKey *cadidates, const CellKey *voters, int sizeC, int sizeV):&#160;vote.c']]],
+  ['copy_5fhash_11',['copy_hash',['../lib_2blockchain_8c.html#a9d8ae342a574ab0cd60168008a8e46f1',1,'copy_hash(const uint8 *hash):&#160;blockchain.c'],['../blockchain_8h.html#a9d8ae342a574ab0cd60168008a8e46f1',1,'copy_hash(const uint8 *hash):&#160;blockchain.c']]],
+  ['copy_5fkey_12',['copy_key',['../lib_2rsa_8c.html#a8b4987f5f4631cfa1803e63e8c18befc',1,'copy_key(const Key *o):&#160;rsa.c'],['../rsa_8h.html#a8b4987f5f4631cfa1803e63e8c18befc',1,'copy_key(const Key *o):&#160;rsa.c']]],
+  ['copy_5fprotected_13',['copy_protected',['../lib_2sign_8c.html#ad3a4b532a14ef0b2c57ac99afb917917',1,'copy_protected(const Protected *o):&#160;sign.c'],['../sign_8h.html#ad3a4b532a14ef0b2c57ac99afb917917',1,'copy_protected(const Protected *o):&#160;sign.c']]],
+  ['copy_5fprotected_5flist_14',['copy_protected_list',['../lib_2dataio_8c.html#a7e203a2a69aa810868714f98b49354cc',1,'copy_protected_list(const CellProtected *o):&#160;dataio.c'],['../dataio_8h.html#a7e203a2a69aa810868714f98b49354cc',1,'copy_protected_list(const CellProtected *o):&#160;dataio.c']]],
+  ['copy_5fsignature_15',['copy_signature',['../lib_2sign_8c.html#a7115e458a987e1b5aaae77cfdb0de411',1,'copy_signature(const Signature *o):&#160;sign.c'],['../sign_8h.html#a7115e458a987e1b5aaae77cfdb0de411',1,'copy_signature(const Signature *o):&#160;sign.c']]],
+  ['create_5fblock_16',['create_block',['../lib_2blockchain_8c.html#aa8bef54729955056d46d6187bac15586',1,'create_block(CellTree **tree, Key *author, int d):&#160;blockchain.c'],['../blockchain_8h.html#aa8bef54729955056d46d6187bac15586',1,'create_block(CellTree **tree, Key *author, int d):&#160;blockchain.c']]],
+  ['create_5fcell_5fkey_17',['create_cell_key',['../lib_2dataio_8c.html#ae4d864b42bf45c3a1ebf2096d8c24403',1,'create_cell_key(Key *key):&#160;dataio.c'],['../dataio_8h.html#ae4d864b42bf45c3a1ebf2096d8c24403',1,'create_cell_key(Key *key):&#160;dataio.c']]],
+  ['create_5fcell_5fkey_5fraw_18',['create_cell_key_raw',['../lib_2dataio_8c.html#ab4a84c8fd117422feeeb10bc57529fb1',1,'dataio.c']]],
+  ['create_5fcell_5fprotected_19',['create_cell_protected',['../lib_2dataio_8c.html#a22adbb225a2a9c7456d6fb2500f4d4ce',1,'create_cell_protected(Protected *pr):&#160;dataio.c'],['../dataio_8h.html#a22adbb225a2a9c7456d6fb2500f4d4ce',1,'create_cell_protected(Protected *pr):&#160;dataio.c']]],
+  ['create_5fcell_5fprotected_5fraw_20',['create_cell_protected_raw',['../lib_2dataio_8c.html#a1b4e47f8a17ae7240684d18cdfdcfdd7',1,'dataio.c']]],
+  ['create_5fhashcell_21',['create_hashcell',['../lib_2vote_8c.html#a78baf8ebab5dc4acd55fa7273307d39b',1,'create_hashcell(const Key *key):&#160;vote.c'],['../vote_8h.html#a78baf8ebab5dc4acd55fa7273307d39b',1,'create_hashcell(const Key *key):&#160;vote.c']]],
+  ['create_5fhashcell_5fraw_22',['create_hashcell_raw',['../lib_2vote_8c.html#a463896ce498c9a51c0a31801befeb147',1,'create_hashcell_raw(Key *key):&#160;vote.c'],['../vote_8h.html#a463896ce498c9a51c0a31801befeb147',1,'create_hashcell_raw(Key *key):&#160;vote.c']]],
+  ['create_5fhashtable_23',['create_hashtable',['../lib_2vote_8c.html#ab6bd534ba763f8ebcaff89524a8bfe17',1,'create_hashtable(const CellKey *keys, size_t size):&#160;vote.c'],['../vote_8h.html#ab6bd534ba763f8ebcaff89524a8bfe17',1,'create_hashtable(const CellKey *keys, size_t size):&#160;vote.c']]],
+  ['create_5fnode_24',['create_node',['../lib_2blockchain_8c.html#a1ba3db6a038c483aabab25137e5c81b3',1,'create_node(Block *b):&#160;blockchain.c'],['../blockchain_8h.html#a1ba3db6a038c483aabab25137e5c81b3',1,'create_node(Block *b):&#160;blockchain.c']]]
 ];
