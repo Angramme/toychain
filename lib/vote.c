@@ -76,7 +76,6 @@ uint32 find_position(const HashTable* t, const Key* k){
         if(t->tab[i] == NULL) return i;
         const Key* k2 = t->tab[i]->key;
         if(k2->n == k->n && k2->v == k->v) return i;
-
         i++;
         i %= t->size;
         if(i == Io) return Io;
@@ -142,23 +141,24 @@ void free_hashtable(HashTable* t){
  * @param decl list of declaration
  * @param cadidates list of candidates
  * @param voters list of voters
- * @param sizeC size of candidates
- * @param sizeV size of voters
+ * @param sizeC size of candidates hashtable
+ * @param sizeV size of voters hashtable
  * @return Key* copy of the key of the winning candidate
  */
-Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const CellKey* voters, int sizeC, int sizeV){
-    HashTable* Hc = create_hashtable(cadidates, sizeC+1);
+Key* compute_winner(const CellProtected* decl, const CellKey* candidates, const CellKey* voters, int sizeC, int sizeV){
+    HashTable* Hc = create_hashtable(candidates, sizeC+1);
     HashTable* Hv = create_hashtable(voters, sizeV+1);
     if(!Hc || !Hv)return NULL;
 
     while(decl){
         // make sure the vote is legitimate
         if(!verify(decl->data)){
+            printf("%s, failed verification\n", decl->data->msg);
             decl = decl->next;    
             continue;
         }
 
-        // make sure the person hasn't voted already.
+        // make sure the person hasn't voted already.       
         uint32 iV = find_position(Hv, decl->data->pKey);
         if(Hv->tab[iV]->val != 0){
             decl = decl->next;
@@ -196,7 +196,16 @@ Key* compute_winner(const CellProtected* decl, const CellKey* cadidates, const C
     }
 
     Key* ret = copy_key(Hc->tab[imax]->key);
-
+    
+    /*
+    int j;
+    for(j=0; j<sizeC; j++){
+        if(!Hc->tab[j]) continue;
+        char* temp = key_to_str(Hc->tab[j]->key);
+        printf("candidate %s, number of votes : %d\n", temp, Hc->tab[j]->val);
+        free(temp;)
+    }*/
+    
     free_hashtable(Hc);
     free_hashtable(Hv);
 

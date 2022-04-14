@@ -177,7 +177,7 @@ int64* encrypt(const char* chaine, int64 s, int64 n) {
 
 /**
  * @brief decrypt a message using modular
- * exponentiation and a private RSA key (u,n).
+ * exponentiation and a RSA key (u,n).
  * 
  * @param crypted message to be decrypted
  * @param size 

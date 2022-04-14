@@ -47,21 +47,23 @@ int main(){
     TEST_SECTION(compute_winner);
     {
         int i;
-        for(i=0; i<1; i++){
-            int sizeV = rand()%100 + 10;
-            int sizeC = rand()%10 + 2;
+        for(i=0; i<5; i++){
+            int sizeV = 100;
+            int sizeC = 6;
             sizeC = sizeC < sizeV ? sizeC : sizeV-1;
             generate_random_data(sizeV, sizeC, "../data/temp/");
             CellKey* voters = read_public_keys("../data/temp/keys.txt");
             CellKey* candidates = read_public_keys("../data/temp/candidates.txt");
             CellProtected* declarations = read_protected("../data/temp/declarations.txt");
             Key* winner = compute_winner(declarations, candidates, voters, sizeC, sizeV);
-            printf("winner is (%lld %lld)\n", winner->n, winner->v);
+            char* strwin = key_to_str(winner);
+            //printf("winner is %s\n\n", strwin);
 
             free_list_keys(voters);
             free_list_keys(candidates);
             free_list_protected(declarations);
             free(winner);
+            free(strwin);
         }
     }
     TEST_SECTION_END();

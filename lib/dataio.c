@@ -156,7 +156,7 @@ void generate_random_data(int nv, int nc, const char* dir){
             return;
         }
 
-        Signature* s = sign(msg, &tab_pkey[i]);
+        Signature* s = sign(msg, &tab_skey[i]);
         Protected* p = init_protected_raw(&tab_pkey[i], msg, s);
         char* protstr = protected_to_str(p);
         fprintf(decl, "%s\n", protstr);
