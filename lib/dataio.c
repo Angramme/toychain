@@ -4,6 +4,7 @@
 #include "lib/error.h"
 
 #include <errno.h>
+#include <dirent.h>
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
@@ -647,3 +648,21 @@ CellProtected* fuse_protected_lists(CellProtected* A, CellProtected* B){
     return ret;
 }
 
+void delete_dir_files(const char* path){
+    DIR* D = opendir(BLOCKCHAIN_DIR);
+    if(!D){
+        FILE_ERROR("cannot open directory!");
+        fprintf(stderr, " cannot open \"%s\"  reason : \"%s\" \n", path, strerror(errno));
+        return;
+    }
+    struct dirent* dir;
+    char fpath[250];
+    while((dir = readdir(D))){
+        if(dir->d_type == DT_DIR || strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0)
+            continue;
+        strcpy(fpath, path);
+        strcat(fpath, dir->d_name);
+        remove(fpath);
+    }
+    closedir(D);
+}

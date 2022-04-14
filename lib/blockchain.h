@@ -62,7 +62,6 @@ typedef struct block_tree_cell {
     size_t height;
 } CellTree;
 
-void print_tree_r(CellTree* tr, int indent);
 void print_tree(CellTree* tr);
 
 CellTree* create_node(Block* b);

@@ -588,8 +588,8 @@ void print_tree_r(CellTree* tr, int indent){
     print_sha256_hash(bhash);
     free(bhash);
     
-    print_tree_r(tr->firstChild, indent +1);
-    print_tree_r(tr->nextBro, indent);
+    print_tree_r(tr->nextBro, indent+1);
+    print_tree_r(tr->firstChild, indent);
 }
 
 /**
@@ -845,8 +845,9 @@ CellTree* read_tree(){
     ////////////// ETAPE 2 : constituer l'arbre
 
     for(i = 0; i<STAB; i++){
+        if(!TAB[i]) continue;
         for(j = 0; j<STAB; j++){
-            assert(TAB[i] && TAB[j]);
+            if(!TAB[j]) continue;
             if(i==j || !compare_hash(TAB[j]->block->previous_hash, TAB[i]->block->hash))
                 continue; // not a child, skip...
             add_child(TAB[i], TAB[j]);
@@ -855,10 +856,11 @@ CellTree* read_tree(){
 
     CellTree* root;
     for(i=0; i<STAB; i++)
-        if(TAB[i]->father == NULL){
+        if(TAB[i] && TAB[i]->father == NULL){
             root = TAB[i];
             break;
         }
+        
     free(TAB);
     return root;
 }

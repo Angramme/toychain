@@ -170,3 +170,7 @@ TODO: faire une courbe
 ### Q 8.8
 La fonction `CellProtected* fuse_protected_lists(CellProtected* A, CellProtected* B)` est en O(N) où N taille de A
 On pourrait avoir une fonction en O(1) si notre liste etait doublement chainee
+
+### Q 9.6
+
+Le code de cette question se trouve dans le ficher `test/question96.c`

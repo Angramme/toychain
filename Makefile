@@ -21,6 +21,8 @@ D_TEST=$(D_ROOT)/test
 SUBDIRS = $(D_LIB) $(D_TEST)
 export D_LIB D_TEST
 
+export PERFTESTS
+
 ifneq ($(words $(D_ROOT)),1)
 $(error Seems like your path "$(D_ROOT)" has spaces in it! Compilation cannot continue! )
 endif

@@ -18,12 +18,6 @@ int main(){
     }
     TEST_SECTION_END();
 
-    TEST_SECTION(create_hashtable);
-    {
-        // create_hashtable()
-    }
-    TEST_SECTION_END();
-
     TEST_SECTION(hash_function);
     {   
         int I;
