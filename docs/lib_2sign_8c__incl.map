@@ -1,14 +1,14 @@
 <map id="lib/sign.c" name="lib/sign.c">
-<area shape="rect" id="node1" title="a collection of functions related to signing messages and the voting system" alt="" coords="345,5,420,32"/>
-<area shape="rect" id="node2" href="$sign_8h.html" title="header of sign.c" alt="" coords="172,80,247,107"/>
+<area shape="rect" id="node1" title="a collection of functions related to signing messages and the voting system" alt="" coords="347,5,421,32"/>
+<area shape="rect" id="node2" href="$sign_8h.html" title="header of sign.c" alt="" coords="171,80,245,107"/>
 <area shape="rect" id="node3" href="$rsa_8h.html" title="header of rsa.c" alt="" coords="113,155,181,181"/>
-<area shape="rect" id="node8" href="$error_8h.html" title="Functions to handle errors message." alt="" coords="271,80,345,107"/>
+<area shape="rect" id="node8" href="$error_8h.html" title="Functions to handle errors message." alt="" coords="270,80,346,107"/>
 <area shape="rect" id="node9" title=" " alt="" coords="329,155,391,181"/>
-<area shape="rect" id="node10" title=" " alt="" coords="421,80,486,107"/>
-<area shape="rect" id="node11" title=" " alt="" coords="511,80,575,107"/>
-<area shape="rect" id="node12" title=" " alt="" coords="599,80,668,107"/>
+<area shape="rect" id="node10" title=" " alt="" coords="422,80,487,107"/>
+<area shape="rect" id="node11" title=" " alt="" coords="512,80,576,107"/>
+<area shape="rect" id="node12" title=" " alt="" coords="600,80,669,107"/>
 <area shape="rect" id="node5" title=" " alt="" coords="205,304,280,331"/>
 <area shape="rect" id="node7" href="$types_8h.html" title="a file with comfy aliases for long type signatures" alt="" coords="5,304,88,331"/>
 <area shape="rect" id="node4" href="$mmath_8h.html" title="Header for mmath.c." alt="" coords="101,229,192,256"/>
-<area shape="rect" id="node6" title=" " alt="" coords="112,304,181,331"/>
+<area shape="rect" id="node6" title=" " alt="" coords="113,304,181,331"/>
 </map>

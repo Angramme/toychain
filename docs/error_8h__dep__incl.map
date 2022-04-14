@@ -1,5 +1,5 @@
 <map id="lib/error.h" name="lib/error.h">
-<area shape="rect" id="node1" title="Functions to handle errors message." alt="" coords="248,5,323,32"/>
+<area shape="rect" id="node1" title="Functions to handle errors message." alt="" coords="247,5,323,32"/>
 <area shape="rect" id="node2" href="$lib_2blockchain_8c.html" title="File to create and handle blockchain structures." alt="" coords="5,80,117,107"/>
 <area shape="rect" id="node3" href="$lib_2dataio_8c.html" title="A file responsible for reading and writing vote related data." alt="" coords="141,80,227,107"/>
 <area shape="rect" id="node4" href="$lib_2rsa_8c.html" title="a collection of RSA related functions" alt="" coords="251,80,319,107"/>

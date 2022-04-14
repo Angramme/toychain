@@ -1,7 +1,7 @@
 <map id="lib/vote.h" name="lib/vote.h">
-<area shape="rect" id="node1" title="header of vote.c" alt="" coords="230,5,305,32"/>
+<area shape="rect" id="node1" title="header of vote.c" alt="" coords="231,5,304,32"/>
 <area shape="rect" id="node2" href="$sign_8h.html" title="header of sign.c" alt="" coords="84,155,158,181"/>
-<area shape="rect" id="node6" title=" " alt="" coords="268,379,337,405"/>
+<area shape="rect" id="node6" title=" " alt="" coords="268,379,336,405"/>
 <area shape="rect" id="node7" href="$types_8h.html" title="a file with comfy aliases for long type signatures" alt="" coords="158,379,241,405"/>
 <area shape="rect" id="node8" href="$dataio_8h.html" title="header for dataio.c" alt="" coords="158,80,244,107"/>
 <area shape="rect" id="node3" href="$rsa_8h.html" title="header of rsa.c" alt="" coords="139,229,207,256"/>

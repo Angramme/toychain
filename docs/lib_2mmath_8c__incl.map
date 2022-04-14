@@ -1,12 +1,12 @@
 <map id="lib/mmath.c" name="lib/mmath.c">
-<area shape="rect" id="node1" title="a collection of math functions" alt="" coords="264,5,355,32"/>
+<area shape="rect" id="node1" title="a collection of math functions" alt="" coords="263,5,353,32"/>
 <area shape="rect" id="node2" href="$mmath_8h.html" title="Header for mmath.c." alt="" coords="93,80,184,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,155,80,181"/>
-<area shape="rect" id="node6" href="$overflow_8h.html" title="A helper file for checking overflows." alt="" coords="209,80,306,107"/>
-<area shape="rect" id="node8" title=" " alt="" coords="331,80,395,107"/>
-<area shape="rect" id="node9" title=" " alt="" coords="419,80,480,107"/>
-<area shape="rect" id="node10" title=" " alt="" coords="504,80,573,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="104,155,173,181"/>
+<area shape="rect" id="node6" href="$overflow_8h.html" title="A helper file for checking overflows." alt="" coords="209,80,303,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="328,80,392,107"/>
+<area shape="rect" id="node9" title=" " alt="" coords="416,80,477,107"/>
+<area shape="rect" id="node10" title=" " alt="" coords="501,80,571,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="105,155,173,181"/>
 <area shape="rect" id="node5" href="$types_8h.html" title="a file with comfy aliases for long type signatures" alt="" coords="197,155,280,181"/>
 <area shape="rect" id="node7" title=" " alt="" coords="304,155,368,181"/>
 </map>

@@ -1,28 +1,18 @@
 # Rapport Toychain
 Le but de ce projet est de créer des outils qui serviront à simuler une élection.
 
-
-## Full Documentation
-> [docs](https://angramme.github.io/toychain/index.html)
-
-## Installation
-
-```
-git clone <this repo>
-```
-
-## Building
-> ! warning : les commandes de test et de build peuvent ne pas fonctionner si il y a des espaces dans le absolute path.
+## Compilation
+> ! attention : les commandes de test et de build peuvent ne pas fonctionner si il y a des espaces dans le absolute path.
 ```
 make
 ```
-or clean build
+ou clean build
 ```
 make clean
 make
 ```
 
-## Testing
+## Tests
 
 ```
 make test
@@ -35,7 +25,7 @@ Pour voir les tests de performance :
 ```
 make test PERFTESTS=1
 ```
-> Il peut être préférable de faire make clean avant de compiler.
+> Il peut être préférable de faire make clean avant de compiler les deux dernières options.
 
 
 # Choix de structure
@@ -101,11 +91,11 @@ Values (a, m, n)              |modpow_naive |modpow
 (160986, 134217728, 25000)    |0.817935 sec |0.000001 sec
 (9435000329, 134217728, 1093) |1.491000 sec    |0.000001 sec
 
-> ![graphe 1](graph1.jpeg)
+> ![graphe 1](images/graph1.jpeg)
 > 
 > Graphe d'execution de `modpow` et `modpow_naive` pour a = 1234 (la base), n = 667 (le module) et m (l'exposant) de 1 à 8000000 par pas de 10000
 
-> ![graphe 2](graph2.jpeg)
+> ![graphe 2](images/graph2.jpeg)
 > 
 > Graphe d'execution de `modpow` et `modpow_naive` pour a = 123456789 (la base), n = 66666 (le module) et m (l'exposant) de 1 à 8000000 par pas de 10000
 
@@ -228,7 +218,7 @@ nombre des zeros | temps d'executions machine 1 (en secondes) | temps d'executio
 Enfin, on remarque qu'à partir de 5 zéros, le temps dépasse 1 seconde. Réponse : 5.
 Les 2 prochains graphes illustrent les résultats. On remarque bien une augmentation exponentielle du temps d'éxécution, pour 6 zéros le temps augmente considérablement.
 
->  ![graphe 3](graph3.png)
+>  ![graphe 3](images/graph3.png)
 >
 > Temps d'éxécution en fonction du nombre de zéros.
 

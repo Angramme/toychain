@@ -39,6 +39,7 @@ clean:
 
 docs::
 	doxygen Doxyfile
+	cp -r assignement/images docs/images
 
 cleandocs::
 	rm -rf ./docs/*
