@@ -215,6 +215,10 @@ nombre des zeros | temps d'executions machine 1 (en secondes) | temps d'executio
 5 | 19.679282 s  | 2.860631 s
 6 | 356.074466 s | 41.651560 s
 
+> machine 1 : Intel Core i7 8th gen (Mobile)
+> 
+> machine 2 : Apple M1 
+
 Enfin, on remarque qu'à partir de 5 zéros, le temps dépasse 1 seconde. Réponse : 5.
 Les 2 prochains graphes illustrent les résultats. On remarque bien une augmentation exponentielle du temps d'éxécution, pour 6 zéros le temps augmente considérablement.
 

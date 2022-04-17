@@ -73,7 +73,7 @@ int main(){
     TEST(good, true);
     TEST_SECTION_END();
 
-    // test_read_write_protected();
+    test_read_write_protected();
     
     TEST_SUMMARY();
 }
