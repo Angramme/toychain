@@ -15,3 +15,4 @@ data/blockchain/*
 !data/temp
 data/temp/*
 !test/compute_winner_data/
+!assignement/*
