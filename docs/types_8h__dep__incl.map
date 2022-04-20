@@ -3,8 +3,8 @@
 <area shape="rect" id="node2" href="$blockchain_8h.html" title="header for blockchain.c" alt="" coords="481,379,593,405"/>
 <area shape="rect" id="node4" href="$mmath_8h.html" title="Header for mmath.c." alt="" coords="93,80,184,107"/>
 <area shape="rect" id="node6" href="$rsa_8h.html" title="header of rsa.c" alt="" coords="259,155,327,181"/>
-<area shape="rect" id="node9" href="$lib_2vote_8c.html" title="A set of functions for the voting system." alt="" coords="97,453,170,480"/>
-<area shape="rect" id="node10" href="$vote_8h.html" title="header of vote.c" alt="" coords="173,379,246,405"/>
+<area shape="rect" id="node9" href="$lib_2vote_8c.html" title="A set of functions for the voting system." alt="" coords="96,453,171,480"/>
+<area shape="rect" id="node10" href="$vote_8h.html" title="header of vote.c" alt="" coords="172,379,247,405"/>
 <area shape="rect" id="node13" href="$sign_8h.html" title="header of sign.c" alt="" coords="345,229,420,256"/>
 <area shape="rect" id="node3" href="$lib_2blockchain_8c.html" title="File to create and handle blockchain structures." alt="" coords="388,453,500,480"/>
 <area shape="rect" id="node5" href="$lib_2mmath_8c.html" title="a collection of math functions" alt="" coords="93,155,184,181"/>

@@ -2,9 +2,9 @@
 <area shape="rect" id="node1" title="header of sign.c" alt="" coords="267,5,341,32"/>
 <area shape="rect" id="node2" href="$lib_2dataio_8c.html" title="A file responsible for reading and writing vote related data." alt="" coords="5,155,91,181"/>
 <area shape="rect" id="node3" href="$dataio_8h.html" title="header for dataio.c" alt="" coords="221,80,307,107"/>
-<area shape="rect" id="node7" href="$vote_8h.html" title="header of vote.c" alt="" coords="353,155,426,181"/>
+<area shape="rect" id="node7" href="$vote_8h.html" title="header of vote.c" alt="" coords="352,155,427,181"/>
 <area shape="rect" id="node8" href="$lib_2sign_8c.html" title="a collection of functions related to signing messages and the voting system" alt="" coords="381,80,456,107"/>
 <area shape="rect" id="node4" href="$lib_2blockchain_8c.html" title="File to create and handle blockchain structures." alt="" coords="208,229,320,256"/>
 <area shape="rect" id="node5" href="$blockchain_8h.html" title="header for blockchain.c" alt="" coords="115,155,227,181"/>
-<area shape="rect" id="node6" href="$lib_2vote_8c.html" title="A set of functions for the voting system." alt="" coords="349,229,422,256"/>
+<area shape="rect" id="node6" href="$lib_2vote_8c.html" title="A set of functions for the voting system." alt="" coords="348,229,423,256"/>
 </map>
