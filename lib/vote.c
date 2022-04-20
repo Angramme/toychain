@@ -112,7 +112,8 @@ HashTable* create_hashtable(const CellKey* keys, size_t size){
         assert(counter <= size);
         counter++;
         uint32 i = find_position(T, keys->data);
-        T->tab[i] = create_hashcell(keys->data);
+        if(T->tab[i] == NULL) // on verifie si on a pas de doublon
+            T->tab[i] = create_hashcell(keys->data);
         keys = keys->next;
     }
 
@@ -146,6 +147,7 @@ void free_hashtable(HashTable* t){
  * @return Key* copy of the key of the winning candidate
  */
 Key* compute_winner(const CellProtected* decl, const CellKey* candidates, const CellKey* voters, int sizeC, int sizeV){
+    // les doublons sont geres par les hashtables
     HashTable* Hc = create_hashtable(candidates, sizeC+1);
     HashTable* Hv = create_hashtable(voters, sizeV+1);
     if(!Hc || !Hv)return NULL;
