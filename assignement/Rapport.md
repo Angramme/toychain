@@ -1,6 +1,8 @@
 # Rapport Toychain
 Le but de ce projet est de créer des outils qui serviront à simuler une élection.
 
+La documentation est disponible sur github (une fois rendu publique) ou dans le fichier ``./docs/index.html``
+
 ## Compilation
 > ! attention : les commandes de test et de build peuvent ne pas fonctionner si il y a des espaces dans le absolute path.
 ```
@@ -36,7 +38,7 @@ on a pleins d'exécutables.
 - Nous avons d'ailleurs choisi d'utiliser __`Doxygen`__, outil très utile pour faire de la documentation. Les fichiers qui permettent de générer la doc sont contenus dans
 `/docs`.
 
-- Le projet contient plusieurs fichiers __`Makefile`__, un principal, et d'autres dans différents dossier (`lib` et `test` pour l'instant). Cela nous permet depuis un makefile principal, de
+- Le projet contient plusieurs fichiers __`Makefile`__, un principal, et d'autres dans différents dossiers (`lib` et `test` pour l'instant). Cela nous permet depuis un makefile principal, de
 séparer les tâches, mais surtout de pouvoir accéder à des fichiers qui peuvent être contenus dans des dossiers différents. A titre d'exemple, les fichiers de tests font
 appel aux fichiers de `lib` lors de la compilation. Ainsi on a une structure très flexible. Dès qu'on veut rajouter un nouveau fichier, il suffit de le spécifier dans son makefile localement, sans avoir besoin de le donner dans le makefile principal(qui sinon serait trop rempli et illisible). On peut également, grâce à cette structure exporter des variables.
 C'est le cas avec le file directory qu'on exporte et qui est accessible par les makefiles des sous-dossiers ou encore la constante `C_INCLUDE_PATH` qui nous permet d'écrire des chemins absolus a partir de tout fichier faisant partie du projet.
@@ -55,9 +57,9 @@ C'est le cas avec le file directory qu'on exporte et qui est accessible par les 
 - Vérification de la présence d'overflow. Dans `overflow.h` on définit des fonctions qui vérifient si une opération(addition, multiplication ...) va causer un dépassement.
  La raison de cette implémentation vient du fait que des entiers trop grands peuvent amener à des mauvaises clés. Ce problème est détaillé dans la partie 1.
 
-- Redéfinition des types standards. On a fait le choix de utiliser nos propres typedef au lieu des types standards. Ce choix vient du fait que nous avons voulu augmenter la taille des entiers pour permettre l'utilisation de plus grandes clés lors du chiffrement. Plus particulièrement , nous avons renommé les types pour les raisons suivantes:
+- Redéfinition des types standards. On a fait le choix d'utiliser nos propres typedef au lieu des types standards. Ce choix vient du fait que nous avons voulu augmenter la taille des entiers pour permettre l'utilisation de plus grandes clés lors du chiffrement. Plus particulièrement , nous avons renommé les types pour les raisons suivantes:
     - Par simplicité, afin de réduire la taille(du point de vue du lecteur) des types. Le type equivalent `uint64` est beaucoup plus lisible que `unsigned long long long ... long int`.
-    - (nombre de bits plus clair) le nombre des bits utilisés en mémoire pour chaque type est beaucoup plus facile à lire. En effet ce nombre fait partie du nom du type ce qui par consequent nous evite de verifier la taille d'un `unsigned long int` ou `short int` sur internet et par consequent réduit les erreurs.
+    - (nombre de bits plus clair) le nombre des bits utilisés en mémoire pour chaque type est beaucoup plus facile à lire. En effet ce nombre fait partie du nom du type ce qui par consequent nous evite de verifier la taille d'un `unsigned long int` ou `short int` sur internet et ainsi réduit les erreurs.
 
 - Dans ce projet on utilise des fonctions intermédiaires. C'est le cas pour les fonctions finissant en `_raw`. Ces  dernières ne copient pas les arguments passés en paramètre et permettent directement d'initialiser des objets. Par exemple : `init_protected_raw()` et `init_protected()`. La dernière copie les arguments puis appelle la fonction `raw` pour initialiser.
 
@@ -106,10 +108,10 @@ De plus on effectue le test `k` fois avec remise (la fonction __rand_long__ peut
 Autrement dit la probabilité ne change pas entre les lancers. Donc la probabilité de ne pas tomber sur un témoin de Miller 
 pour `k` tests consécutifs est de `(1/4)^k`.
 
-> Rmq: Il serait preferable d'adapter notre fonction de tirage aléatoire pour qu'elle ne répète pas 
+> Rmq: Il serait préférable d'adapter notre fonction de tirage aléatoire pour qu'elle ne répète pas 
 > deux fois la meme valeur. Cela augmenterait la probabilité de tomber sur un témoin de Miller à chaque iteration consecutive et 
 > par consequent diminuerait celle de faire un faux positif pour un même nombre des tests k. 
-> Cependant il se trouve que le gain de cette alteration serait négligeable devant la perte pour l'implementation de la fonction de tirage.
+> Cependant il se trouve que le gain de cette altération serait négligeable devant la perte pour l'implementation de la fonction de tirage.
 
 ### Jeu de tests
 Les sets utilisés pour les tests de chiffrement sont générés aléatoirement. On implémente dans `test/test.h` des fonctions
@@ -143,7 +145,7 @@ Ici pas de questions auxquelles répondre, donc on va plutôt faire une présent
 
 ## Exercice 3
 Ici sont implémentées 3 structures(et leurs fonctions de manipulation) qui représentent : 
-1. Tous les citoyens, ansi que les candidats(1 clé publique et une clé privée) en utilisant une structure __`_Key`__.
+1. Tous les citoyens, ainsi que les candidats(1 clé publique et une clé privée) en utilisant une structure __`_Key`__.
 2. Les signatures(tableau de `long`), qui permettent d'attester de l'authenticité d'une déclaration. Dont la structure est __`_Signature`__.
 3. Des déclarations, contenant la clé publique du votant, un message(clé publique d'un candidat), et une signature. C'est représenté par la structure __`_Protected`__.
 
@@ -165,7 +167,7 @@ Nous ferons des tests pour vérifier que la sauvegarde des données s'est bien d
 
 # Partie 3
 Ici on implémente des fonctions de lecture et des structures qui peuvent stocker le contenu des _.txt_ générés précédemment.
-Concrètement on à défini des listes chaînées pour les structures ___Key__ et ___Protected__. Lors de la lecture d'un fichier texte. On ajoute en tête d'une liste chaînée
+Concrètement on a défini des listes chaînées pour les structures ___Key__ et ___Protected__. Lors de la lecture d'un fichier texte on ajoute en tête d'une liste chaînée
 chaque clé lue(après l'avoir convertie en clé bien sur).
 
 ## Exercices 5 et 6
@@ -175,14 +177,14 @@ Ici on veut utiliser toutes les fonctions précédentes et celles de manipulatio
 on dispose dans `./test/vote.c` d'un main qui génère des données avec `generate_random_data()`. Cette partie là ne vérifie pas si le gagnant
 retourné est le bon pour le dernier batch généré. En revanche, juste au dessus de cette partie, on met en place un test pour vérifier la 
 validité de la fonction. Concrètement, on utilise des votes 'faits main' dont on connaît le résultat à l'avance. Ces fichiers texte sont stockés
-dans `./test/compute_winner_data`. Comme la tâche est fastidieuse, nous n'avons des fichiers text que pour une simulation seulement, mais le
+dans `./test/compute_winner_data`. Comme la tâche est fastidieuse, nous n'avons des fichiers texte que pour une simulation seulement, mais le
 résultat n'en reste pas moins valide.
 
 ### Tests
 Dans l'exercice il est demandé de vérifier que `read_public_keys()` puis `print_list_keys()` donnent les mêmes clés que dans `keys.txt`. Faire des tests pour comparer des strings
 n'aurait pas beaucoup d'intérêt ici. En effet, pour faire les tests il faudrait redéfinir une autre fonction de lecture qui ferait exactement la même chose que celles demandées, qui
-serait alors elle aussi sujet à de potentielles erreurs. De plus les tests de conversions de clés on déjà été effectués plus tôt, le refaire ici serait redondant. Cependant, en affichant
-le résultat de __`print_list_keys()`__ on observe que la lecture puis conversion s'est bien déroulée. Pour s'en convaincre, ces clés sont affichées lors d'un appel à make test.
+serait alors elle aussi sujet à de potentielles erreurs. De plus les tests de conversion de clés on déjà été effectués plus tôt, les refaire ici serait redondant. Cependant, en affichant
+le résultat de __`print_list_keys()`__ on observe que la lecture puis conversion s'est bien déroulée. Pour s'en convaincre, ces clés sont affichées lors d'un appel à _make test_.
 
 Pour les `Q5.8` et `Q5.9` dont les fonctions associées sont `read_protected()` et `print_protected_list()`,
 les tests sont présents dans `test/dataio.c`.
@@ -198,7 +200,7 @@ Ici commence l'implémentation de la blockchain. Contrairement au système préc
 
 ## Choix par rapport a la separation de block_to_str
 
-On a choisi de séparer `char* block_to_str(const Block* b)` en deux appels aux fonctions `void block_nonce_to_str(char* headstr, const Block* b)` et `char* block_head_to_str(const Block* b)`. La raison est que cela permet d'optimiser la fonction `void compute_proof_of_work(Block *B, int d)`, notamment cela nous permet de régénérer uniquement la partie du string de Block qui change quand nonce change et par consequent réduire considérablement le temps d'execution d'une itération de la boucle.
+On a choisi de séparer `char* block_to_str(const Block* b)` en deux appels aux fonctions `void block_nonce_to_str(char* headstr, const Block* b)` et `char* block_head_to_str(const Block* b)`. La raison est que cela permet d'optimiser la fonction `void compute_proof_of_work(Block *B, int d)`, notamment cela nous permet de régénérer uniquement la partie du string de Block qui change quand nonce change et par consequent réduit considérablement le temps d'execution d'une itération de la boucle.
 
 ### Q7.8
 
@@ -238,10 +240,10 @@ Le code de cette question se trouve dans le ficher `test/question96.c`
 Oui, l'utilisation d'une blockchain est intéressante pour une élection. Elle permet une meilleure transparence sur le processus d'élection. De plus nous avons vu que la fraude est presque impossible. En revanche les failles ne sont pas inexistantes.
 
 Le problème avec la blockchain et le système de consensus que nous avons utilisé (le proof of work) est qu'il est difficile de choisir le bon nombre de zeros.
-- si ce nombre est trop élevée, nous nous limitons a un nombre des votes par seconde tres petit. Cela pourrait causer des problèmes notamment pour un système de vote. Par exemple, si on prend le nombre des transactions par seconde de bitcoin qui est de 4.6, nous pouvons estimer qu'il faudrait 156 jours à la france pour effectuer une élection.
-- au contraire si on diminue de trop le nombre des zeros il sera trop facile de commettre des fraudes pour des groupes malveillantes possédant suffisamment de puissance de calcul.
+- si ce nombre est trop élevé, nous nous limitons a un nombre de votes par seconde tres petit. Cela pourrait causer des problèmes notamment pour un système de vote. Par exemple, si on prend le nombre de transactions par seconde du bitcoin qui est de 4.6, nous pouvons estimer qu'il faudrait 156 jours à la france pour effectuer une élection.
+- au contraire si on diminue trop le nombre de zeros il devient trop facile de commettre des fraudes pour des groupes malveillants possédant suffisamment de puissance de calcul.
 
-Un autre problème existe dans l'élection. Puisque on considère toujours la chaîne la plus longue, lorsque l'election approche la fin, il est beaucoup plus facile de frauder car maintenir une chaine devient plus simple. Imaginons qu'il ne reste plus que 2 minutes avant la fin de l'election. Alors maintenir une chaîne frauduleuse n'est pas très compliqué. Il faudrait peut être limiter les ajouts de blocks quand la fin de l'élection approche.
+Un autre problème existe dans l'élection. Puisque on considère toujours la chaîne la plus longue, lorsque l'élection approche la fin, il est beaucoup plus facile de frauder car maintenir une chaîne devient plus simple. Imaginons qu'il ne reste plus que 2 minutes avant la fin de l'election. Alors maintenir une chaîne frauduleuse n'est pas très compliqué. Il faudrait peut être limiter les ajouts de blocks quand la fin de l'élection approche.
 
 # Conclusion
 Quand bien même, lors de ce projet, nous avons eu l'occasion d'expérimenter de nouvelles choses, d'apprendre de nouveaux concepts, et de sortir un peu la tête des livres de cours.
